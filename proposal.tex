@@ -1,0 +1,116 @@
+\documentclass[12pt,a4paper,titlepage]{article}
+% $Id: example-techreport.tex 1568 2012-11-20 16:01:57Z foley $
+% I can comment things out so that the compiler ignores them by using
+% these % symbols.  They comment everything after the symbol
+% If I want to put % into my text, I need to do this: \%
+% I also need to be careful about using other characters like &, which
+% will cause problems.
+% If there is an error, usually putting the \  in front will fix it.
+
+\usepackage{setspace}
+% Create \onehalfspacing command which will set spacing to 1.5
+
+% the \usepackage{}  lines allow me to make use of code other people
+% have written.  The ones that are most commonly found just need
+% \usepackage{}.  Others may need you to install the package.
+% the things in [] square brackets are options to the packages
+\usepackage[utf8]{inputenc}  % this allows latex to understand UTF
+                             % encoding in the file. This is
+                             % important for Icelandic characters.
+%\usepackage[icelandic]{babel} % this makes figures and tables have
+%their Icelandic names
+\usepackage[T1]{fontenc} % this enables icelandic characters in the output
+
+\usepackage{amsmath} % these let you make neat equations.  AMS is the
+                     % American Math Society
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[amssymb]{SIunits}
+
+% this allows us to format units correctly
+% we need the amssymb option to avoid conflict on \square
+%\usepackage[amssymb]{siunitx}
+
+% this creates the Pseudocode environment for algorithms
+\usepackage{pseudocode}
+
+% this allows me to include code snippets and make them pretty
+\usepackage{listings}
+
+% this allows me to adjust the margins
+\usepackage[left=2.00cm, right=2.00cm, top=2.00cm, bottom=2.00cm]{geometry}
+
+
+%\usepackage[today,fancyhdr]{svninfo} % grab the SVN revision information
+% This package allows you to include svn information into your document
+% You will need to set the svn:keywords property to have Id and HeadURL for it to work.
+%% The ``today'' option sets the current day to the latest SVN date
+%
+%\setlength{\headheight}{15pt} % to make fancyhdr not give a warning
+%% These lines are filled in by SVN if you set the keywords
+%\svnInfo $Id: example-techreport.tex 1568 2012-11-20 16:01:57Z foley $
+%\svnKeyword $HeadURL: https://projects.cs.ru.is/svn/mechatronics1-2012/Templates/LaTeX-TechReport/example-techreport.tex $
+%\pagestyle{fancyplain}
+%% This avoids putting the information on the first page
+
+\usepackage{graphicx}
+% this package allows \includgraphics to work for putting pictures in
+% the document.  The older version is graphics, you should use
+% graphicx instead.
+
+\usepackage{url}
+% this package allows URLs, which show up in the bibliography and
+% possibly elsewhere.  you use it like this: \url{www.google.com}
+
+\usepackage{hyperref}
+% Make magic hyperlink
+
+\author{Páll Helgason\\Sindri Ólafsson\\Sveinn Elmar Magnússon\\Þór Tómasarson}  % My name, for the titlepage
+\title{\includegraphics{graphics/ru-logo}\\\vspace{10mm}
+T-411-MECH Mechatronics 1\\M\&M Color Sorting Machine\\Team Proposal}  % The title, for the titlepage
+
+
+\begin{document} % this tells the compiler that it is time to make
+                 % text to print instead of just getting ready.
+\maketitle  % make a title page from the Title, Date, and Author
+\onehalfspacing % 1.5 spacing
+
+This report is a proposal of a mechatronic project to do as a
+final project in the course T-411-MECH Mechatronics for the fall of 2014.
+ 
+
+\section{Andy - Stuff}
+
+
+
+\subsection{Mechanics} 
+
+
+
+\subsection{Sensors}
+
+
+\subsubsection{Controls} 
+ 
+
+\subsection{Bill of material} % (fold)
+\begin{center}
+    \begin{tabular}{ | p{1.5cm} | p{1.4cm} | p{1.5cm} | l | p{5.5cm} | p{5cm} |}
+    \hline
+    Item & Already have & Quantity & Cost & URL & Summary \\ \hline
+    Servo & \checkmark & 2x & 8.95\$ & \url{https://www.sparkfun.com/products/9065} & 180\degree servo from sparkfun. \\ \hline
+    LCD Display & \checkmark & 1x & 13.95\$ & \url{https://www.sparkfun.com/products/9053} & Basic 16x2 Character LCD - Black on Green 3.3V. \\ \hline
+    Color sensor & - & 1x & 25\$ & \url{https://www.sparkfun.com/products/10904} & HDJD-S822 converts light to R,G,B voltage output. From sparkfun \\ \hline
+	Building material & \checkmark & - & - & - & Nylon, Plexy glass, Wood, Metal, etc. \\ \hline
+    \end{tabular}
+\end{center}
+ 
+
+
+
+
+% subsection subsection_name (end)
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document} % this tells the compiler that we are done=======
