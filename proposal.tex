@@ -89,16 +89,11 @@ variety of shields for all kind of application.
 This project aims first at making a solid means of communication between data-loggers and mother hub
 and secondly of good power-management for the logger.
 
-\section{Hardware} 
-TODO: write stuff about hardware that it is open source and cite to his github account (what is it -----> Sindri)
-
-\section{Application}
-TDOD: Write stuff about  (what does it do? -----> Þór) \\
-The main application of the data logger will be telemetry for returning data. Good telemetry communication for a data logger eases the process of maintenance checks and enables more involved researches. Telemetry via GSM network is available throughout most part of Iceland, see figure~\ref{fig:GSM-Coverage}.\\
-.......\\
-Radio -- XBee modules with Arduino support (and existing Arduino shields)\\
-Sat Phone (Iridium): https://www.rock7mobile.com/products-rockblock.php\\
-...\\
+\section{What does it do}
+The main application of the data logger will be telemetry for returning data. Good telemetry communication for a data logger eases the process of maintenance checks and enables more involved researches.\\
+Telemetry via GSM network is available throughout most part of Iceland, see figure~\ref{fig:GSM-Coverage}. With GSM shield on the data logger one might be able to monitor data logging in most places in Iceland.\\
+Radio coverage can be quite good over long distance. The XBee modules with Arduino support come with radio ranges for up to 60km \cite{Xbee}. If the data logger is equipped with the Xbee module the researcher might set up a ground station with in a 60km radius.\\
+Satellite phone (Iridium) might be connected to the data logger to enable good coverage in remote areas. Iridium phone has coverage anywhere in the world were there is a clear view of the sky, by connecting to any of the 66 iridium satellites in orbit around the earth\cite{iridium}.
 
 \begin{figure}
 \centering
@@ -119,11 +114,11 @@ Sat Phone (Iridium): https://www.rock7mobile.com/products-rockblock.php\\
     \hline
     Item & Already have & Quantity & Cost & URL & Summary \\ \hline
     
-    Arduino Mega & - & 1x & 45.95\$ & \url{https://www.sparkfun.com/products/11061} &  \\ \hline
+    Arduino Mega & - & 1x & 45.95\$ & \url{https://www.sparkfun.com/products/11061} & Open-source electronics platform \\ \hline
     
-    GSM Module with shield & - & 1x & 99.95\$ & \url{https://www.sparkfun.com/products/9607} &  \\ \hline
+    GSM Module with shield & - & 1x & 99.95\$ & \url{https://www.sparkfun.com/products/9607} & Connects Arduino to the internet using the GPRS wireless network \\ \hline
     
-	Special AM board from Andy & - & 4x & 80 & - &  \\ \hline
+	Special AM board from Andy & - & 4x & $\sim$80\$ & \url{https://github.com/NorthernWidget/ALog-LogMega/blob/FoleyMechatronics/BoM/LogMega083_DigiKey.csv} &  \\ \hline
     \end{tabular}
 \end{center}
  
