@@ -65,7 +65,7 @@
 \usepackage{hyperref}
 % Make magic hyperlink
 
-\author{Páll Helgason\\Sindri Ólafsson\\Sveinn Elmar Magnússon\\Þór Tómasarson}  % My name, for the titlepage
+\author{Páll Helgason pallsh12@ru.is\\Sindri Ólafsson sindrio12@ru.is\\Sveinn Elmar Magnússon sveinnm12@ru.is\\Þór Tómasarson thortom12@ru.is}  % My name, for the titlepage
 \title{\includegraphics{graphics/ru-logo}\\\vspace{10mm}
 T-411-MECH Mechatronics 1\\Data logger for geological research\\Team Proposal}  % The title, for the titlepage
 
@@ -80,20 +80,23 @@ final project in the course T-411-MECH Mechatronics for the fall of 2014.
  
 
 \section{Description}
-Andrew Wickert is a PHD candidate in earth surface processes in University of Colorado and has an 
+Andrew Wickert is a PHD in earth surface processes in University of Colorado and has an 
 idea of using the Arduino platform as a base for low-cost data logger used mainly
 for geological research. The Arduino platform offers a wide range of application and connection to 
-sensors. The Arduino community also provides large collection of libraries and various vendors have 
+sensors. The Arduino community provides large collection of libraries and various vendors have 
 variety of shields for all kind of application. 
-
+Available WSN platform \cite{WSN} to day for harsh and remotely areas are heavy and expensive.
+Arduino platform offers opportunity to make low-cost WSN platform.
 This project aims first at making a solid means of communication between data-loggers and mother hub
-and secondly of good power-management for the logger.
+and secondly of good power-management for the logger. 
+
 
 \section{Application}
+
 The main application of the data logger will be telemetry for returning data. Good telemetry communication for a data logger eases the process of maintenance checks and enables more involved researches.\\
 Telemetry via GSM network is available throughout most part of Iceland, see figure~\ref{fig:GSM-Coverage}. With GSM shield on the data logger one might be able to monitor data logging in most places in Iceland.\\
 Radio coverage can be quite good over long distance. The XBee modules with Arduino support come with radio ranges for up to 60km \cite{Xbee}. If the data logger is equipped with the Xbee module the researcher might set up a ground station with in a 60km radius.\\
-Satellite phone (Iridium) might be connected to the data logger to enable good coverage in remote areas. Iridium phone has coverage anywhere in the world were there is a clear view of the sky, by connecting to any of the 66 iridium satellites in orbit around the earth\cite{iridium}.
+Satellite phone (Iridium) might be connected to the data logger to enable good coverage in remote areas. Iridium phone has coverage anywhere in the world were there is a clear view of the sky, by connecting to any of the 66 iridium satellites in orbit around the earth\cite{iridium}. We will try to make standard platform for GSM, Xbee and Iridium. So it will be easy to switch between modules like in figuree~\ref*{fig:Inside} 
 
 \begin{figure}
 \centering
@@ -101,15 +104,29 @@ Satellite phone (Iridium) might be connected to the data logger to enable good c
 \caption{GSM coverage in Iceland\label{fig:GSM-Coverage} \cite{vodafone}}
 \end{figure}
 
+\begin{figure}
+\centering
+\includegraphics[height=50mm]{graphics/Inside_box.PNG}
+\caption{Raw figure of Data Logger inside\label{fig:Inside} \cite{InsideBox}}
+\end{figure}
+
 \section{Usage} 
- This equipment useful in geological measurements, mainly for weather and water-resources. Especially in remote locations. 
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{graphics/Logging}
+\caption{Glacier data logging}
+\label{fig:glacier}\cite{Helgason_glacier}
+\end{figure}
+
+ This equipment useful in geological measurements, mainly for weather and water-resources, see figure~\ref*{fig:glacier}. Especially in remote locations. 
  Geologist Andy Wickert has special interests in this equipment to collect geological data with higher density and wider distribution. 
  
 
 
 \subsection{Bill of material} % (fold)
 \begin{center}
-    \begin{tabular}{ | p{1.5cm} | p{1.4cm} | p{1.5cm} | l | p{5.5cm} | p{5cm} |}
+    \begin{tabular}{ | p{1.5cm} | p{1.4cm} | p{1.5cm} | l | p{5cm} | p{5cm} |}
     \hline
     Item & Already have & Quantity & Cost & URL & Summary \\ \hline
     
