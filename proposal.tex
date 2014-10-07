@@ -93,7 +93,7 @@ and secondly of good power-management for the logger.
 
 \section{Application}
 
-The main application of the data logger will be telemetry for returning data. Good telemetry communication for a data logger eases the process of maintenance checks and enables more involved researches.\\
+The main application of the data logger as seen in figure~\ref{fig:Logging_box} will be telemetry for returning data. Good telemetry communication for a data logger eases the process of maintenance checks and enables more involved researches.\\
 Telemetry via GSM network is available throughout most part of Iceland, see figure~\ref{fig:GSM-Coverage}. With GSM shield on the data logger one might be able to monitor data logging in most places in Iceland.\\
 Radio coverage can be quite good over long distance. The XBee modules with Arduino support come with radio ranges for up to 60km \cite{Xbee}. If the data logger is equipped with the Xbee module the researcher might set up a ground station with in a 60km radius.\\
 Satellite phone (Iridium) might be connected to the data logger to enable good coverage in remote areas. Iridium phone has coverage anywhere in the world were there is a clear view of the sky, by connecting to any of the 66 iridium satellites in orbit around the earth\cite{iridium}. We will try to make standard platform for GSM, Xbee and Iridium. So it will be easy to switch between modules like in figuree~\ref*{fig:Inside} 
@@ -106,8 +106,14 @@ Satellite phone (Iridium) might be connected to the data logger to enable good c
 
 \begin{figure}
 \centering
+\includegraphics[height=50mm]{graphics/Logging_box.PNG}
+\caption{Sketch of Datalogger box\label{fig:Logging_box} \cite{Helgason2014}}
+\end{figure}
+
+\begin{figure}
+\centering
 \includegraphics[height=50mm]{graphics/Inside_box.PNG}
-\caption{Raw figure of Data Logger inside\label{fig:Inside} \cite{InsideBox}}
+\caption{Raw figure of Data Logger inside\label{fig:Inside} \cite{LoggingBox}}
 \end{figure}
 
 \section{Usage} 
