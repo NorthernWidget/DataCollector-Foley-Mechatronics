@@ -1,0 +1,114 @@
+\documentclass{beamer}
+% % Example from http://www.math.umbc.edu/~rouben/beamer/quickstart-Z-H-3.html#node_sec_3
+%\usepackage{default}
+\usetheme{default}
+\usepackage[utf8]{inputenc}  % this allows latex to understand UTF
+                             % encoding in the file. This is
+                             % important for Icelandic characters.
+\usepackage[T1]{fontenc} % this enables icelandic characters in the output
+
+% % Use the UMBC theme
+% Template derived from hfc.tex by
+% Rouben Rostamian <rostamian@umbc.edu>
+% August 31, 2004 
+\usetheme{ru1}
+\useinnertheme{ruboxes}
+\setbeamercolor{ruboxes}{bg=violet!12,fg=black}
+
+\usepackage{rotating} % for defining \schwa
+\newcommand{\schwa}{\raisebox{1ex}{\begin{turn}{180}e\end{turn}}}
+
+\title{Arduino Mind Control Lasers}
+\subtitle{Milestone presentation template}
+\author[J. Foley, E. Þorsteinsson, \& R. Parteka]{Joe Foley,
+  Elias Marel Þórsteinsson, \& Ryan Stephen Parteka}
+\institute[RU]{
+  Department of Science and Engineering (TVD) \\
+  Reykjavík University \\
+}
+\date{November 4, 2013} %% Put the real presentation day so it doesn't
+                        %% change later
+\begin{document}
+
+%----------- titlepage ----------------------------------------------%
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+%----------- slides ----------------------------------------------%
+\begin{frame}{Presentation Hints}
+Don't include these in your presentation, they are just here to help you.
+\begin{itemize}
+\item More pictures, less text.
+\item Scan and look around the audience.
+\item More slides, less time per slide.
+\item Practice until you can do the slides without looking at them.
+  If you must have notes, put them on cards.  Do not read from a page
+  nor the slides.  It looks bad.
+\item 45 -- 60 seconds per slide, no more.
+\item Tell a story (make sure it flows).
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview of the talk}
+\begin{itemize}
+\item Introduction
+\item Use case
+\item Design
+\item Status
+\item Tasks Remaining
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Introduction}
+\begin{itemize}
+\item What is this project?
+\item Why is it called that?  
+\item What is the problem it is trying to solve?
+\item Who cares?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Use case}
+\begin{itemize}
+\item How do you use it?  (Give examples and walkthrough)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Design: Overview}
+What are the pieces of your design (software, hardware, etc.)  and how
+do they work together?  Put some pictures here to help explain what is
+going on.  Remember to cite all pictures and text using BibTeX.  If you cited
+the textbook\cite{carryer2011IntroMechatronics}, that is what it would
+look like.
+\end{frame}
+
+\begin{frame}{Design: Bill of materials (BOM)}
+What are the electronics and other materials you need for this
+project?  What do they do? 
+
+\begin{itemize}
+\item 4 x Motors (Model: XYZZY from VENDOR) \$120
+\item 1 x Battery  (Model: XYZZY from VENDOR) \$50
+\item 1 x Remote Receiver   (Model: XYZZY from VENDOR) \$16
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Status}
+What have you done?  What is the current state?  Is there any interesting/hard problems
+that need to be solved?  How are you going to solve them?
+\end{frame}
+
+\begin{frame}{Tasks remaining}
+What is left to be done?  This should be broken down by the time remaining in class.
+\end{frame}
+
+\begin{frame}{References}
+Thank you for your time.
+Questions?
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+\end{frame}
+
+\end{document}

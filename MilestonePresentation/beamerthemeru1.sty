@@ -1,0 +1,69 @@
+\ProvidesPackage{beamerthemeru1}[2012/11/09 v1.2 for beamer 3.01]
+% This is a reworked version of the umbc template which was written by
+% Rouben Rostamian <rostamian@umbc.edu>
+% Modified by Joe Foley <foley@ru.is>
+
+
+%
+
+\mode<presentation>
+
+\usepackage{pgfcomp-version-0-65}
+
+
+%------ e red, gold, blue logo ------------------------
+
+{
+  \usebeamercolor[bg]{background canvas}  % blend logo with canvas bg color
+
+
+  \pgfdeclarehorizontalshading{ru@fadingline}{.28mm}%
+    {color(0mm)=(black); color(50mm)=(black!50!bg); color(110mm)=(bg)}
+}
+
+\newcommand{\ru@pplogo}{
+  \raisebox{-15mm}[0pt][0pt]{%
+    \begin{pgfpicture}{0mm}{0mm}{0mm}{0mm}
+    
+      \begin{pgftranslate}{\pgfpoint{-6mm}{2mm}}
+\includegraphics[height=10mm]{graphics/ru-logo}
+      \end{pgftranslate}
+
+      % horizontal fading line
+      \begin{pgftranslate}{\pgfpoint{-8mm}{0mm}}
+        \pgfbox[left,base]{\pgfuseshading{ru@fadingline}}
+      \end{pgftranslate}
+
+    \end{pgfpicture}
+    }
+   }
+
+
+
+% frame head
+\setbeamertemplate{headline}[text line]{\ru@pplogo}
+
+\setbeamerfont{frametitle}{size=\large} % beamer's default is \Large
+
+% Trying to position frame title in a fixed position.
+% Unfortunately, Beamer provides no hooks for absolute positioning of text.
+% I have arrived at the following kludge by trial and error.  It works only
+% approximately.  It may have to be readjusted to work with future releases
+% of Beamer.
+\newdimen\ru@ypos
+\newbox\ru@mybox
+\setbeamertemplate{frametitle}{%
+  \setbox\ru@mybox\hbox{\normalsize x}
+  \ru@ypos=\ht\ru@mybox
+  \multiply \ru@ypos by 2
+  \advance \ru@ypos by -8mm
+  \raisebox{\ru@ypos}[0pt][11mm]{\hspace*{8mm}\insertframetitle}
+}
+
+\useoutertheme{rufootline}
+\useinnertheme{rutribullets}
+\setbeamerfont{structure}{shape=\itshape}
+
+\titlegraphic{\includegraphics[height=25mm]{graphics/ru-logo}}
+
+\mode<all>
