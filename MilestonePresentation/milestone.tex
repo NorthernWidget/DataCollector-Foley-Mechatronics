@@ -49,38 +49,62 @@ Don't include these in your presentation, they are just here to help you.
 \end{itemize}
 \end{frame}
 
-\begin{frame}
-\frametitle{Overview of the talk}
+\begin{frame}{Introduction}
 \begin{itemize}
-\item Introduction
-\item Use case
-\item Design
-\item Status
-\item Tasks Remaining
+% sett each as seperate slide...
+\item Geological data collector
+\item Collects data from multiple sensors and sends the data to the world wide web. 
+\item Eases the observation of wide terrain
+\item Andrew D. Wickert cares.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Introduction}
+\begin{frame}{Similar products}
 \begin{itemize}
-\item What is this project?
-\item Why is it called that?  
-\item What is the problem it is trying to solve?
-\item Who cares?
+\item Automatic Weather Station (AANDERAA) \$ \cite{AANDERAA}
+\item Computational Platform (BEAN) \$ \cite{BEAN}
+\item Affordable Weather Stations \$1000 to \$2000 \cite{AffordableWS}
+\end{itemize}
+\centering
+\includegraphics[height=3cm]{graphics/affordableWS.png}
+\cite{AffordableWS}
+\end{frame}
+
+\begin{frame}{How is it better?}
+\begin{itemize}
+\item 
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Use case}
-\begin{itemize}
-\item How do you use it?  (Give examples and walkthrough)
-\end{itemize}
+\begin{columns}[T] % contents are top vertically aligned
+     \begin{column}[T]{7cm} % each column can also be its own environment
+		\begin{itemize}
+		\item Deployment of sensors
+		\item Connect the sensors to communicators
+			\begin{itemize}
+			\item Wixel
+			\item Xbee
+			\item Any other wireless communicator
+			\end{itemize}
+		\item Position the main GeoLog module
+		\item Connect to the Internet to see the incoming data
+		\end{itemize}
+	\end{column}
+     \begin{column}[T]{3cm} % alternative top-align that's better for graphics
+          \includegraphics[height=3cm]{graphics/wixel.png}
+          \cite{wixel}
+     \end{column}
+     \end{columns}
 \end{frame}
 
 \begin{frame}{Design: Overview}
-What are the pieces of your design (software, hardware, etc.)  and how
-do they work together?  Put some pictures here to help explain what is
-going on.  Remember to cite all pictures and text using BibTeX.  If you cited
-the textbook\cite{carryer2011IntroMechatronics}, that is what it would
-look like.
+\includegraphics[height=8cm]{graphics/softwareArchitecture.png}
+%What are the pieces of your design (software, hardware, etc.)  and how
+%do they work together?  Put some pictures here to help explain what is
+%going on.  Remember to cite all pictures and text using BibTeX.  If you cited
+%the textbook\cite{carryer2011IntroMechatronics}, that is what it would
+%look like.
 \end{frame}
 
 \begin{frame}{Design: Bill of materials (BOM)}
