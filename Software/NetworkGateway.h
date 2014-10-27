@@ -1,7 +1,7 @@
 // if x.h hasn't been included yet...
 #ifndef NetworkGateway_h   
 #define NetworkGateway_h
-#include <arduino.h>
+#include <Arduino.h>
 
 class NetworkGateway
 {

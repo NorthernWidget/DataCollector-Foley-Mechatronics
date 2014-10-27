@@ -1,34 +1,31 @@
-#include GprsGateway.h
+#include "GprsGateway.h"
 
-virtual GprsGateway()
+GprsGateway::GprsGateway()
 {	
 }
 
-virtual ~GprsGateway()
-{
-}
 
-virtual void connectToNetwork()
+void GprsGateway::connectToNetwork()
 {
 
 }
 
-virtual bool connected()
+bool GprsGateway::connected()
 {
 	return false;
 }
 
-virtual int sendData(String address, String data)
+int GprsGateway::sendData(String address, String data)
 {
 	return -1;
 }
 
-virtual String reciveData(String address)
+String GprsGateway::reciveData(String address)
 {
 	return "";
 }
 
-virtual long getTime()
+long GprsGateway::getTime()
 {
 	return -1;
 }

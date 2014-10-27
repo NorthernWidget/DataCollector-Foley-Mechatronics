@@ -3,7 +3,7 @@
 #define GprsGateway_h
 
 #include "NetworkGateway.h"
-#include "arduino.h"
+#include "Arduino.h"
 
 
 class GprsGateway : public NetworkGateway
@@ -11,7 +11,7 @@ class GprsGateway : public NetworkGateway
 	private:
 		
 	public:
-		virtual ~GprsGateway() {}
+		GprsGateway();
 		virtual void connectToNetwork();
 		virtual bool connected();
 		virtual int sendData(String address, String data);
