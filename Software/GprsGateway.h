@@ -2,14 +2,15 @@
 #ifndef GprsGatway_h   
 #define GprsGateway_h
 
-#include <arduino.h>
+#include "NetworkGateway.h"
+#include "arduino.h"
+
 
 class GprsGateway : public NetworkGateway
 {
 	private:
 		
 	public:
-		virtual GprsGateway() {}
 		virtual ~GprsGateway() {}
 		virtual void connectToNetwork();
 		virtual bool connected();
@@ -17,3 +18,4 @@ class GprsGateway : public NetworkGateway
 		virtual String reciveData(String address);
 		virtual long getTime();
 };
+#endif
