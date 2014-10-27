@@ -7,6 +7,8 @@
                              % important for Icelandic characters.
 \usepackage[T1]{fontenc} % this enables icelandic characters in the output
 
+\usepackage[caption=false]{subfig}
+
 % % Use the UMBC theme
 % Template derived from hfc.tex by
 % Rouben Rostamian <rostamian@umbc.edu>
@@ -60,20 +62,19 @@ Don't include these in your presentation, they are just here to help you.
 \end{frame}
 
 \begin{frame}{Similar products}
-\begin{itemize}
-\item Automatic Weather Station (AANDERAA) \cite{AANDERAA}
-\item Computational Platform (BEAN) \$ \cite{BEAN}
-\item Affordable Weather Stations \$1000 to \$2000 \cite{AffordableWS}
-\end{itemize}
-\centering
-\includegraphics[height=3cm]{graphics/affordableWS}
-\cite{AffordableWS}
-\end{frame}
-
-\begin{frame}{How is it better?}
-\begin{itemize}
-\item 
-\end{itemize}
+\begin{figure}
+  \centering
+  \subfloat[\$3500\label{fig:a}\cite{WeatherShop2014}]
+  {\includegraphics[height=5cm]{graphics/cellular_weather_station.JPG}}\quad
+  \subfloat[\$2800\label{fig:b}\cite{TexasWeatherInstruments2014}]
+  {\includegraphics[height=5cm]{graphics/RWS-Snow.JPG}}\quad
+  \subfloat[\$658\label{fig:c}\cite{Scientific2014}]
+  {\includegraphics[height=3cm]{graphics/Oregon_Scientific_Pro_weather_system.PNG}}\quad
+  \subfloat[\$595\label{fig:d}\cite{Davis2014}]
+  {\includegraphics[height=3cm]{graphics/Davis_Vantage_Pro_2.JPG}}  
+  \caption{Various price of weather stations}
+  \label{fig:1}
+\end{figure}
 \end{frame}
 
 \begin{frame}{Use case}
@@ -119,12 +120,29 @@ What are the electronics and materials?  What do they do?
 \end{frame}
 
 \begin{frame}{Status}
-What have you done?  What is the current state?  Is there any interesting/hard problems
-that need to be solved?  How are you going to solve them?
+\begin{itemize}
+\item Web API
+\item Software architecture
+\item Layered structure design
+\item Development status on Wixel module
+\item Development status on GSM module
+\end{itemize}
+
+
 \end{frame}
 
 \begin{frame}{Tasks remaining}
-What is left to be done?  This should be broken down by the time remaining in class.
+\begin{itemize}
+\item Software implementation: \\
+	\begin{itemize}
+	\item Data Collecting
+	\item Wixel data communication
+	\item GSM data communication
+	\end{itemize}
+\item Test each software package.
+\item Final construct of hardware.
+\item Field test
+\end{itemize}
 \end{frame}
 
 \begin{frame}{References}
