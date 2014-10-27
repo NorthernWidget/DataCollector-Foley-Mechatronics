@@ -1,16 +1,16 @@
 //Implements NetworkGateway
-#ifndef SmsGatway_h   
-#define SmsGatway_h
+#ifndef SmsGateway_h   
+#define SmsGateway_h
 
 #include "NetworkGateway.h"
-#include <arduino.h>
+#include <Arduino.h>
 
-class SmsGatway : public NetworkGateway
+class SmsGateway : public NetworkGateway
 {
 	private:
 		
 	public:
-		virtual ~SmsGatway() {}
+		SmsGateway();
 		virtual void connectToNetwork();
 		virtual bool connected();
 		virtual int sendData(String address, String data);
