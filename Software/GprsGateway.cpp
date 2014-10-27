@@ -1,6 +1,6 @@
 #include "GprsGateway.h"
 
-GprsGateway::GprsGateway()
+GprsGateway::GprsGateway(int rxpin,int txpin)
 {	
 }
 

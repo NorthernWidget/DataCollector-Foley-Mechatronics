@@ -4,14 +4,14 @@
 
 #include "NetworkGateway.h"
 #include "Arduino.h"
-
+#include <SoftwareSerial.h>
 
 class GprsGateway : public NetworkGateway
 {
 	private:
 		
 	public:
-		GprsGateway();
+		GprsGateway(int rxpin,int txpin);
 		virtual void connectToNetwork();
 		virtual bool connected();
 		virtual int sendData(String address, String data);

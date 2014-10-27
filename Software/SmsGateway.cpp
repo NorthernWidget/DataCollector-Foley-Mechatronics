@@ -1,8 +1,10 @@
 #include "SmsGateway.h"
 
 
-SmsGateway::SmsGateway()
+SmsGateway::SmsGateway(int rxpin,int txpin):
+SoftwareSerial(rxpin,txpin)
 {	
+
 }
 
 void SmsGateway::connectToNetwork()
