@@ -20,7 +20,7 @@ int GprsGateway::sendData(String address, String data)
 	return -1;
 }
 
-String GprsGateway::reciveData(String address)
+String GprsGateway::reciveData(String &address)
 {
 	return "";
 }

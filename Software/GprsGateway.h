@@ -15,7 +15,7 @@ class GprsGateway : public NetworkGateway
 		virtual void connectToNetwork();
 		virtual bool connected();
 		virtual int sendData(String address, String data);
-		virtual String reciveData(String address);
+		virtual String reciveData(String &address);
 		virtual long getTime();
 };
 #endif

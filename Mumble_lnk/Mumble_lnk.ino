@@ -1,7 +1,8 @@
 #include <SerialGSM.h>
 #include <SoftwareSerial.h>
 
-SerialGSM cell(50,51);
+SerialGSM cell(50,51);// RX, TX
+SoftwareSerial mySerial(52, 53); // RX, TX
 String Message;
 
 int LedPin = 30;
