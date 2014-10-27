@@ -1,16 +1,3 @@
-//#include "GprsGateway.h"
-#include <SoftwareSerial.h>
-#include "SmsGateway.h"
-
-
-
-void setup()
-{
-
-
-}
-void loop()
-{
-
-}
+#include "GprsGateway.h"
+#include "SmsGatway.h"
 

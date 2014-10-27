@@ -6,7 +6,7 @@
 #include "Arduino.h"
 #include <SoftwareSerial.h>
 
-class GprsGateway : public NetworkGateway
+class GprsGateway : public NetworkGateway, public SoftwareSerial
 {
 	private:
 		
