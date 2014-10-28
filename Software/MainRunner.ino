@@ -13,12 +13,7 @@ SoftwareSerial mySerial(52,53);
 
 void setup(){
 Serial.begin(9600);
-cell.begin(9600);
-cell.Verbose(true);
-cell.Boot();
-cell.DeleteAllSMS();
-cell.FwdSMS2Serial();
-Serial.println("Sveinn");
+cell.connectToNetwork();
 }
 
  void loop()
