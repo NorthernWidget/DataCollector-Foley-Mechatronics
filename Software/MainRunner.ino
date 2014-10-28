@@ -2,6 +2,7 @@
 #include "SmsGateway.h"
 #include <SoftwareSerial.h>
 #include <SerialGSM.h>
+#include "NetworkGateway.h"
 
 String number;
 String message=NULL;

@@ -1,7 +1,7 @@
 #include "SmsGateway.h"
 #include <SoftwareSerial.h>
 
-SmsGateway::SmsGateway(int rxpin,int txpin):SerialGSM(rxpin,txpin)
+SmsGateway::SmsGateway(int rxpin,int txpin):SerialGSM(rxpin,txpin), NetworkGateway()
 {	
 //this->begin(9600);
 //this->Verbose(true);

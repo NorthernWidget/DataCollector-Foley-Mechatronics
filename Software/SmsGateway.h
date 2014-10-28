@@ -7,6 +7,7 @@
 #include "SerialGSM.h"
 #include <SoftwareSerial.h>
 
+class NetworkGateway;
 class SmsGateway : public virtual NetworkGateway , public SerialGSM
 {
 	
