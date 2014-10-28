@@ -4,11 +4,7 @@
 SmsGateway::SmsGateway(int rxpin,int txpin):SerialGSM(rxpin,txpin)
 {	
 	  
-	this->begin(9600);
-	this->Verbose(true);
-	this->Boot();
-   	this->DeleteAllSMS();
-   	this->FwdSMS2Serial();
+	
 }
 
 SmsGateway::~SmsGateway()
