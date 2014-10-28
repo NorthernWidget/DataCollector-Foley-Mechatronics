@@ -57,7 +57,15 @@ Don't include these in your presentation, they are just here to help you.
 \item Geological data collector
 \item Collects data from multiple sensors and sends the data to the world wide web. 
 \item Eases the observation of wide terrain
-\item Andrew D. Wickert cares.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Introduction}
+\begin{itemize}
+\item Andrew D. Wickert cares.\\
+\centering
+\includegraphics[height=5cm]{graphics/andrewWickert.png}
+\cite{AffordableWS}
 \end{itemize}
 \end{frame}
 
@@ -121,28 +129,44 @@ What are the electronics and materials?  What do they do?
 
 \begin{frame}{Status}
 \begin{itemize}
-\item Web API
-\item Software architecture
-\item Layered structure design
-\item Development status on Wixel module
-\item Development status on GSM module
+\item GSM Arduino communication\\
+\includegraphics[height=5cm]{graphics/gsmArduino.jpg}
 \end{itemize}
-
 
 \end{frame}
 
-\begin{frame}{Tasks remaining}
+\begin{frame}{Status}
 \begin{itemize}
-\item Software implementation: \\
-	\begin{itemize}
-	\item Data Collecting
-	\item Wixel data communication
-	\item GSM data communication
-	\end{itemize}
-\item Test each software package.
-\item Final construct of hardware.
-\item Field test
+\item Web API, Jason format:
+	\{\\
+		"Data": "xxx"\\
+		"Time": "2014:10:27:14:22"\\
+	\}
+\item Development environment for Wixel
+\item Software architecture
+\item Layered structure designing
 \end{itemize}
+%What have you done?  What is the current state?  Is there any interesting/hard problems
+%that need to be solved?  How are you going to solve them?
+\end{frame}
+
+\begin{frame}{Interesting problems}
+\begin{itemize}
+\item Making the design modular
+\item Minimizing power consumption
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Tasks remaining}
+%What is left to be done?  This should be broken down by the time remaining in class.
+	\begin{tabular}{ | l | l | l |}
+    \hline
+    Task & Priority & Estimated time\\ \hline
+    Software implementation & 1 & 4 workdays \\ \hline
+    Functions test & 1 - 2 & - \\ \hline
+	Hardware construction & 1 - 3 & 1 workday\\ \hline
+	Field test & 4 & 1 workday\\ \hline
+    \end{tabular}
 \end{frame}
 
 \begin{frame}{References}
