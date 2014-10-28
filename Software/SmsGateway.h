@@ -5,24 +5,23 @@
 #include "NetworkGateway.h"
 #include "Arduino.h"
 #include "SerialGSM.h"
-
 #include <SoftwareSerial.h>
 
-class SmsGateway : public NetworkGateway
+class SmsGateway : public virtual NetworkGateway , public SerialGSM
 {
 	
 	private:
-		SerialGSM* cell;
+		// void* cell;
 
 
 	public:
 		SmsGateway(int rxpin,int txpin);
-		virtual ~SmsGateway();
-		virtual void connectToNetwork();
-		virtual bool connected();
-		virtual int sendData(String address, String data);
-		virtual String reciveData(String &address);
-		virtual long getTime();
+		 ~SmsGateway();
+		 void connectToNetwork();
+		 bool connected();
+		 int sendData(String address, String data);
+		 String reciveData(String &address);
+		 long getTime();
 
 	
 };

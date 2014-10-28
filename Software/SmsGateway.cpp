@@ -1,19 +1,19 @@
 #include "SmsGateway.h"
+#include <SoftwareSerial.h>
 
-
-SmsGateway::SmsGateway(int rxpin,int txpin)
+SmsGateway::SmsGateway(int rxpin,int txpin):SerialGSM(rxpin,txpin)
 {	
-	cell = new SerialGSM(rxpin,txpin);  
-	cell->begin(9600);
-	cell->Verbose(true);
-	cell->Boot();
-  	cell->DeleteAllSMS();
-  	cell->FwdSMS2Serial();
+	  
+	this->begin(9600);
+	this->Verbose(true);
+	this->Boot();
+   	this->DeleteAllSMS();
+   	this->FwdSMS2Serial();
 }
 
 SmsGateway::~SmsGateway()
 {
-	delete cell;
+	//delete cell;
 
 }
 
@@ -34,11 +34,11 @@ int SmsGateway::sendData(String address, String data)
 
 String SmsGateway::reciveData(String &address)
 {	
-	if(cell->ReceiveSMS()){ 
-		String Message = cell->Message();
-		address = cell->Sender();
-		cell->DeleteAllSMS();
-
+	if(this->ReceiveSMS()){ 
+		String Message = this->Message();
+		address = this->Sender();
+		this->DeleteAllSMS();
+		Serial.println(Message);
 		return Message;
 	}
 	else
