@@ -55,7 +55,7 @@ Don't include these in your presentation, they are just here to help you.
 \begin{itemize}
 % sett each as seperate slide...
 \item Geological data collector
-\item Collects data from multiple sensors and sends the data to the world wide web. 
+\item Collects data from multiple sensors and sends the data over the world wide web. 
 \item Eases the observation of wide terrain
 \end{itemize}
 \end{frame}
@@ -105,13 +105,19 @@ Don't include these in your presentation, they are just here to help you.
 
 \end{frame}
 
-\begin{frame}{Design: Overview}
-\includegraphics[height=8cm]{graphics/softwareArchitecture.png}
+\begin{frame}{Design: Layering}
+\centering
+\includegraphics[height=7cm]{graphics/Layering.png}
 %What are the pieces of your design (software, hardware, etc.)  and how
 %do they work together?  Put some pictures here to help explain what is
 %going on.  Remember to cite all pictures and text using BibTeX.  If you cited
 %the textbook\cite{carryer2011IntroMechatronics}, that is what it would
 %look like.
+\end{frame}
+
+\begin{frame}{Design: Software}
+\centering
+\includegraphics[width=11.5cm]{graphics/ClassDiagram.png}
 \end{frame}
 
 \begin{frame}{Design: Bill of materials (BOM)}
@@ -127,23 +133,31 @@ What are the electronics and materials?  What do they do?
 
 \begin{frame}{Status}
 \begin{itemize}
-\item GSM Arduino communication\\
-\includegraphics[height=5cm]{graphics/gsmArduino.jpg}
+\item GSM Arduino communication
 \end{itemize}
-
+\centering
+\includegraphics[height=5cm]{graphics/gsmArduino.jpg}
 \end{frame}
 
 \begin{frame}{Status}
-\begin{itemize}
-\item Web API, Jason format:
-	\{\\
-		"Data": "xxx"\\
-		"Time": "2014:10:27:14:22"\\
-	\}
-\item Development environment for Wixel
-\item Software architecture
-\item Layered structure designing
-\end{itemize}
+\begin{columns}[T] % contents are top vertically aligned
+     \begin{column}[T]{7cm} % each column can also be its own environment
+		\begin{itemize}
+		\item Web API, Jason format:
+			\{\\
+				"Data": "xxx"\\
+				"Time": "2014:10:27:14:22"\\
+			\}
+		\item Development environment for Wixel
+		\item Software architecture
+		\item Layered structure designing
+		\end{itemize}
+	\end{column}
+     \begin{column}[T]{3cm} % alternative top-align that's better for graphics
+          \includegraphics[height=3cm]{graphics/wixel.png}
+          \cite{wixel}
+     \end{column}
+     \end{columns}
 %What have you done?  What is the current state?  Is there any interesting/hard problems
 %that need to be solved?  How are you going to solve them?
 \end{frame}
@@ -151,6 +165,12 @@ What are the electronics and materials?  What do they do?
 \begin{frame}{Interesting problems}
 \begin{itemize}
 \item Making the design modular
+\item Multiple communication methods.
+	\begin{itemize}
+	\item GSM
+	\item Iridium
+	\item Radio
+	\end{itemize}
 \item Minimizing power consumption
 \end{itemize}
 \end{frame}
