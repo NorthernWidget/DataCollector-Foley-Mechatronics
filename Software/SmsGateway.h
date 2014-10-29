@@ -17,12 +17,12 @@ class SmsGateway : public virtual NetworkGateway , public SerialGSM
 
 	public:
 		SmsGateway(int rxpin,int txpin);
-		 ~SmsGateway();
-		 void connectToNetwork();
-		 bool connected();
-		 int sendData(String address, String data);
-		 String reciveData(String &address);
-		 long getTime();
+		~SmsGateway();
+		void connectToNetwork();
+		bool connected();
+		int sendData(String address, String data);
+		String reciveData(String &address);
+		long getTime();
 
 	
 };

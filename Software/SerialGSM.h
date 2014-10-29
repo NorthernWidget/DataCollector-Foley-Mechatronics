@@ -4,7 +4,7 @@
 #include <SoftwareSerial.h>
 
 #define SERIALTIMEOUT 2000
-#define PHONESIZE 13
+#define PHONESIZE 11
 #define MAXMSGLEN 160
 
 class SerialGSM : public SoftwareSerial {
@@ -23,9 +23,9 @@ public:
   boolean Verbose();
   void Sender(char * var1);
   char * Sender();
-  void Rcpt(char * var1);
+  void Rcpt(String var1);  // to fix var char * var1
   char * Rcpt();
-  void Message(char * var1);
+  void Message(String var1);// to fix var char * var1
   char * Message();
   void Boot();
 

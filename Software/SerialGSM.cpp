@@ -8,7 +8,7 @@
 
 // error codes
 // http://www.developershome.com/sms/resultCodes2.asp
-#include <SerialGSM.h>
+#include "SerialGSM.h"
 
 SerialGSM::SerialGSM(int rxpin,int txpin):
 SoftwareSerial(rxpin,txpin)
@@ -165,16 +165,30 @@ char * SerialGSM::Message(){
 
 
 void SerialGSM::Sender(char * var1){
+
 	sprintf(sendernumber,"%s",var1);
 }
 
 
-void SerialGSM::Rcpt(char * var1){
-	sprintf(rcpt,"%s",var1);
+void SerialGSM::Rcpt(String var1){
+  
+  for(int i=0 ;i < var1.length() ; i++){
+
+    rcpt[i] = var1[i];
+
+  }
+ 
+	//sprintf(rcpt,"%s",var1);
 }
 
-void SerialGSM::Message(char * var1){
-	sprintf(outmessage,"%s",var1);
+void SerialGSM::Message(String var1){
+	for(int i=0 ;i < var1.length() ; i++){
+
+    outmessage[i] = var1[i];
+
+  }
+
+  // sprintf(outmessage,"%s",var1);
 }
 
 void SerialGSM::Boot(){

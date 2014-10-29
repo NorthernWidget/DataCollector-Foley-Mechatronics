@@ -12,10 +12,10 @@ SoftwareSerial cell(50,51);  // Create a 'fake' serial port. Pin 2 is the Rx pin
 
 const String apn = "rcomnet"; // access-point name for GPRS
 
-const String ip = "174.120.246.220"; // IP address of server we're connecting to
-const String host = "avantari.co.uk"; // required in HTTP 1.1 - what's the name of the host at this IP address?
-const String request = "GET /m/testpage.php?data=testing HTTP/1.1";
-const String useragent = "Mozilla/5.0"; // for our purposes the user agent doesn't matter - if I understand correctly it's helpful to use something generic the server will recognize
+const String ip = "89.160.207.212"; // IP address of server we're connecting to
+const String host = "sveinnel.com:5000"; // required in HTTP 1.1 - what's the name of the host at this IP address?
+const String request = "GET /geolog HTTP/1.1";
+const String useragent = "curl/7.35.0"; // for our purposes the user agent doesn't matter - if I understand correctly it's helpful to use something generic the server will recognize
 
 /* this will send the following packet:
  * 

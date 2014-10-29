@@ -56,7 +56,11 @@ void loop()
 			cell.print("AT+CSQ\r"); //Send the character to the cellular module.
 			Serial.print("Sent: AT+CSQ\r");
    		}
-
+   		if(incoming_char == 'q')
+   		{
+			cell.print("AT+SDATASTART=1,1\r"); //Send the character to the cellular module.
+			Serial.print("AT+SDATASTART=2,1\r");
+   		}
    		
 	}
 }

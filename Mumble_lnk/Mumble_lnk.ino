@@ -1,41 +1,33 @@
 #include <SerialGSM.h>
 #include <SoftwareSerial.h>
-
-SerialGSM cell(50,51);// RX, TX
-SoftwareSerial mySerial(52, 53); // RX, TX
-String Message;
-
-int LedPin = 30;
-
-  
-boolean sendonce=true;
-void setup(){  
-  Serial.begin(9600);
+#include <SerialGSM.h>
+#include <SoftwareSerial.h>
+SerialGSM cell(50,51);
+ 
+void setup()
+{ 
+  delay(30000); // wait for GSM module
   cell.begin(9600);
-  cell.Verbose(true);
-  cell.Boot();
-  cell.DeleteAllSMS();
-  cell.FwdSMS2Serial();
-  Serial.println("Sindri");
-  pinMode(LedPin, OUTPUT);
-  digitalWrite(LedPin, LOW);
- }
-
-
-void loop(){
-  if (cell.ReceiveSMS()){
-	 Serial.print("Sender: ");
-	 Serial.println(cell.Sender());
-	 Serial.print("message: ");
-          Message = cell.Message();
-	 Serial.println(Message);
-         cell.DeleteAllSMS();
-  }
-    if(Message == "L1"){
-      digitalWrite(LedPin, HIGH); 
-
-    }
-
-  Message = "";
-
 }
+ 
+void sendSMS()
+{
+  cell.Verbose(true); // used for debugging
+  cell.Boot(); 
+  cell.FwdSMS2Serial();
+  cell.Rcpt("+3548656201"); // replace xxxxxxxxx with the recipient's cellular number
+  cell.Message("Hello Beggi this is GeoLOG");
+  cell.SendSMS();
+}
+void loop()
+{
+  int count = 0;
+  sendSMS();
+  while(count < 60){
+    
+    Serial.println(60 - count);
+    delay(1000);
+    count++;
+  }
+    
+  }
