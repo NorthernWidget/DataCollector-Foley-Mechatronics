@@ -1,0 +1,208 @@
+Starting SM5100B Communication...
+����
++SIND: 1
++SIND: 10,"SM",1,"FD",1,"LD",1,"MC",1,"RC",1,"ME",1
++SIND: 3
++SIND: 11
++SIND: 4
+Module ready
+Attaching GPRS...
+OK
+Setting up PDP Context...
+OK
+Activating PDP Context...
+OK
+Configuring TCP connection to TCP Server...
+OK
+Starting TCP Connection...
+OK
+Checking socket status:
++SOCKSTATUS:  1,1,0102,0,0,0
+OK
+Socket connected
+Sending HTTP packet...
+OK
++SOCKSTATUS:  1,1,0102,74,0,0
+OK
+Sent data not yet acknowledged by server, waiting 1 second and checking again.
++STCPD:1
++SOCKSTATUS:  1,1,0102,74,74,0
+OK
+Yes! Sent data acknowledged by server!
+Reading data from server...
+D 
+A 
+
+2B +
+53 S
+44 D
+41 A
+54 T
+41 A
+3A :
+31 1
+2C ,
+34 4
+36 6
+38 8
+2C ,
+34 4
+38 8
+35 5
+34 4
+35 5
+34 4
+35 5
+30 0
+32 2
+46 F
+33 3
+31 1
+32 2
+45 E
+33 3
+31 1
+32 2
+30 0
+33 3
+34 4
+33 3
+30 0
+33 3
+34 4
+32 2
+30 0
+34 4
+45 E
+36 6
+46 F
+37 7
+34 4
+32 2
+30 0
+34 4
+36 6
+36 6
+46 F
+37 7
+35 5
+36 6
+45 E
+36 6
+34 4
+30 0
+44 D
+30 0
+41 A
+34 4
+34 4
+36 6
+31 1
+37 7
+34 4
+36 6
+35 5
+33 3
+37 7
+32 2
+34 4
+34 4
+32 2
+30 0
+41 A
+35 5
+30 0
+46 F
+32 2
+35 5
+39 9
+32 2
+33 3
+44 D
+34 4
+41 A
+35 5
+35 5
+41 A
+44 D
+34 4
+34 4
+30 0
+46 F
+42 B
+32 2
+39 9
+38 8
+44 D
+31 1
+39 9
+34 4
+35 5
+30 0
+39 9
+46 F
+38 8
+32 2
+35 5
+43 C
+45 E
+34 4
+39 9
+34 4
+46 F
+35 5
+34 4
+45 E
+35 5
+32 2
+41 A
+45 E
+46 F
+46 F
+43 C
+35 5
+35 5
+34 4
+30 0
+43 C
+31 1
+34 4
+45 E
+30 0
+30 0
+35 5
+30 0
+32 2
+34 4
+33 3
+33 3
+45 E
+30 0
+39 9
+33 3
+32 2
+33 3
+45 E
+46 F
+32 2
+30 0
+34 4
+33 3
+32 2
+43 C
+43 C
+4B K
+D 
+A 
+
+2B +
+53 S
+54 T
+43 C
+50 P
+43 C
+3A :
+31 1
+D 
+A 
+
