@@ -18,7 +18,7 @@ class SmsGateway : public virtual NetworkGateway , public SerialGSM
 	public:
 		SmsGateway(int rxpin,int txpin);
 		~SmsGateway();
-		void connectToNetwork();
+		bool connectToNetwork();
 		bool connected();
 		int sendData(String address, String data);
 		String reciveData(String &address);

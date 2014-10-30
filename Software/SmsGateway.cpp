@@ -9,14 +9,15 @@ SmsGateway::~SmsGateway()
 {
 }
 
-void SmsGateway::connectToNetwork()
+bool SmsGateway::connectToNetwork()
 {
-		this->begin(9600);
-		this->Boot();
-		this->Verbose(true);
-		Serial.println("Connected");
-		this->DeleteAllSMS();
-		this->FwdSMS2Serial();
+	this->begin(9600);
+	this->Boot();
+	this->Verbose(true);
+	Serial.println("Connected");
+	this->DeleteAllSMS();
+	this->FwdSMS2Serial();
+	return true;
 }
 
 bool SmsGateway::connected()
