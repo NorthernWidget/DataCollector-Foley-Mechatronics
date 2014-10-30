@@ -4,7 +4,7 @@
 
 #include "NetworkGateway.h"
 #include "Arduino.h"
-#include "SerialGSM.h"
+#include "lib/SerialGSM/SerialGSM.h"
 #include <SoftwareSerial.h>
 
 class NetworkGateway;

@@ -42,9 +42,9 @@ int GprsGateway::sendData(String address, String data)
 	data = REQUEST + HOST + CONTENT + ENDER + data;
 
 	if(!connected)
-		{
+	{
 		connectToNetwork();	
-		}
+	}
 
 	 while (1) {
 	    Serial.println("Checking socket status:");
