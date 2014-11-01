@@ -7,6 +7,8 @@ SmsGateway::SmsGateway(int rxpin,int txpin):SerialGSM(rxpin,txpin), NetworkGatew
 
 SmsGateway::~SmsGateway()
 {
+
+}
 bool SmsGateway::connectToNetwork()
 {
 	this->begin(9600);

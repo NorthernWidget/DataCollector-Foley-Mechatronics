@@ -7,22 +7,21 @@
 #include "SerialGSM.h"
 #include <SoftwareSerial.h>
 
-class NetworkGateway;
-class SmsGateway : public virtual NetworkGateway , public SerialGSM
+class SmsGateway : public NetworkGateway
 {
 	
 	private:
-		// void* cell;
+		SerialGSM* cell;
 
 
 	public:
 		SmsGateway(int rxpin,int txpin);
 		~SmsGateway();
-		bool connectToNetwork();
-		bool connected();
-		int sendData(String address, String data);
-		String reciveData(String &address);
-		long getTime();
+		virtual void connectToNetwork();
+		virtual bool connected();
+		virtual int sendData(String address, String data);
+		virtual String reciveData(String &address);
+		virtual long getTime();
 
 	
 };
