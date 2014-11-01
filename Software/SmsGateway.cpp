@@ -29,11 +29,12 @@ bool SmsGateway::connected()
 int SmsGateway::sendData(String address, String data)
 {
 
-	this->Boot(); 
+	//this->Boot(); 
   	this->FwdSMS2Serial();
 	this->Rcpt(address);
 	this->Message(data);
 	this->SendSMS();
+	this->DeleteAllSMS();
 
 	return -1;
 }

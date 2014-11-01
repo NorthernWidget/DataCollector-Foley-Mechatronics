@@ -21,23 +21,34 @@ class GprsGateway : public NetworkGateway,public SoftwareSerial
 {
 	private:
 
+		void waitFor(char c);
 		bool waitFor(String s);
-		void waitTil(String s); 
+		void waitTil(String sx, String sy, String sz); 
 		void boot();
 		String getMessage();
+		int checkSocketString(String s);
+		int nthIndexOf(int n, char c, String s);
+		int socketStringSlice(int n, String s);
 
 		String apn;
 		String ip;
+		String host;
+		String request;
+		String Accept; 
+		String content;
+		String useragent;
+		String body;
+		String ender;
 
-
-		bool connected;
+		bool con;
+		bool cont;
 
 	public:
 		GprsGateway(int rxpin,int txpin);
-		virtual bool connectToNetwork();
-		virtual bool connected();
-		virtual int sendData(String address, String data);
-		virtual String reciveData(String &address);
-		virtual long getTime();
+		bool connectToNetwork();
+		bool connected();
+		int sendData(String address, String data);
+		String reciveData(String &address);
+		long getTime();
 };
 #endif
