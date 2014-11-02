@@ -46,8 +46,13 @@
 //		uses adc.c
 #include <usb_hid.h>
 
-int32 sampleInterval = 1000;
-int32 lastSample;
+#define P0_2 2
+#define NUMB_SAPLES 15
+static uint8 dataSamples[NUMB_SAPLES] = {0};
+uint8 sampleIndex = 0;
+uint32 sampleTimeInterval = 1000;
+uint32 lastSampleTime;
+uint32 lastSample = 0;
 
 /** Parameters ****************************************************************/
 #define SERIAL_MODE_AUTO        0
@@ -303,20 +308,36 @@ void updateSerialMode()
 void usbToRadioService()
 {
     uint8 signals;
+    uint32 arduinoData;
 
-    // Data // TODO: fix this mix
-    // pin numb 2 is P0_2, I think
-    if((getMs() - lastSample) > sampleInterval) /*while(usbComRxAvailable() && radioComTxAvailable())*/
+    // Data collected on wixel
+    if((getMs() - lastSampleTime) > sampleTimeInterval)
     {
-    	// TODO: check on pin state
+    	lastSample = adcRead(P0_2);
+    	dataSamples[sampleIndex] = lastSample;
+    	sampleIndex = (sampleIndex+1)%NUMB_SAPLES;
+        lastSampleTime = getMs();
 
-        radioComTxSendByte(adcRead(2)); //0x41); 	/*usbComRxReceiveByte());*/
-        lastSample = getMs();
+        // TODO: delete this is debug
+        //radioComTxSendByte(lastSample);
     }
 
+    // Data sent over radio
     while(radioComRxAvailable() && usbComTxAvailable())
     {
-        usbComTxSendByte(radioComRxReceiveByte());
+    	arduinoData = radioComRxReceiveByte();
+    	if (arduinoData == 0x31)
+    	{
+    		uint8 i;
+    		for(i = 0; i < NUMB_SAPLES; i = i +1)
+    		{
+    			// Iterate in reverse order (correct time order) over the dataSamples
+    			if(sampleIndex == 0)
+    				sampleIndex = NUMB_SAPLES;
+    			sampleIndex = sampleIndex-1;
+    			radioComTxSendByte(dataSamples[sampleIndex]);
+    		}
+    	}
     }
 
     // Control Signals
@@ -327,7 +348,7 @@ void usbToRadioService()
     signals = radioComRxControlSignals();
     usbComTxControlSignals( ((signals & 1) ? 2 : 0) | ((signals & 2) ? 1 : 0));
 }
-
+/*
 void uartToRadioService()
 {
     // Data
@@ -345,7 +366,8 @@ void uartToRadioService()
     ioTxSignals(radioComRxControlSignals());
     radioComTxControlSignals(ioRxSignals());
 }
-
+*/
+/*
 void usbToUartService()
 {
     uint8 signals;
@@ -369,7 +391,7 @@ void usbToUartService()
 
     // TODO: report framing, parity, and overrun errors to the USB host here
 }
-
+*/
 void main()
 {
     systemInit();
@@ -409,8 +431,8 @@ void main()
         switch(currentSerialMode)
         {
         case SERIAL_MODE_USB_RADIO:  usbToRadioService();  break;
-        case SERIAL_MODE_UART_RADIO: uartToRadioService(); break;
-        case SERIAL_MODE_USB_UART:   usbToUartService();   break;
+        //case SERIAL_MODE_UART_RADIO: uartToRadioService(); break;
+        //case SERIAL_MODE_USB_UART:   usbToUartService();   break;
         }
     }
 }

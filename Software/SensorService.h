@@ -1,4 +1,3 @@
-
 #ifndef SensorService_h   
 #define SensorService_h
 #include <arduino.h>
@@ -7,9 +6,11 @@ class SensorService
 {
 public:
   // Empty virtual destructor for proper cleanup
-  virtual SensorService() {}
+  SensorService() {}
   virtual ~SensorService() {}
-  virtual String getSensorData(int sensorId);
-  virtual int sendDataToSensor(String data);
-  virtual int setDateTime(long DateTime);
+  virtual String getSensorData(int sensorId) = 0;
+  virtual int sendDataToSensor(String data) = 0;
+  virtual int setDateTime(long DateTime) = 0;
 };
+
+#endif
