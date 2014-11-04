@@ -10,19 +10,19 @@
 // http://www.developershome.com/sms/resultCodes2.asp
 #include "SerialGSM.h"
 
-SerialGSM::SerialGSM(int rxpin,int txpin):
-SoftwareSerial(rxpin,txpin)
+SerialGSM::SerialGSM(int rxpin,int txpin)//:
+//SoftwareSerial(rxpin,txpin)
 {
  verbose=false;
 }
 
 void SerialGSM::FwdSMS2Serial(){
   Serial.println("AT+CMGF=1"); // set SMS mode to text
-  this->println("AT+CMGF=1"); // set SMS mode to text
+  Serial1.println("AT+CMGF=1"); // set SMS mode to text
   delay(200);
   this->ReadLine();
   Serial.println("AT+CNMI=3,3,0,0"); // set module to send SMS data to serial out upon receipt 
-  this->println("AT+CNMI=3,3,0,0"); // set module to send SMS data to serial out upon receipt 
+  Serial1.println("AT+CNMI=3,3,0,0"); // set module to send SMS data to serial out upon receipt 
   delay(200);
   this->ReadLine();
 }
@@ -33,7 +33,7 @@ void SerialGSM::SendSMS(char * cellnumber,char * outmsg){
   this->StartSMS();
   this->Message(outmsg);
   Serial.print(outmessage);
-  this->print(outmessage);
+  Serial1.print(outmessage);
   this->EndSMS();
   delay(500);
   this->ReadLine();
@@ -44,7 +44,7 @@ void SerialGSM::SendSMS(){
   if (verbose) Serial.println(outmessage);
   this->StartSMS();
   Serial.print(outmessage);
-  this->print(outmessage);
+  Serial1.print(outmessage);
   this->EndSMS();
   delay(500);
   this->ReadLine();
@@ -52,21 +52,21 @@ void SerialGSM::SendSMS(){
 
 void SerialGSM::DeleteAllSMS(){
   Serial.println("AT+CMGD=1,4"); // delete all SMS
-  this->println("AT+CMGD=1,4"); // delete all SMS
+  Serial1.println("AT+CMGD=1,4"); // delete all SMS
   delay(200);
   this->ReadLine();
 }
 
 void SerialGSM::Reset(){
   Serial.println("AT+CFUN=1,1"); // Reset Modem
-  this->println("AT+CFUN=1,1"); // Reset Modem
+  Serial1.println("AT+CFUN=1,1"); // Reset Modem
   delay(200);
   this->ReadLine();
 }
 
 
 void SerialGSM::EndSMS(){
-  this->print(char(26));  // ASCII equivalent of Ctrl-Z
+  Serial1.print(char(26));  // ASCII equivalent of Ctrl-Z
   Serial.println();
 
   //delay(5 * 1000); // the SMS module needs time to return to OK status
@@ -75,19 +75,19 @@ void SerialGSM::EndSMS(){
 void SerialGSM::StartSMS(){
 
   Serial.println("AT+CMGF=1"); // set SMS mode to text
-  this->println("AT+CMGF=1"); // set SMS mode to text
+  Serial1.println("AT+CMGF=1"); // set SMS mode to text
   delay(200);
   this->ReadLine();
 
   Serial.print("AT+CMGS=");
-  this->print("AT+CMGS=");
+  Serial1.print("AT+CMGS=");
 
-  this->print(char(34)); // ASCII equivalent of "
+  Serial1.print(char(34)); // ASCII equivalent of "
 
   Serial.print(rcpt);
-  this->print(rcpt);
+  Serial1.print(rcpt);
 
-  this->println(char(34));  // ASCII equivalent of "
+  Serial1.println(char(34));  // ASCII equivalent of "
 
   delay(500); // give the module some thinking time
   this->ReadLine();
@@ -97,8 +97,8 @@ void SerialGSM::StartSMS(){
 int SerialGSM::ReadLine(){
   static int pos=0;
   char nc;
-  while (this->available()){
-    nc=this->read();
+  while (Serial1.available()){
+    nc=Serial1.read();
     if (nc == '\n' or (pos > MAXMSGLEN) or ((millis()> lastrec + SERIALTIMEOUT)and (pos > 0)) ){
       nc='\0';
       lastrec=millis();

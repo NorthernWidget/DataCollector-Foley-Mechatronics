@@ -7,7 +7,7 @@
 #define PHONESIZE 11
 #define MAXMSGLEN 160
 
-class SerialGSM : public SoftwareSerial {
+class SerialGSM {//: public SoftwareSerial {
 public:
   SerialGSM(int rxpin,int txpin);
   void FwdSMS2Serial();

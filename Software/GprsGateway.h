@@ -17,7 +17,7 @@
 #define BODYMID "\",\"temp\":\""
 #define BODYEND "\"}"
 
-class GprsGateway : public NetworkGateway,public SoftwareSerial
+class GprsGateway : public NetworkGateway//,public SoftwareSerial
 {
 	private:
 

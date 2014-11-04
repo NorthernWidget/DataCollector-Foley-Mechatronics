@@ -1,7 +1,7 @@
 #include "GprsGateway.h"
 #include <SoftwareSerial.h>
 
-GprsGateway::GprsGateway(int rxpin,int txpin):SoftwareSerial(rxpin,txpin), NetworkGateway()
+GprsGateway::GprsGateway(int rxpin,int txpin): NetworkGateway()//,SoftwareSerial(rxpin,txpin),
 {	
 	ip = "89.160.207.212"; // IP address of server we're connecting to
 	host = "Host: sveinnel.com:5000\n"; // required in HTTP 1.1 - what's the name of the host at this IP address?
@@ -20,26 +20,27 @@ GprsGateway::GprsGateway(int rxpin,int txpin):SoftwareSerial(rxpin,txpin), Netwo
 
 bool GprsGateway::connectToNetwork()
 {
-	 this->begin(9600);
-	 this->boot();
+	 Serial1.begin(9600);
+	 // Serial1.listen();
+   this->boot(); // tók út Serial1.boot();
 	 Serial.println("Attaching GPRS...");
-	 this->println("AT+CGATT=1");
+	 Serial1.println("AT+CGATT=1");
 	 if(!waitFor("OK"))
 	 	return false;
 	 Serial.println("Setting up PDP Context...");
-	 this->println("AT+CGDCONT=1,\"IP\",\""+apn+"\"");
+	 Serial1.println("AT+CGDCONT=1,\"IP\",\""+apn+"\"");
 	 if(!waitFor("OK"))
 	 	return false;
 	 Serial.println("Activating PDP Context...");
-	 this->println("AT+CGACT=1,1");
+	 Serial1.println("AT+CGACT=1,1");
  	 if(!waitFor("OK"))
  	 	return false;
  	 Serial.println("Configuring TCP connection to TCP Server...");
- 	 this->println("AT+SDATACONF=1,\"TCP\",\""+ip+"\",5000");
+ 	 Serial1.println("AT+SDATACONF=1,\"TCP\",\""+ip+"\",5000");
   	 if(!waitFor("OK")) 
   	 	return false;
   	Serial.println("Starting TCP Connection...");
-  	this->println("AT+SDATASTART=1,1");
+  	Serial1.println("AT+SDATASTART=1,1");
   	if(!waitFor("OK")) 
   	 	return false;
   	con = true;
@@ -66,7 +67,7 @@ int GprsGateway::sendData(String address, String data)
 
 	 while (1) {
 	    Serial.println("Checking socket status:");
-	    this->println("AT+SDATASTATUS=1"); // we'll get back SOCKSTATUS and then OK
+	    Serial1.println("AT+SDATASTATUS=1"); // we'll get back SOCKSTATUS and then OK
 	    String sockstat = getMessage();
 	    waitFor("OK");
       // if(!waitFor("OK")) 
@@ -90,14 +91,14 @@ int GprsGateway::sendData(String address, String data)
 
 
   	Serial.println("Sending HTTP packet...");
-    this->print("AT+SDATATSEND=1,"+String(packetLength)+"\r");
+    Serial1.print("AT+SDATATSEND=1,"+String(packetLength)+"\r");
     waitFor('>'); 
-    this->print(data); //SIZE 2
-  	this->write(26); // ctrl+z character: send the packet
+    Serial1.print(data); //SIZE 2
+  	Serial1.write(26); // ctrl+z character: send the packet
   	waitFor("OK");
 
   	while (1) {
-    this->println("AT+SDATASTATUS=1"); // we'll get back SOCKSTATUS and then OK
+    Serial1.println("AT+SDATASTATUS=1"); // we'll get back SOCKSTATUS and then OK
     String s = getMessage(); // we want s to contain the SOCKSTATUS message
     if (s == "+STCPD:1") // this means server sent data. cool, but we want to see SOCKSTATUS, so let's get next message
       s = getMessage();
@@ -117,18 +118,18 @@ int GprsGateway::sendData(String address, String data)
     }
   }
   Serial.println("Yes! Sent data acknowledged by server!");
-  this->println("AT+SDATASTATUS=0"); 
+  Serial1.println("AT+SDATASTATUS=0"); 
 
    //  Serial.println("Loka TCP Connection...");
-  	// this->println("AT+CGACT=1,0");
+  	// Serial1.println("AT+CGACT=1,0");
   	// waitFor("OK");
     Serial.println("Loka PDP Context...");
-  	this->println("AT+SDATASTART=1,0");
+  	Serial1.println("AT+SDATASTART=1,0");
   	waitFor("OK");
     Serial.println("Loka GPRS...");
-  	this->println("AT+CGATT=0");
+  	Serial1.println("AT+CGATT=0");
   	waitFor("OK");
-    this->println("AT+CGATT?");
+    Serial1.println("AT+CGATT?");
   	con = false;
 
   	return 1;
@@ -186,8 +187,8 @@ void GprsGateway::boot()
 String GprsGateway::getMessage() {
   String s="";
   while(1) {
-    if(this->available()>0) {
-      s = s+(char)this->read();
+    if(Serial1.available()>0) {
+      s = s+(char)Serial1.read();
       if (s.length()>1 && s[s.length()-2]=='\r' && s[s.length()-1]=='\n') { // if last 2 chars are \r\n
         if (s==" \r\n" || s=="\r\n") { // skip these, move on
           s="";
@@ -203,8 +204,8 @@ String GprsGateway::getMessage() {
 
 void GprsGateway::waitFor(char c) {
   while(1) {
-    if(this->available()>0) {
-      if ((char)this->read() == c) {
+    if(Serial1.available()>0) {
+      if ((char)Serial1.read() == c) {
         delay(100);
         return;
       }

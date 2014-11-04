@@ -10,15 +10,17 @@ class WixelSensorService : public SensorService
 public:
   	// Empty virtual destructor for proper cleanup
   	WixelSensorService(int RX, int TX);
-  	virtual ~WixelSensorService() {}
+  	virtual ~WixelSensorService();
   	int getSensorData(int sensorId);
   	int sendDataToSensor(String data) {return 0;}
   	int setDateTime(long DateTime) {return 0;}
 
-  	int getData();
+  	
 
 private:
 	SoftwareSerial* wixelSerial;
+	int rx,tx;
+
 };
 
 #endif

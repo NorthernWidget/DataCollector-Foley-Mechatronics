@@ -4,32 +4,32 @@
 
 WixelSensorService::WixelSensorService(int RX, int TX)
 {
-    wixelSerial = new SoftwareSerial(RX, TX); //9, 10); //53, 52); // RX, TX
-    wixelSerial->begin(9600);
+    rx=RX;
+    tx=TX;
+    // wixelSerial = new Serial(19, 18); //9, 10); //53, 52); // RX, TX
+    // wixelSerial->begin(9600);
+    Serial3.begin(9600);
 }
 
-WixelSensorService::WixelSensorService()
+WixelSensorService::~WixelSensorService()
 {
     delete wixelSerial;
 }
 
 int WixelSensorService::getSensorData(int sensorId)
 {
-    wixelSerial->write(sensorId);
-    delay(100);
+    // wixelSerial->listen();
+    // wixelSerial->write(sensorId);
+    Serial3.write(sensorId);
+    delay(50);
 
-    int data;
-    if (wixelSerial->available())
+    int data = 0;
+    if (Serial3.available())                //wixelSerial->available())
     {
-        data = wixelSerial->read();
+        // data = wixelSerial->read();
+        data = Serial3.read();
     }
-
+    // delete wixelSerial;
     return data;
 }
 
-int WixelSensorService::getData()
-{
-    if(wixelSerial->available())
-        return wixelSerial->read();
-    return 0;
-}
