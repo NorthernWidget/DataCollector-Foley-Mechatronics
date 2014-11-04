@@ -81,16 +81,21 @@ void loop()
         }
         if(reader == '5')
         {   
-             String Time = sms.getTime(1);           
-             Serial.println(Time);
-             int lent = Time.length();
-             sec = Time.substring(lent - 2); 
-            // mino = Time[lent-5]; //+ Time[lent-4];
-            //kls = Time[Time.length()-7] + Time[Time.length()-6];
-            // day = Time[Time.length()-10] + Time[Time.length()-9];
-            // mon = Time[Time.length()-13] + Time[Time.length()-12];
-            // year = Time[Time.length()-16] + Time[Time.length()15];
-            //Serial.println(kls+mino+sec);
+            String Time = sms.getTime(1);           
+            Serial.println(Time);
+            int lent = Time.length();
+            sec = Time.substring(lent - 2); 
+            mino = Time.substring(lent - 5,2); 
+            kls = Time.substring(lent - 8,2); 
+            day = Time.substring(lent - 11,2); 
+            mon = Time.substring(lent - 14,2); 
+            year = Time.substring(lent - 17,2);
+            
+            second(sec.toInt());
+            minute(mino.toInt());
+            hour
+
+
         }   
 }
     // String data;
