@@ -38,20 +38,24 @@ void setup()
 
 void loop()
 {  
-    if(Serial.available()){ 
+    if(Serial.available())
+    { 
         char reader = Serial.read();
 
-        if(reader == '1'){ 
+        if(reader == '1')
+        { 
             delay(100);
             data1 = wixelData.getSensorData(1);
             Serial.println(data1);
         }
-        if(reader == '2'){ 
+        if(reader == '2')
+        { 
             delay(100);
             data2 = wixelData.getSensorData(2);        // request from wixel nr.X -> send X in serial
             Serial.println(data2);
         }
-        if(reader == '3'){ 
+        if(reader == '3')
+        { 
             delay(100); 
             data3 = wixelData.getSensorData(3);
             Serial.println(data3);
@@ -59,7 +63,8 @@ void loop()
             // reader = '2';
         }
 
-        if(reader == 'a'){ 
+        if(reader == 'a')
+        { 
             digitalWrite(resetPin, HIGH);
             gprs.connectToNetwork();
             gprs.sendData("","{\"date\":\""+timeDayt+"\",\"temp\":\""+(String)data1+"\"}");
@@ -68,17 +73,18 @@ void loop()
             delay(1000);
         }
 
-        if(reader == 't'){
+        if(reader == 't')
+        {
            timeDayt=(String)year()+"/"+(String)month()+"/"+(String)day()+","+(String)hour()+":"+(String)minute()+":"+(String)second();
-     
+
             // digitalWrite(resetPin, HIGH);
             // sms.connectToNetwork();
             // sms.sendData("+3548967358","{\"date\":\"2014-10-29 23:10\",\"temp\":\"2\"}");
             // digitalWrite(resetPin, LOW);
             // delay(3000);            
         }
-         if(reader == 's'){
-            
+        if(reader == 's')
+        {
             digitalWrite(resetPin, HIGH);
             sms.connectToNetwork();
             message = sms.reciveData(number);
@@ -93,6 +99,7 @@ void loop()
             digitalWrite(resetPin, LOW);
             delay(1000);            
         }
+        
         if(reader == '5')
         {   
             // digitalWrite(resetPin, HIGH);
@@ -118,7 +125,7 @@ void loop()
             long d = (long)da.toInt();
             long mo = (long)mon.toInt();
             long y = (long)ye.toInt();
-    
+
             setTime(h,m,s,d,mo,y);
             Serial.println((String)year()+"/"+(String)month()+"/"+(String)day()+","+(String)hour()+":"+(String)minute()+":"+(String)second());
             // digitalWrite(resetPin, LOW);
