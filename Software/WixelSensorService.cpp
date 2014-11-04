@@ -2,26 +2,27 @@
 #include <SoftwareSerial.h>
 #include <arduino.h>
 
-WixelSensorService::WixelSensorService()
+WixelSensorService::WixelSensorService(int RX, int TX)
 {
-    wixelSerial = new SoftwareSerial(53, 52); // RX, TX
+    wixelSerial = new SoftwareSerial(RX, TX); //9, 10); //53, 52); // RX, TX
     wixelSerial->begin(9600);
 }
 
-String WixelSensorService::getSensorData(int sensorId)
+WixelSensorService::WixelSensorService()
+{
+    delete wixelSerial;
+}
+
+int WixelSensorService::getSensorData(int sensorId)
 {
     wixelSerial->write(sensorId);
     delay(100);
 
-    String data = "{\"1\":[";
-    while (wixelSerial->available())
+    int data;
+    if (wixelSerial->available())
     {
-        data += "{\"T\":\"";
-        data += static_cast<String>(wixelSerial->read());
-        data += "\"},";
-        delay(100);
+        data = wixelSerial->read();
     }
-    data += "]}";
 
     return data;
 }

@@ -9,9 +9,9 @@ class WixelSensorService : public SensorService
 {
 public:
   	// Empty virtual destructor for proper cleanup
-  	WixelSensorService();
+  	WixelSensorService(int RX, int TX);
   	virtual ~WixelSensorService() {}
-  	String getSensorData(int sensorId);
+  	int getSensorData(int sensorId);
   	int sendDataToSensor(String data) {return 0;}
   	int setDateTime(long DateTime) {return 0;}
 
