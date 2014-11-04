@@ -21,8 +21,7 @@ GprsGateway::GprsGateway(int rxpin,int txpin):SoftwareSerial(rxpin,txpin), Netwo
 bool GprsGateway::connectToNetwork()
 {
 	 this->begin(9600);
-	 if(!cont)
-	 	this->boot();
+	 this->boot();
 	 Serial.println("Attaching GPRS...");
 	 this->println("AT+CGATT=1");
 	 if(!waitFor("OK"))
@@ -50,7 +49,7 @@ bool GprsGateway::connectToNetwork()
 
 bool GprsGateway::connected()
 {
-	return con;
+	return false;
 }
 
 int GprsGateway::sendData(String address, String data)
@@ -69,8 +68,9 @@ int GprsGateway::sendData(String address, String data)
 	    Serial.println("Checking socket status:");
 	    this->println("AT+SDATASTATUS=1"); // we'll get back SOCKSTATUS and then OK
 	    String sockstat = getMessage();
-	    if(!waitFor("OK")) 
-	    	return -1;
+	    waitFor("OK");
+      // if(!waitFor("OK")) 
+	    // 	return -1;
 	    if (sockstat=="+SOCKSTATUS:  1,0,0104,0,0,0") {
 	      Serial.println("Not connected yet. Waiting 1 second and trying again.");
 	      delay(1000);
@@ -117,13 +117,18 @@ int GprsGateway::sendData(String address, String data)
     }
   }
   Serial.println("Yes! Sent data acknowledged by server!");
+  this->println("AT+SDATASTATUS=0"); 
 
-  	this->println("AT+CGACT=1,0");
-  	waitFor("OK");
+   //  Serial.println("Loka TCP Connection...");
+  	// this->println("AT+CGACT=1,0");
+  	// waitFor("OK");
+    Serial.println("Loka PDP Context...");
   	this->println("AT+SDATASTART=1,0");
   	waitFor("OK");
+    Serial.println("Loka GPRS...");
   	this->println("AT+CGATT=0");
   	waitFor("OK");
+    this->println("AT+CGATT?");
   	con = false;
 
   	return 1;

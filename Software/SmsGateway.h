@@ -12,8 +12,14 @@ class SmsGateway : public virtual NetworkGateway , public SerialGSM
 {
 	
 	private:
-		// void* cell;
-
+		void boot();
+		void waitTil(String sx,String sy, String sz);
+		String getMessage();
+		bool waitFor(String s);
+		long curentTime;
+		String Time;
+		long inTime;
+	    long timeOute;
 
 	public:
 		SmsGateway(int rxpin,int txpin);
@@ -23,6 +29,7 @@ class SmsGateway : public virtual NetworkGateway , public SerialGSM
 		int sendData(String address, String data);
 		String reciveData(String &address);
 		long getTime();
+		String getTime(int i);
 
 	
 };
