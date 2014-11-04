@@ -1,6 +1,6 @@
 #ifndef SensorService_h   
 #define SensorService_h
-#include <arduino.h>
+#include <Arduino.h>
 
 class SensorService
 {

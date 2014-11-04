@@ -1,7 +1,7 @@
 #ifndef WixelSensorService_h   
 #define WixelSensorService_h
 
-#include <arduino.h>
+#include <Arduino.h>
 #include "SensorService.h"
 #include <SoftwareSerial.h>
 

@@ -1,6 +1,6 @@
 #include "WixelSensorService.h"
 #include <SoftwareSerial.h>
-#include <arduino.h>
+#include <Arduino.h>
 
 WixelSensorService::WixelSensorService(int RX, int TX)
 {

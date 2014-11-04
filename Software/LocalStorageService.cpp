@@ -1,4 +1,4 @@
-#define EEPROM_SIZE 512
+#define EEPROM_SIZE 4096
 
 #include "LocalStorageService.h"
 #include <Arduino.h>
