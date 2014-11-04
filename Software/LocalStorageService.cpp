@@ -1,11 +1,14 @@
-#define EEPROM_SIZE 4096
+#define EEPROM_SIZE 512
 
 #include "LocalStorageService.h"
-#include <JsonGenerator.h>
-#include <arduino.h>
+#include <Arduino.h>
 #include <EEPROM.h>
 
-LocalStorageService::LocalStorageService()
+LocalStorageService::LocalStorageService() : StorageService()
+{
+
+}
+LocalStorageService::~LocalStorageService()
 {
 
 }
@@ -13,21 +16,21 @@ LocalStorageService::LocalStorageService()
 int LocalStorageService::save(String data)
 {
 	int iterator = 0;
-	
+
 	//Find pointer to empty space
 	for (int i = 0; i < EEPROM_SIZE; i++)
 	{
-		iterator++;
-		if(EEPROM.read(i) == 0)
+		if(String(EEPROM.read(i)) == "0")
 		{
 			break;
 		}
+		iterator++;
 	}
 	
-	//If note enough memory return -1
+	//If not enough memory return -1
 	if(!isFreeSpcace(data.length()))
 	{
-		return -1
+		return -1;
 	}
 
 	//Write to EEPROM
@@ -36,14 +39,16 @@ int LocalStorageService::save(String data)
 		int dataSize = 0;
 		for (int i = 0; i < data.length(); i++)
 		{
-			if(iterator >= EEPROM_SIZE)
+			if(iterator >= EEPROM_SIZE -1)
 			{
 				break;
 			}
 			EEPROM.write(iterator++, data[i]);
 			dataSize++;
 		}
-		return dataSize;
+		EEPROM.write(iterator++, ',');
+		dataSize++;
+		return dataSize *-1;
 	}
 }
 
@@ -55,24 +60,26 @@ String LocalStorageService::load()
 	for (int i = 0; i < EEPROM_SIZE; i++)
 	{
 		char letter = EEPROM.read(i);
-		if(letter == 0)
+		if(String(letter) == "0")
 		{
 			break;
 		}
-		else
-		{
-			data += letter;
-		}
+		data += String(letter);
 	}
 	return data;
 }
 
 int LocalStorageService::erase()
 {
+	int counter = 0;
 	for (int i = 0; i < EEPROM_SIZE; i++)
 	{
-		write(i, 0);
+		counter++;
+		EEPROM.write(i, 0);
 	}
+	if(counter != EEPROM_SIZE)
+		return -1;
+	return counter;
 }
 
 bool LocalStorageService::isFreeSpcace(int dataSize)
@@ -83,14 +90,14 @@ bool LocalStorageService::isFreeSpcace(int dataSize)
 	for (int i = 0; i < EEPROM_SIZE; i++)
 	{
 		iterator++;
-		if(EEPROM.read(i) == 0)
+		if(String(EEPROM.read(i)) == "0")
 		{
 			break;
 		}
 	}
 
 	//If note enough memory return -1
-	if(EEPROM_SIZE - iterator < dataSize);
+	if(EEPROM_SIZE - iterator < dataSize)
 	{
 		return false;
 	}

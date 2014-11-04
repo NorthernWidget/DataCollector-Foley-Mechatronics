@@ -1,13 +1,13 @@
 #ifndef StorageService_h   
 #define StorageService_h
 
-#include <arduino.h>
+#include <Arduino.h>
 
 class StorageService
 {
 public:
   // Empty virtual destructor for proper cleanup
-  virtual StorageService() {}
+  StorageService() {};
   virtual int save(String data)=0; //Returns number of bytes saved
   virtual String load()=0; //Returns the string in buffer 
   virtual int erase()=0; //Erase the buffer
