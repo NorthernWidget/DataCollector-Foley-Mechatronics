@@ -1,4 +1,4 @@
-#define EEPROM_SIZE 4096
+#define EEPROM_SIZE 512
 
 #include "LocalStorageService.h"
 #include <Arduino.h>
@@ -20,7 +20,7 @@ int LocalStorageService::save(String data)
 	//Find pointer to empty space
 	for (int i = 0; i < EEPROM_SIZE; i++)
 	{
-		if(String(EEPROM.read(i)) == "0")
+		if(EEPROM.read(i) == (char) 0)
 		{
 			break;
 		}
@@ -60,7 +60,7 @@ String LocalStorageService::load()
 	for (int i = 0; i < EEPROM_SIZE; i++)
 	{
 		char letter = EEPROM.read(i);
-		if(String(letter) == "0")
+		if(letter == (char)0)
 		{
 			break;
 		}
@@ -75,7 +75,7 @@ int LocalStorageService::erase()
 	for (int i = 0; i < EEPROM_SIZE; i++)
 	{
 		counter++;
-		EEPROM.write(i, 0);
+		EEPROM.write(i, (char)0);
 	}
 	if(counter != EEPROM_SIZE)
 		return -1;
@@ -89,15 +89,16 @@ bool LocalStorageService::isFreeSpcace(int dataSize)
 	//Find pointer to empty space
 	for (int i = 0; i < EEPROM_SIZE; i++)
 	{
+		Serial.print((char)EEPROM.read(i));
 		iterator++;
-		if(String(EEPROM.read(i)) == "0")
+		if(EEPROM.read(i) == (char)0)
 		{
 			break;
 		}
 	}
 
-	//If note enough memory return -1
-	if(EEPROM_SIZE - iterator < dataSize)
+	//If note enough memory return false +1 for comma
+	if(EEPROM_SIZE - iterator < dataSize + 1)
 	{
 		return false;
 	}
