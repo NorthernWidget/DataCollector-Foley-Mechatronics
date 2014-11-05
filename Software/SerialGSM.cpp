@@ -10,7 +10,7 @@
 // http://www.developershome.com/sms/resultCodes2.asp
 #include "SerialGSM.h"
 
-SerialGSM::SerialGSM(int rxpin,int txpin)//:
+SerialGSM::SerialGSM()//:
 //SoftwareSerial(rxpin,txpin)
 {
  verbose=false;

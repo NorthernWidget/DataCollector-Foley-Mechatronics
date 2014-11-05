@@ -1,9 +1,9 @@
 #include "SmsGateway.h"
 #include <SoftwareSerial.h>
 
-SmsGateway::SmsGateway(int rxpin,int txpin): NetworkGateway(),SerialGSM(rxpin,txpin)
+SmsGateway::SmsGateway(long TimeOute): NetworkGateway(),SerialGSM()
 {   
-    timeOute = 100000;
+    timeOute = TimeOute;
 }
 
 SmsGateway::~SmsGateway()
@@ -99,7 +99,7 @@ long SmsGateway::getTime()
 String SmsGateway::getTime(int i){
 
 
-    return Time;
+    return "";
 }
 void SmsGateway::boot()
 {

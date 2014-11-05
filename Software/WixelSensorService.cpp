@@ -2,13 +2,12 @@
 #include <SoftwareSerial.h>
 #include <Arduino.h>
 
-WixelSensorService::WixelSensorService(int RX, int TX)
+WixelSensorService::WixelSensorService(long timeOut)
 {
-    rx=RX;
-    tx=TX;
     // wixelSerial = new Serial(19, 18); //9, 10); //53, 52); // RX, TX
     // wixelSerial->begin(9600);
     Serial3.begin(9600);
+    TimeOut = timeOut;
 }
 
 WixelSensorService::~WixelSensorService()
@@ -20,16 +19,27 @@ int WixelSensorService::getSensorData(int sensorId)
 {
     // wixelSerial->listen();
     // wixelSerial->write(sensorId);
-    Serial3.write(sensorId);
-    delay(50);
+    //Serial3.write(sensorId);
+    // delay(50);
 
+    long startTime = millis();
     int data = 0;
-    if (Serial3.available())                //wixelSerial->available())
-    {
-        // data = wixelSerial->read();
-        data = Serial3.read();
+    while (data==0 || (millis() - startTime) > TimeOut)
+    {   
+         Serial3.write(sensorId);
+         delay(100);
+
+        if(Serial3.available()){ 
+            data = Serial3.read();
+            Serial3.flush();
+        }
     }
-    // delete wixelSerial;
+    data = covertToCelcius(data);
     return data;
+}
+
+int WixelSensorService::covertToCelcius(int temp)
+{
+    return (temp*(4.0/1023)*100)- 50;
 }
 

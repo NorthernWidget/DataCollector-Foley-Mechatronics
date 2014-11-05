@@ -1,4 +1,4 @@
-#define EEPROM_SIZE 512
+#define EEPROM_SIZE 4096
 
 #include "LocalStorageService.h"
 #include <Arduino.h>
@@ -89,7 +89,6 @@ bool LocalStorageService::isFreeSpcace(int dataSize)
 	//Find pointer to empty space
 	for (int i = 0; i < EEPROM_SIZE; i++)
 	{
-		Serial.print((char)EEPROM.read(i));
 		iterator++;
 		if(EEPROM.read(i) == (char)0)
 		{

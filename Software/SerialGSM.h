@@ -9,7 +9,7 @@
 
 class SerialGSM {//: public SoftwareSerial {
 public:
-  SerialGSM(int rxpin,int txpin);
+  SerialGSM();
   void FwdSMS2Serial();
   void SendSMS();
   void SendSMS(char * cellnumber,char * outmsg);

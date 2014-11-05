@@ -5,160 +5,183 @@
 
 //#include "NetworkGateway.h"
 #include "WixelSensorService.h"
-#include "Time.h"
+//#include "Time.h"
+#include "StorageService.h"
+#include "LocalStorageService.h"
+
+#define GSM_RESET_PIN 22
+#define SAMPLE_DATA_FREQ 300000//900000   // ms
+#define SEND_DATA_FREQ 900000//3600000    // ms
+#define TIME_OUT 45000            // ms
+#define MAX_TRIALS 5
+#define ERASE_PIN 50
+#define MANUAL_SEND_PIN 51
+#define LED_PIN 13
+
+long lastDataSample;
+long lastDataTransmit;
+int faildTransmits;
+bool sendRequest;
 
 String number;
 String message=NULL;
 String sec,mino,kls,da,mon,ye;
 int a;
-int resetPin = 22; 
+
 bool flag = true;
 long curnetTime;
 long timeOute;
 long newTime;
 String timeDayt;
-int data1, data2, data3;
+String dataToStore;
 
-SmsGateway sms(50,51);
-GprsGateway gprs(50,51); //= new GprsGateway(50,51);
+SmsGateway sms(TIME_OUT);
+GprsGateway gprs(TIME_OUT);
+LocalStorageService storage;
+WixelSensorService wixelData(TIME_OUT);
 
-WixelSensorService wixelData(53,52); //= new WixelSensorService();;
+void collectData(int sensorId);
+String parseDataToJson(int data, int sensorId);
+String concatToJson(String data);
+int sendToServer(String data);
+bool eraseRequest();
+
 
 void setup()
 {
-    pinMode(resetPin, OUTPUT);
-    digitalWrite(resetPin, LOW);
+    pinMode(GSM_RESET_PIN, OUTPUT);
+    pinMode(ERASE_PIN, INPUT_PULLUP);
+    pinMode(MANUAL_SEND_PIN, INPUT_PULLUP);
+    pinMode(LED_PIN, OUTPUT);
+    digitalWrite(GSM_RESET_PIN, LOW);
+    digitalWrite(LED_PIN, LOW);
+
     Serial.begin(9600);
     curnetTime = millis();
-
-    
-
-
+    lastDataSample = millis();
+    lastDataTransmit = millis();
+    faildTransmits = 0;
+    sendRequest = false;
 }
 
 void loop()
-{  
-    if(Serial.available())
-    { 
-        char reader = Serial.read();
+{
+    if((millis() - lastDataSample) > SAMPLE_DATA_FREQ || sendRequest)
+    {
+        //get sensor 1 data
+        Serial.println('1');
+        collectData(1);
 
-        if(reader == '1')
-        { 
-            delay(100);
-            data1 = wixelData.getSensorData(1);
-            Serial.println(data1);
-        }
-        if(reader == '2')
-        { 
-            delay(100);
-            data2 = wixelData.getSensorData(2);        // request from wixel nr.X -> send X in serial
-            Serial.println(data2);
-        }
-        if(reader == '3')
-        { 
-            delay(100); 
-            data3 = wixelData.getSensorData(3);
-            Serial.println(data3);
+        //get sensor 2 data
+        Serial.println('2');
+        collectData(2);
 
-            // reader = '2';
-        }
+        //get sensor 3 data
+        Serial.println('3');
+        collectData(3);
 
-        if(reader == 'a')
-        { 
-            digitalWrite(resetPin, HIGH);
-            gprs.connectToNetwork();
-            gprs.sendData("","{\"date\":\""+timeDayt+"\",\"temp\":\""+(String)data1+"\"}");
-            delay(1000);
-            digitalWrite(resetPin, LOW);
-            delay(1000);
-        }
-
-        if(reader == 't')
-        {
-           timeDayt=(String)year()+"/"+(String)month()+"/"+(String)day()+","+(String)hour()+":"+(String)minute()+":"+(String)second();
-
-            // digitalWrite(resetPin, HIGH);
-            // sms.connectToNetwork();
-            // sms.sendData("+3548967358","{\"date\":\"2014-10-29 23:10\",\"temp\":\"2\"}");
-            // digitalWrite(resetPin, LOW);
-            // delay(3000);            
-        }
-        if(reader == 's')
-        {
-            digitalWrite(resetPin, HIGH);
-            sms.connectToNetwork();
-            message = sms.reciveData(number);
-            if(number > 0){ 
-                Serial.println("Number");
-                Serial.println(number);
-                Serial.println("");
-                Serial.println("Message");
-                Serial.println(message);       
-            }
-            delay(1000);
-            digitalWrite(resetPin, LOW);
-            delay(1000);            
-        }
-        
-        if(reader == '5')
-        {   
-            // digitalWrite(resetPin, HIGH);
-            String Time = sms.getTime(1);           
-            Serial.println(Time);
-            int lent = Time.length();
-            sec = Time.substring(lent - 2,lent);
-            Serial.println(sec); 
-            mino = Time.substring(lent - 5,lent-3); 
-            Serial.println(mino);
-            kls = Time.substring(lent - 8,lent-6); 
-            Serial.println(kls);
-            da = Time.substring(lent - 11,lent-9); 
-            Serial.println(da);
-            mon = Time.substring(lent - 14,lent-12); 
-            Serial.println(mon);
-            ye = Time.substring(lent - 17,lent-15);
-            Serial.println(ye);
-
-            long h = (long)kls.toInt();
-            long m = (long)mino.toInt();
-            long s = (long)sec.toInt();
-            long d = (long)da.toInt();
-            long mo = (long)mon.toInt();
-            long y = (long)ye.toInt();
-
-            setTime(h,m,s,d,mo,y);
-            Serial.println((String)year()+"/"+(String)month()+"/"+(String)day()+","+(String)hour()+":"+(String)minute()+":"+(String)second());
-            // digitalWrite(resetPin, LOW);
-            // delay(3000);
-        }   
+        lastDataSample = millis();
     }
-    
+
+    if((millis() - lastDataTransmit) > SEND_DATA_FREQ || sendRequest)
+    {
+        //send sensor data to server
+        String stuff = storage.load();
+        Serial.println("stored data = " + stuff);
+        String data = concatToJson(stuff);
+        Serial.println("Data to send -> " + data);
+
+        // TODO: try more
+        if (sendToServer(data) > 0)
+        {
+            //Erase memory
+            Serial.println("Erase memory");
+            storage.erase();
+
+            lastDataTransmit = millis();
+            faildTransmits = 0;
+            sendRequest = false; // TODO
+        }
+        else if (faildTransmits >= MAX_TRIALS)
+        {
+            faildTransmits = 0;
+            lastDataTransmit = millis();
+            sendRequest = false;  // TODO
+        }
+        else
+            faildTransmits++;
+    }
+
+    if(eraseRequest())
+    {
+        //Erase memory
+        digitalWrite(LED_PIN, HIGH);
+        Serial.println("Erase memory");
+        storage.erase();        
+    }
+    else
+    {
+        digitalWrite(LED_PIN, LOW);
+    }
+
+    if(manualSendRequest())
+    {
+        //Set ready for sending data
+        sendRequest = true;
+        Serial.println("Send request");
+    }
+
 }
-    //Serial.print(data);
-    /*
-    if (wixelSerial->available())
-    {
-        Serial.print(static_cast<String>(wixelSerial->read()) + " ");
-    }
-    if (Serial.available())
-        wixelSerial->write(Serial.read());
-    delay(100);
-    */
-    /*
-    if(flag)
-    { 
-        Serial.print("OLLA");
-        flag = false;
-    }
-    message = sms.reciveData(number);
+
+void collectData(int sensorId)
+{
+    int tempData = wixelData.getSensorData(sensorId);
+    Serial.println(tempData);
+    dataToStore = parseDataToJson(tempData, sensorId);
     
-    if(message != NULL)
+    //store sensor data
+    if(storage.isFreeSpcace(dataToStore.length()))
     {
-        Serial.println("Number");
-    
-        Serial.println(number);
-        Serial.println("");
-        Serial.println("Message");
-        Serial.println(message);
+        storage.save(dataToStore); 
     }
-    */
+}
+
+String parseDataToJson(int data, int sensorId)
+{
+    String jsoon = "{\"date\": \"" + String(millis()) + "\", \"temp\": \"" +  String(data) + "\", \"sensorId\": \"" + String(sensorId) + "\"}";
+    return jsoon;
+}
+
+String concatToJson(String data)
+{
+    return "[" + data.substring(0, data.length()-1) + "]";
+}
+
+int sendToServer(String data)
+{
+    int ret = 0;
+    digitalWrite(GSM_RESET_PIN, HIGH);
+    Serial.println("in sendToServer()");
+    gprs.connectToNetwork();
+    ret = gprs.sendData("", data);
+    delay(500);
+    digitalWrite(GSM_RESET_PIN, LOW);
+    delay(500);
+    return ret;
+}
+
+bool eraseRequest()
+{
+    if(digitalRead(ERASE_PIN) == LOW)
+        return true;
+    else
+        return false;
+}
+
+bool manualSendRequest()
+{
+    if(digitalRead(MANUAL_SEND_PIN) == LOW)
+        return true;
+    else
+        return false;
+}

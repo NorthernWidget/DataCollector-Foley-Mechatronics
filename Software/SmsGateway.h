@@ -22,7 +22,7 @@ class SmsGateway : public virtual NetworkGateway , public SerialGSM
 	    long timeOute;
 
 	public:
-		SmsGateway(int rxpin,int txpin);
+		SmsGateway(long TimeOute);
 		~SmsGateway();
 		bool connectToNetwork();
 		bool connected();

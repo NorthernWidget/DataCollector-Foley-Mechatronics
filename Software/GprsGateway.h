@@ -21,7 +21,7 @@ class GprsGateway : public NetworkGateway//,public SoftwareSerial
 {
 	private:
 
-		void waitFor(char c);
+		bool waitFor(char c);
 		bool waitFor(String s);
 		void waitTil(String sx, String sy, String sz); 
 		void boot();
@@ -39,12 +39,15 @@ class GprsGateway : public NetworkGateway//,public SoftwareSerial
 		String useragent;
 		String body;
 		String ender;
+		String Time;
+		long inTime;
+	    long timeOut;
 
 		bool con;
 		bool cont;
 
 	public:
-		GprsGateway(int rxpin,int txpin);
+		GprsGateway(long timeout);
 		bool connectToNetwork();
 		bool connected();
 		int sendData(String address, String data);
