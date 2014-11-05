@@ -2,6 +2,7 @@
 % % Example from http://www.math.umbc.edu/~rouben/beamer/quickstart-Z-H-3.html#node_sec_3
 %\usepackage{default}
 \usetheme{default}
+\usepackage{hyperref}
 \usepackage[utf8]{inputenc}  % this allows latex to understand UTF
                              % encoding in the file. This is
                              % important for Icelandic characters.
@@ -20,8 +21,8 @@
 \usepackage{rotating} % for defining \schwa
 \newcommand{\schwa}{\raisebox{1ex}{\begin{turn}{180}e\end{turn}}}
 
-\title{GeoLog}
-\subtitle{FINAL PROJECT PRESENTATION}
+\title{GeoLog "Data Collector"}
+\subtitle{Final Project Presentation}
 \author[P. Helgasson, S. Ólafsson, S. Magnússon, \& Þ. Tómasarson]{Páll Helgason pallsh12@ru.is, Sindri Ólafsson sindrio12@ru.is, Sveinn Elmar Magnússon sveinnm12@ru.is, \& Þór Tómasarson thortom12@ru.is}
 \institute[RU]{
   Department of Science and Engineering (TVD) \\
@@ -47,7 +48,7 @@
 	\begin{figure}
 			\centering
 	        \includegraphics[height=3cm]{graphics/GeoLog.PNG}
-	        \caption{Datalogging\cite{Helgason2014}}
+	        \caption{Datalogging}
 	\end{figure}
 \end{frame}
 
@@ -58,6 +59,15 @@
 \centering
 \includegraphics[height=5cm]{graphics/andrewWickert.png}
 \cite{andrewWickert}
+\end{frame}
+
+\begin{frame}{Andy's Andrew D. Wickert}
+\begin{figure}
+\centering
+\includegraphics[height=5.7cm]{graphics/ALog_drawing.PDF}
+\caption{Arduino-based low-power field environmental data logging platform: hardware schematics and circuit board layouts\cite{ALog-BottleLogger}}
+
+\end{figure}
 \end{frame}
 
 \begin{frame}{Similar products}
@@ -76,6 +86,14 @@
 \end{figure}
 \end{frame}
 
+\begin{frame}{Geolog Product}
+	\begin{figure}
+		\centering
+		\includegraphics[height=6cm]{graphics/Field_pictures/Our_product.JPG}
+		\caption{\$ 337.25 for 1x mother-base and 3x Wixel-sensors}
+	\end{figure}
+\end{frame}
+
 \begin{frame}{Use case}
 	\begin{itemize}
 	\item Deployment of sensors
@@ -91,7 +109,7 @@
 	\begin{figure}
 			\centering
 	        \includegraphics[height=3cm]{graphics/GeoLog.PNG}
-	        \caption{Datalogging\cite{Helgason2014}}
+	        \caption{Datalogging}
 	\end{figure}
 
 \end{frame}
@@ -131,7 +149,7 @@
 		\item 1 x GSM Antenna \$ 40.00
 		\item 1 x Battery pack \$ 2.00
 		\item 1 x IP67 box \$ 25.00
-		\item \textbf{\underline{Total \$ 212.90}} 
+		\item \textbf{\underline{Total cost of prototype \$ 212.90}} 
 		\end{itemize}
 	\end{column}
 		\begin{column}[T]{4cm}
@@ -150,7 +168,7 @@
 		\item 1 x Temperature sensors (Model: TMP36 from Sparkfun) \$1.50
 		\item 1 x Battery pack \$ 2.00
 		\item 1 x IP67 box \$ 18.00
-		\item \textbf{\underline{Total \$ 41.45}} 
+		\item \textbf{\underline{Total cost of prototype\$ 41.45}} 
 		\end{itemize}
 	\end{column}
 		\begin{column}[T]{4cm}
@@ -160,59 +178,91 @@
 \end{frame}
 
 \begin{frame}{Status}
-\begin{itemize}
-\item GSM Arduino communication
-\end{itemize}
 \centering
-\includegraphics[height=5cm]{graphics/gsmArduino.jpg}
+\includegraphics[width=11cm]{graphics/Field_pictures/Open_project.jpg}
 \end{frame}
 
-\begin{frame}{Status}
+\begin{frame}{Performance}
 \begin{columns}[T] % contents are top vertically aligned
-     \begin{column}[T]{6cm} % each column can also be its own environment
+     \begin{column}[T]{4cm} % each column can also be its own environment
 		\begin{itemize}
-		\item Web API, Jason format:
-			\{\\
-				"Data": "xxx"\\
-				"Time": "2014:10:27:14:22"\\
-			\}
-		\item Development environment for Wixel
-		\item Software architecture
-		\item Layered structure designing
+		\item 4 kB accessible EEPROM
+		\item 15 m wireless range on Wixel sensors
+		\item GPRS/SMS on base station	 
+		\item Unsatisfying energy consumption 
+		\end{itemize}
+
+		\end{column}
+		\begin{column}[T]{5cm} % alternative top-align that's better for graphics
+	     \includegraphics[height=4cm]{graphics/GSM_Coverage.PNG}
+	     \cite{vodafone}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Interface}
+\begin{columns}[T] % contents are top vertically aligned
+     \begin{column}[T]{4cm} % each column can also be its own environment
+		
+		\begin{itemize}
+		\item \href{http://sveinnel.com:5000/geolog}{HTTP API}
+		\item \href{http://sveinnel.com:5000/geoblog}{GeoBlog interface}
 		\end{itemize}
 	\end{column}
-     \begin{column}[T]{4cm} % alternative top-align that's better for graphics
-          \includegraphics[height=3cm]{graphics/wixel.png}
-          \cite{wixel}
+     \begin{column}[T]{5cm} % alternative top-align that's better for graphics
+          \includegraphics[height=6cm]{graphics/GeoBlog.png}
      \end{column}
      \end{columns}
 %What have you done?  What is the current state?  Is there any interesting/hard problems
 %that need to be solved?  How are you going to solve them?
 \end{frame}
 
-\begin{frame}{Interesting problems}
-\begin{itemize}
-\item Making the design modular
-\item Multiple communication methods.
-	\begin{itemize}
-	\item GSM
-	\item Iridium
-	\item Radio
-	\end{itemize}
-\item Minimizing power consumption
-\end{itemize}
+\begin{frame}{Field test}
+\centering
+\includegraphics[width=11cm]{graphics/Field_pictures/Field_DataLogger.jpg}
 \end{frame}
 
-\begin{frame}{Tasks remaining}
+\begin{frame}{Next steps and future possibilities}
 %What is left to be done?  This should be broken down by the time remaining in class.
-	\begin{tabular}{ | l | l | l |}
-    \hline
-    \textbf{Task} & \textbf{Priority} & \textbf{Estimated time}\\ \hline
-    Software implementation & 1 & 4 workdays \\ \hline
-    Functions test & 1 - 2 & - \\ \hline
-	Hardware construction & 1 - 3 & 1 workday\\ \hline
-	Field test & 4 & 1 workday\\ \hline
-    \end{tabular}
+\begin{columns}[T]
+	\begin{column}[T]{7cm}
+		\begin{itemize}
+		\item Continuing field test
+		\item Improve user-interface
+		\item Implement other communication modules
+			\begin{itemize}
+			\item Iridium, Radio ...
+			\end{itemize}
+		\item Merge to Andy's data logger
+		\item Improve energy consumption
+		\item Implement other energy sources 
+			\begin{itemize}
+			\item Solar, Wind ...
+			\end{itemize}
+		\end{itemize}
+	\end{column}
+	\begin{column}[T]{4cm}
+	\includegraphics[height=4cm]{graphics/Field_pictures/Power.jpg}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Summary}
+\begin{columns}[T]
+	\begin{column}[T]{6cm}
+		\begin{itemize}
+		\item Bee hive design
+		\item Modular software architecture
+		\item HTTP REST API
+		\item Affordable
+		\item Open source
+		\item Highly modifiable
+		\end{itemize}
+	\end{column}
+	\begin{column}[T]{4cm}
+	\includegraphics[height=5cm]{graphics/Field_pictures/Main_and_Wixels.JPG}
+	\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}{References}
