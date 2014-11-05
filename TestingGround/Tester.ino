@@ -23,39 +23,48 @@ void loop()
 	//If a character is coming from the terminal to the Arduino...
 	if(Serial.available() >0)
 	{
-		incoming_char=Serial.read(); //Get the character coming from the terminal
+		String command = "";
+		char incoming_char; //Get the character coming from the terminal
 		
-   		if(incoming_char == 'g')
-   		{
-			cell.print("AT+CGATT?\r"); //Send the character to the cellular module.
-			Serial.print("Sent: AT+CGATT?\r");
-   		}
-   		if(incoming_char == 'a')
-   		{
-			cell.print("AT\r"); //Send the character to the cellular module.
-			Serial.print("Sent: AT+CGATT=1\r");
-   		}
-   		if(incoming_char == 's')
-   		{
-			cell.print("AT\r"); //Send the character to the cellular module.
-			Serial.print("Sent: AT+CGATT=?\r");
-   		}
-   		if(incoming_char == 'c')
-   		{
-			cell.print("AT+CCLK?\r"); //Send the character to the cellular module.
-			Serial.print("Sent: AT+CCLK?\r");
-   		}
-   		if(incoming_char == 'm')
-   		{
-			cell.print("AT+CMT\r"); //Send the character to the cellular module.
-			Serial.print("Sent: AT+CMT\r");
-   		}
+		while(Serial.available() > 0)
+		{
+		    command += Serial.read();
+		}
+
+		if(Serial.available() == 0)
+			Serial.print(command + "\r");
+
+  //  		if(incoming_char == 'g')
+  //  		{
+		// 	cell.print("AT+CGATT?\r"); //Send the character to the cellular module.
+		// 	Serial.print("Sent: AT+CGATT?\r");
+  //  		}
+  //  		if(incoming_char == 'a')
+  //  		{
+		// 	cell.print("AT\r"); //Send the character to the cellular module.
+		// 	Serial.print("Sent: AT+CGATT=1\r");
+  //  		}
+  //  		if(incoming_char == 's')
+  //  		{
+		// 	cell.print("AT\r"); //Send the character to the cellular module.
+		// 	Serial.print("Sent: AT+CGATT=?\r");
+  //  		}
+  //  		if(incoming_char == 'c')
+  //  		{
+		// 	cell.print("AT+CCLK?\r"); //Send the character to the cellular module.
+		// 	Serial.print("Sent: AT+CCLK?\r");
+  //  		}
+  //  		if(incoming_char == 'm')
+  //  		{
+		// 	cell.print("AT+CMT\r"); //Send the character to the cellular module.
+		// 	Serial.print("Sent: AT+CMT\r");
+  //  		}
 		
-		if(incoming_char == 'o')
-   		{
-			cell.print("AT+CSQ\r"); //Send the character to the cellular module.
-			Serial.print("Sent: AT+CSQ\r");
-   		}
+		// if(incoming_char == 'o')
+  //  		{
+		// 	cell.print("AT+CSQ\r"); //Send the character to the cellular module.
+		// 	Serial.print("Sent: AT+CSQ\r");
+  //  		}
    		if(incoming_char == 'q')
    		{
 			cell.print("AT+SDATASTART=1,1\r"); //Send the character to the cellular module.
