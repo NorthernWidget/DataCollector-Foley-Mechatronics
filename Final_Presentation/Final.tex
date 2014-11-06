@@ -114,16 +114,6 @@
 
 \end{frame}
 
-\begin{frame}{Design: Layering}
-\centering
-\includegraphics[height=7cm]{graphics/Layering.png}
-%What are the pieces of your design (software, hardware, etc.)  and how
-%do they work together?  Put some pictures here to help explain what is
-%going on.  Remember to cite all pictures and text using BibTeX.  If you cited
-%the textbook\cite{carryer2011IntroMechatronics}, that is what it would
-%look like.
-\end{frame}
-
 \begin{frame}{Design: Module}
 \centering
 \includegraphics[height=7cm]{graphics/Puzzle.png}
@@ -134,9 +124,59 @@
 %look like.
 \end{frame}
 
+\begin{frame}{Design: Layering}
+\centering
+\includegraphics[height=7cm]{graphics/Layering.png}
+%What are the pieces of your design (software, hardware, etc.)  and how
+%do they work together?  Put some pictures here to help explain what is
+%going on.  Remember to cite all pictures and text using BibTeX.  If you cited
+%the textbook\cite{carryer2011IntroMechatronics}, that is what it would
+%look like.
+\end{frame}
+
 \begin{frame}{Design: Software}
 \centering
 \includegraphics[width=11.5cm]{graphics/ClassDiagram.png}
+\end{frame}
+
+\begin{frame}{Interface}
+\begin{columns}[T] % contents are top vertically aligned
+     \begin{column}[T]{4cm} % each column can also be its own environment
+		
+		\begin{itemize}
+		\item \href{http://sveinnel.com:5000/geolog}{HTTP API}
+		\item \href{http://sveinnel.com:5000/geoblog}{GeoBlog interface}
+		\end{itemize}
+	\end{column}
+     \begin{column}[T]{5cm} % alternative top-align that's better for graphics
+          \includegraphics[height=6cm]{graphics/GeoBlog.png}
+     \end{column}
+     \end{columns}
+%What have you done?  What is the current state?  Is there any interesting/hard problems
+%that need to be solved?  How are you going to solve them?
+\end{frame}
+
+\begin{frame}{Status}
+\centering
+\includegraphics[width=11cm]{graphics/Field_pictures/Open_project.jpg}
+\end{frame}
+
+\begin{frame}{Performance}
+\begin{columns}[T] % contents are top vertically aligned
+     \begin{column}[T]{4cm} % each column can also be its own environment
+		\begin{itemize}
+		\item 4 kB accessible EEPROM
+		\item 15 m wireless range on Wixel sensors
+		\item GPRS/SMS on base station	 
+		\item Unsatisfying energy consumption 
+		\end{itemize}
+
+		\end{column}
+		\begin{column}[T]{5cm} % alternative top-align that's better for graphics
+	     \includegraphics[height=4cm]{graphics/GSM_Coverage.PNG}
+	     \cite{vodafone}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{Design: Bill of materials (BOM) for mother station}
@@ -175,46 +215,6 @@
 		\includegraphics[height=4cm]{graphics/Field_pictures/Wixel_sensor.JPG}
 		\end{column}
 \end{columns}
-\end{frame}
-
-\begin{frame}{Status}
-\centering
-\includegraphics[width=11cm]{graphics/Field_pictures/Open_project.jpg}
-\end{frame}
-
-\begin{frame}{Performance}
-\begin{columns}[T] % contents are top vertically aligned
-     \begin{column}[T]{4cm} % each column can also be its own environment
-		\begin{itemize}
-		\item 4 kB accessible EEPROM
-		\item 15 m wireless range on Wixel sensors
-		\item GPRS/SMS on base station	 
-		\item Unsatisfying energy consumption 
-		\end{itemize}
-
-		\end{column}
-		\begin{column}[T]{5cm} % alternative top-align that's better for graphics
-	     \includegraphics[height=4cm]{graphics/GSM_Coverage.PNG}
-	     \cite{vodafone}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-\begin{frame}{Interface}
-\begin{columns}[T] % contents are top vertically aligned
-     \begin{column}[T]{4cm} % each column can also be its own environment
-		
-		\begin{itemize}
-		\item \href{http://sveinnel.com:5000/geolog}{HTTP API}
-		\item \href{http://sveinnel.com:5000/geoblog}{GeoBlog interface}
-		\end{itemize}
-	\end{column}
-     \begin{column}[T]{5cm} % alternative top-align that's better for graphics
-          \includegraphics[height=6cm]{graphics/GeoBlog.png}
-     \end{column}
-     \end{columns}
-%What have you done?  What is the current state?  Is there any interesting/hard problems
-%that need to be solved?  How are you going to solve them?
 \end{frame}
 
 \begin{frame}{Field test}
