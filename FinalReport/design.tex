@@ -1,17 +1,20 @@
 \section{Design}
 The concept for the GeoLog originally came from Dr. Andrew Wickert (seen in figure 
-\ref{fig:andrewWickert},
-which came to Reykjavík University's Mechatronics class for help developing his 
-design of a low power datalogger\cite{ALog-BottleLogger}. 
+\ref{fig:andrewWickert}), which came to Reykjavík University's Mechatronics class for 
+help developing his design of a low cost, low power datalogger\cite{ALog-BottleLogger}. 
+He had two problems needed to be solved. First was to minimize the power consumption of the device he had already developed and the latter was to have means of getting the data
+back without having to travel trough difficult terrain. Decision was made to help Andrew 
+improve the latter.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.6\linewidth]{graphics/andrewWickert}
+\includegraphics[width=0.4\linewidth]{graphics/andrewWickert}
 \caption{Andrew Wickert\label{fig:andrewWickert}\cite{andrewWickert}}
 \end{figure}
 
 The GeoLog datalogger was designed in nine phases. Phases seven to eight were iterated
 until the product was ready for deployment.
+
 \begin{itemize}
 	\item{Phase 1:} Initial brainstorming and high level design phase.
 	\item{Phase 2:} Hardware selection phase, where hardware was selected and ordered.
@@ -25,12 +28,50 @@ until the product was ready for deployment.
 	\item{Phase 9:} Deployment phase, system is functional and can be deployed. 
 \end{itemize}
 
-
-
 \textit{\textcolor{red}{Assumptions stated (There are always some)}}
 
 
 \subsection{Hardware}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth]{graphics/HardwareMDD}
+\caption{Hardware Module Design Diagram\label{fig:HardwareMDD}}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth]{graphics/sensormodule_schematic}
+\caption{Electrical Schematic Diagram of the Wireless Sensor Module\label{fig:sensormodule_schematic}}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\linewidth]{graphics/motherhub_schematic}
+\caption{Electrical Schematic Diagram of the Mother Hub\label{fig:motherhub_schematic}}
+\end{figure}
+
+The hardware is divided to sensor modules and the mother hub. The sensor modules 
+designed for this system were three wireless temperature sensors using Wixel\cite{wixel}
+for means of communications. The mother hub consists of a Arduino Mega\cite{arduinoMega}
+that communicates with the sensor modules with a Wixel\cite{wixel}, collects the data 
+and sends it to a HTTP server via the GSM/GPRS module\cite{SM5100B}. 
+Figure \ref{fig:HardwareMDD} shows how the hardware is set up. 
+
+\subsubsection{Sensor module}
+The sensor module is based on Wixel\cite{wixel} that reads sensor value on one of it's
+analog inputs when the mother hub calls for reading. To save energy the sensor module does
+not send any data until it's id is called by the mother hub. The sensor module then 
+gathers several readings from the sensor over a short period of time and sends back the 
+average reading of the data collected then falls back to suspend mode until the mother 
+hub calls for data again. Electrical schematic diagram of the sensor module can
+be seen in figure \ref{fig:sensormodule_schematic}.
+
+\subsubsection{Mother hub}
+The mother hub is based on Arduino Mega 2560\cite{arduinoMega} which can be switched out 
+for Andrew's Bottle Logger\cite{ALog-BottleLogger}, a Wixel\cite{wixel} used for 
+communicating with the wireless sensor modules and a SM5100B GSM/GPRS 
+module\cite{SM5100B}. 
 
 \textit{\textcolor{red}{Description of the design; break into pieces and show how 
 						they assemble.}}
