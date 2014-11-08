@@ -12,19 +12,19 @@ Data sampling in nature is well know method to help scientist to understand its 
 
 \begin{figure}[H]
   \centering
-  \subfloat[\$3500\label{fig:a}\cite{WeatherShop2014}]
-  {\includegraphics[height=5cm]{graphics/cellular_weather_station.JPG}}\quad
-  \subfloat[\$2800\label{fig:b}\cite{TexasWeatherInstruments2014}]
-  {\includegraphics[height=5cm]{graphics/RWS-Snow.JPG}}\quad
-  \subfloat[\$658\label{fig:c}\cite{Scientific2014}]
-  {\includegraphics[height=3cm]{graphics/Oregon_Scientific_Pro_weather_system.PNG}}\quad
-  \subfloat[\$595\label{fig:d}\cite{Davis2014}]
-  {\includegraphics[height=3cm]{graphics/Davis_Vantage_Pro_2.JPG}}  
+  \subfloat[Cost \$3500\label{fig:a}\cite{WeatherShop2014}]
+  {\includegraphics[height=5cm]{graphics/cellular_weather_station}}\quad
+  \subfloat[Cost \$2800\label{fig:b}\cite{TexasWeatherInstruments2014}]
+  {\includegraphics[height=5cm]{graphics/RWS-Snow}}\quad
+  \subfloat[Cost \$658\label{fig:c}\cite{Scientific2014}]
+  {\includegraphics[height=3cm]{graphics/Oregon_Scientific_Pro_weather_system}}\quad
+  \subfloat[Cost \$595\label{fig:d}\cite{Davis2014}]
+  {\includegraphics[height=3cm]{graphics/Davis_Vantage_Pro_2}}  
   \caption{Various price of weather stations}
   \label{fig:1}
 \end{figure}
 
-With that in mind the concept in the project is to combine the long-range communication data logger that are affordable. This to factors are essential for scientific communities where budget can be limited. Another avenges is the possibility to get multiple equipments on the field for more dens coverage. That increase the accuracy in research. 
+With that in mind the concept in the project is to make long-range communication data logger that are affordable. That factor is essential for scientific communities were budget can be limited. Another avenges is the possibility to get multiple equipments on the field for more dens coverage. 
 
 \subsection{Requirements}
 \textit{The requirments for this project are:}\\
@@ -46,5 +46,5 @@ DP6 Send Jason formated data trough GSM shield.\\
 DP7 Setup HTTP API server.\\
 DP8 Well planed software design architecture.\\
 \\
-The most challenging requirements in the project is the software design. It's very critical to make the hole project modular. There where
+The most challenging requirements in the project is the software design. It's very critical to make the hole project modular. Solution to that is decrepit in DP7. Additionally there were added 3x wireless-sensor module to expand the coverage of the mother-base. They use Pololu Wixel to communicate to mother-base. Then the mother-base sample data from them and sent through GSM network to HTTP server.
 
