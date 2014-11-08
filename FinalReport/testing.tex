@@ -1,2 +1,97 @@
 \section{Testing}
+Multiple test where performed during the development of the GeoLoger. The most important tests will be listed here below with the data acquired in those tests.
+
+\subsection{Wixel range test}
+The test was performed in the electronics lab (V207). The room is 18m across and marked lines with 2.5m  between them were laid down. One Wixel connected to a serial monitor was placed at one end of the room and then another Wixel was moved be twine the lines regularly sending data strings. The table here below shows if the data was received on the serial monitor. Each test was performed 2 times.
+\begin{table}[H]
+		 \centering
+ 	 	     \begin{tabular}
+ 	 	     	{| p{2cm} |  p{2cm} | p{3cm} | p{2cm}  | p{2cm} | p{3cm} |}
+ 	 	    	 \hline
+ 	 	    	  number & distance	& does transmit & number	& distance   & does transmit 			\\ \hline
+ 	 	  		 1 & 	2.5m & yes	& 8	 & 2.5m & yes \\ \hline
+ 	 	  		 2 &	5m	 & yes	& 9	 &   5m & yes \\ \hline 
+ 	 	  	 	 3 &	7.5m & yes	& 10 & 7.5m & yes \\ \hline 
+ 	 	  	 	 4 &    10m	 & yes  & 11 &	10m	& yes \\ \hline 
+ 	 	  	 	 5 &	12.5m& yes	& 12 & 12.5m& yes \\ \hline 
+ 	 	  	 	 6 &	15m	 & yes	& 13 &  15m & yes \\ \hline 
+ 	 	  	 	 7 &	18m	 & no	& 14 &  18m	& no  \\ \hline 
+ 
+ 	 	     \end{tabular}\\
+ 	 	     \label{table:Table_3}
+ 	 	     \caption{Wixel range test}
+ 	 	 \end{table}
+ 	 	 
+\subsection{Lab test 1}
+The test was performed in the electronics lab (V207). The mother hub was placed in the centre of the room and the wireless sensor modules wear placed in three corners of the room. The mother hub was programmed to ask the wireless sensor modules every 5 minutes and then send the gather data to the http server every 15 minutes. 
+
+\begin{table}[H]
+	\begin{tabular}
+		{| p{6cm} |  p{4cm} | p{2cm} | p{3cm}  |}
+		\hline
+		transmit time & time stamp [sec] & sensor ID & temperature$\degree$ C  & \hline
+		05. November 2014 15:24 & 51   & 1 & 23 &  \hline
+		05. November 2014 15:24 & 51   & 2 & 24 &  \hline
+		05. November 2014 15:24 & 51   & 3 & 21 &  \hline
+		05. November 2014 15:24 & 56   & 1 & 23 &  \hline
+	    05. November 2014 15:24 & 57   & 2 & 24 &  \hline
+		05. November 2014 15:24 & 57   & 3 & 21 &  \hline
+		05. November 2014 15:24 & 58   & 1 & 23 &  \hline
+		05. November 2014 15:24 & 58   & 2 & 24 &  \hline
+		05. November 2014 15:24 & 59   & 3 & 21 &  \hline
+		05. November 2014 15:58 & 137  & 1 & 23 &  \hline
+		05. November 2014 15:58 & 137  & 2 & 24 &  \hline
+		05. November 2014 15:58 & 137  & 3 & 20 &  \hline
+		05. November 2014 16:15 & 438  & 1 & 23 &  \hline
+		05. November 2014 16:15 & 438  & 2 & 24 &  \hline
+		05. November 2014 16:15 & 438  & 3 & 20 &  \hline
+		05. November 2014 16:15 & 740  & 1 & 23 &  \hline
+		05. November 2014 16:15 & 740  & 2 & 24 &  \hline
+		05. November 2014 16:15 & 741  & 3 & 20 &  \hline
+		05. November 2014 16:15 & 1041 & 1 & 23 &  \hline
+		05. November 2014 16:15 & 1041 & 2 & 25 &  \hline
+		05. November 2014 16:15 & 1041 & 3 & 21 &  \hline
+		
+		
+		
+	\end{tabular}
+\end{table}
+
+\subsection{Field test 1}
+	\begin{table}[H]
+		\begin{tabular}
+			{| p{6cm} |  p{4cm} | p{2cm} | p{3cm}  |}
+			\hline
+			transmit time & time stamp [sec] & sensor ID & temperature$\degree$ C  & \hline
+			05. November 2014 17:13 & 2295 & 1 & 0   &  \hline
+			05. November 2014 17:13 & 2298 & 2 & 1   &  \hline
+			05. November 2014 17:13 & 2299 & 3 & 3   &  \hline
+			05. November 2014 17:13 & 2619 & 1 & -5  &  \hline
+			05. November 2014 17:13 & 2619 & 2 & -3  &  \hline
+			05. November 2014 17:13 & 2620 & 3 & -1  &  \hline
+			05. November 2014 17:13 & 2924 & 1 & -7  &  \hline
+			05. November 2014 17:13 & 2925 & 2 & -6  &  \hline
+			05. November 2014 17:13 & 2925 & 3 & -5  &  \hline
+			05. November 2014 17:31 & 3234 & 1 & -8  &  \hline
+			05. November 2014 17:31 & 3235 & 2 & -8  &  \hline
+			05. November 2014 17:31 & 3235 & 3 & -6  &  \hline
+			05. November 2014 17:31 & 3558 & 1 & -10 &  \hline
+			05. November 2014 17:31 & 3559 & 2 & -8  &  \hline
+			05. November 2014 17:31 & 3560 & 3 & -8  &  \hline
+			05. November 2014 17:31 & 3892 & 1 & -10 &  \hline
+			05. November 2014 17:31 & 3893 & 2 & -9  &  \hline
+			05. November 2014 17:31 & 3893 & 3 & -9  &  \hline
+			05. November 2014 19:35 & 4198 & 1 & -10 &  \hline
+			05. November 2014 19:35 & 4212 & 2 & -9  &  \hline
+			05. November 2014 19:35 & 4212 & 3 & -9  &  \hline
+			05. November 2014 19:35 & 4521 & 1 & -11 &  \hline
+			05. November 2014 19:35 & 4526 & 2 & -10 &  \hline
+			05. November 2014 19:35 & 4527 & 3 & -10 &  \hline
+			05. November 2014 19:35 & 12   & 1 & -14 &  \hline
+			05. November 2014 19:35 & 15   & 2 & -12 &  \hline
+			05. November 2014 19:35 & 15   & 3 & -12 &  \hline
+		\end{tabular}
+	\end{table}
+	
+
 
