@@ -1,0 +1,14 @@
+*.dvi
+*.ps
+*.pdf
+*.b??
+*.out
+*.lo?
+*.nav
+*.snm
+*.to?
+auto
+Thumbs.db
+._.DS_Store
+._*
+*.synctex.gz
