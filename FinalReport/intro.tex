@@ -1,5 +1,6 @@
 \section{Introduction}
-This open source project is about development of wireless data collecting equipment. The project is in cooperation with the geologist Dr .Andrew D. Wickert\cite{andrewWickert}, who has highly need for affordable and light-weighted field instrumentation for his research. He has develop Arduino-based low-power field environmental data logger\ref{fig:BottleLog}. He sought for assistance to Reykjavik University for help with development of communication module.
+This open source project is development of wireless data collecting equipment. The project is in cooperation with the geologist Dr .Andrew D. Wickert (seen in figure \ref{fig:andrewWickert}), who has big need for affordable and light-weighted field instrumentation for his research. That's why he developed Arduino-based low-power field environmental data logger, as seen in figure \ref{fig:BottleLog}. He sought assistance to Reykjavik University for help with development of communication module that fits his data logger.\\
+So the main goal with this project is design of Arduino based communication module for data logging. With this accomplished and later on merge with Andy's data logger there will be affordable light-weighted equipment that are not available commercially. The solution will also be highly modifiable because it's open source project.
 
 \begin{figure}
 \centering
@@ -8,43 +9,42 @@ This open source project is about development of wireless data collecting equipm
 \end{figure}
 
 \subsection{Background}
-Data sampling in nature is well know method to help scientist to understand its behavior. Back in days scientist had to sample data in real time on the field. Later on with automatic measurements equipment they could leave it behind in the field, then come back later and collect the data from them to process. With impact of communication technology the data collectors were able to sent data wireless in real time to scientist for processing. There are roughly 2 kinds of equipments available to day. Long range with GSM network \ref{fig:a} \ref{fig:b} that cost about \$3000. Then there are cheaper equipments around \$500 \ref{fig:c} \ref{fig:d} but the downfall is limited wireless range to 300 m.
+Data sampling is well know method to help scientist to understand nature's behavior. Back in days, scientist had to sample data in real time on the field by writing them down to log book. Later on with automatic measurement equipment they could leave it behind in the field, then come back later and collect the data from them to process. Later on with impact of communication technology the automatic measurement equipment were able to sent data wireless in real time to scientist for processing.\\
+To day there are roughly 2 kinds of equipments available. Long range with GSM network as seen in figures \ref{fig:a} and \ref{fig:b} that cost about \$3000. Then there are cheaper equipments around \$500 as in figures\ref{fig:c} and  \ref{fig:d} but the downfall with them is limited wireless range to 300 m.
 
 \begin{figure}[H]
   \centering
-  \subfloat[Cost \$3500\label{fig:a}\cite{WeatherShop2014}]
-  {\includegraphics[height=5cm]{graphics/cellular_weather_station}}\quad
-  \subfloat[Cost \$2800\label{fig:b}\cite{TexasWeatherInstruments2014}]
-  {\includegraphics[height=5cm]{graphics/RWS-Snow}}\quad
-  \subfloat[Cost \$658\label{fig:c}\cite{Scientific2014}]
-  {\includegraphics[height=3cm]{graphics/Oregon_Scientific_Pro_weather_system}}\quad
-  \subfloat[Cost \$595\label{fig:d}\cite{Davis2014}]
-  {\includegraphics[height=3cm]{graphics/Davis_Vantage_Pro_2}}  
-  \caption{Various price of weather stations}
+  \subfloat[\$3500 \label{fig:a}\cite{WeatherShop2014}]
+  {\includegraphics[height=6.5cm]{graphics/cellular_weather_station}}\quad
+  \subfloat[\$2800 \label{fig:b}\cite{TexasWeatherInstruments2014}]
+  {\includegraphics[height=6.5cm]{graphics/RWS-Snow}}\quad
+  \subfloat[\$658 \label{fig:c}\cite{Scientific2014}]
+  {\includegraphics[height=4cm]{graphics/Oregon_Scientific_Pro_weather_system}}\quad
+  \subfloat[\$595 \label{fig:d}\cite{Davis2014}]
+  {\includegraphics[height=4cm]{graphics/Davis_Vantage_Pro_2}}  
+  \caption{Various price of portable weather stations}
   \label{fig:1}
 \end{figure}
 
-With that in mind the concept in the project is to make long-range communication data logger that are affordable. That factor is essential for scientific communities were budget can be limited. Another avenges is the possibility to get multiple equipments on the field for more dens coverage. 
+With that in mind the concept with this project is to make long-range communication data logger that are affordable. That can have good impact on scientific communities were budget are often limited. It can also result in more dens coverage in data logging. 
 
 \subsection{Requirements}
-\textit{The requirments for this project are:}\\
-FR1 Collect measurable data.\\
-FR2 Store the data local.\\
-FR3 Keeps data for x time.\\
-FR4 Runs on own power source.\\
-FR5 IP67 proof.\\
-FR6 Sent data wireless through GSM network.\\
-FR7 Store data on server.\\
-FR8 Modular Design.\\
-\\
-DP1 Get temperature with TMP36 sensor.\\
-DP2 Write temperature values to Arduino EEPROM.\\
-DP3 Arduino MEGA has 4kB of EEPROM.\\
-DP4 Have battery pack and minimize power consumption.\\
-DP5 Fit all hardware into IP67 fiber box.\\
-DP6 Send Jason formated data trough GSM shield.\\
-DP7 Setup HTTP API server.\\
-DP8 Well planed software design architecture.\\
-\\
-The most challenging requirements in the project is the software design. It's very critical to make the hole project modular. Solution to that is decrepit in DP7. Additionally there were added 3x wireless-sensor module to expand the coverage of the mother-base. They use Pololu Wixel to communicate to mother-base. Then the mother-base sample data from them and sent through GSM network to HTTP server.
+\begin{table}[h!]
+	\caption{FRDP}
+	\label{tbl:FRDP}
+\begin{tabular}{|p{8cm}|p{8cm}|}
+		\hline \textbf{Functional requirements (FR):} & \textbf{Design parameter (DP):} \\ 
+		\hline 1) Collect measurable data &   Get temperature with TMP36 sensor\\
+		\hline 2) Store data local &   Write temperature values to Arduino EEPROM \\
+		\hline 3) Keeps data for x time &  Arduino MEGA \cite{arduinoMega} has 4kB of EEPROM \\
+		\hline 4) Runs on own power source & Have battery pack and minimize power consumption \\ 
+		\hline 5) IP67 proof &   Fit all hardware into IP67 fiber box\\
+		\hline 6) Sent data wireless through GSM network & Send Jason formated data trough GSM shield \\ 
+		\hline 7) Store data on server & Setup HTTP API server \\ 
+		\hline 8) Modular Design & Well planed software design architecture \\ 
+		\hline
+	\end{tabular}
+\end{table}
+
+The most challenging requirements from table \ref{tbl:FRDP} in the project is the software design. It's very critical to make the hole project modular. Solution to that is decrepit in DP7. Additionally there were added 3x wireless-sensor module to expand the coverage of the mother-base. They use Pololu Wixel to communicate to mother-base. Then the mother-base sample data from them and sent through GSM network to HTTP server.
 
