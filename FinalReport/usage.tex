@@ -3,7 +3,7 @@ The GeoLog was designed for the field scientist or any one how is interested in 
 The knowledge one needs for building and maintain his own GeoLog is a background in software C, C++ and some knowledge in electric circuits. % %For further development one would...
 
 \subsection{Installation}
-To prepare the system for use the first one would need to set up the necessary software to be able to configure the sampling rate of the desired data. The user needs to able to modify the Arduino sketch but should not be required to modify the Wixel software. Thus set up of the Arduino development enviroment is needed but for the Wixel it is optional.\\
+To prepare the system for use the first time one would need to set up the necessary software to be able to configure the sampling rate of the desired data. The user needs to able to modify the Arduino sketch but should not be required to modify the Wixel software. Thus set up of the Arduino development enviroment is needed but for the Wixel it is optional.\\
 All the required code for this system can be found under~\url{https://projects.cs.ru.is/projects/T-411-MECH/student/2014/group/DataCollector}, contact Joe Foley for gaining access. The link~\url{https://projects.cs.ru.is/projects/T-411-MECH/student/2014/group/DataCollector} will be referred as DataCollector-folder from here on.\\
 
 \begin{enumerate}
@@ -19,7 +19,7 @@ All the required code for this system can be found under~\url{https://projects.c
 		\begin{enumerate}
 		\item Start a web browser
 		\item Goto~\url{http://www.pololu.com/docs/0J46}
-		\item Install the Wixel IDE, see part 3 in Pololu
+		\item Install the Wixel IDE, see part 3 in Pololu user's guide
 		\item Follow the instructions listed in part 10.a, 10.b and 10.c, for setting up the development enviroment
 		\end{enumerate}
 	\end{enumerate}
@@ -27,12 +27,12 @@ All the required code for this system can be found under~\url{https://projects.c
 	\begin{enumerate}
 	\item Connect the components for the mother hub.
 		\begin{enumerate}
-		\item Follow the diagram in \fxfatal{fix figure}figure~\ref{fig:??}
+		\item Follow the schematic in figure~\ref{fig:motherhub_schematic}
 		\item Position the mother hub in its box as in figure~\ref{fig:Main_Open}
 		\end{enumerate}
 	\item Connect the components for the wireless sensor module/modules
 		\begin{enumerate}
-		\item Follow the diagram in \fxfatal{fix figure}figure~\ref{fig:??}
+		\item Follow the schematic in figure~\ref{fig:sensormodule_schematic}
 		\item Position the components in its box as in figure~\ref{fig:Wixel_sensor}
 		\end{enumerate}
 	\end{enumerate}
@@ -49,6 +49,10 @@ All the required code for this system can be found under~\url{https://projects.c
 		\end{enumerate} 
 	\end{enumerate}
 \item Place the batteries in each module
+	\begin{enumerate}
+	\item The mother hub needs a power source of 9V
+	\item The wireless sensor modules need a power source of 4.5V
+	\end{enumerate}
 % TODO:
 %\item Check if the device is correctly setup
 %	\begin{enumerate}
@@ -56,10 +60,8 @@ All the required code for this system can be found under~\url{https://projects.c
 %	\item If the red led is constantly on the Wixel is not finding the correct way for communicating
 %	\end{enumerate}
 \end{enumerate}
-% TODO: remember to mention the batteries
-% TODO: set the sampling time and data transmission time
 
-Set the sampling frequency and the data transmission time for the GeoLog to the desired values. To set the values the MainRunner.ino sketch that runs on the Arduino needs to be modified. The sketch can be found under DataCollector-folder/Software. Change the defined constants SAMPLE\_DATA\_FREQ and SEND\_DATA\_FREQ in line 13 and 14, the values for the sampling time should be given in milliseconds. Compile the modified MainRunner.ino sketch on the Arduino then the GeoLog should be ready for collecting data.\\
+Set the sampling frequency and the data transmission time for the GeoLog to the desired values. To set the values the MainRunner.ino sketch needs to be modified. The sketch can be found under DataCollector-folder/Software. Change the defined constants SAMPLE\_DATA\_FREQ and SEND\_DATA\_FREQ in line 13 and 14, the values for the sampling time should be given in milliseconds. Then compile the modified MainRunner.ino sketch on the Arduino then the GeoLog should be ready for collecting data.\\
 %If there is something the did not go as planed check the instructions for error procedure
 
 \begin{figure}[H]
@@ -74,11 +76,17 @@ Set the sampling frequency and the data transmission time for the GeoLog to the 
 \end{figure}
 
 To prep the GeoLog for transport the batteries need to be removed out of the box for each module. The boxes should be securely closed with the four screws in each corner. Then the GeoLog is ready for travel.\\
-To unpack the GeoLog open the boxes, insert the batteries and securely close the boxes again.
+To unpack the GeoLog open the boxes, insert the batteries and securely close the boxes again.\\
+\textbf{Warning: If the boxes are not closed securely, they might start leaking. That could damage the electronics}.
 
 \subsection{Instructions}
 Once the system is setup the user should be able to position the GeoLog in the site where data is to be collected. Spread out the wireless sensor modules around the mother hub, so they can sample the desired data.\\
-\textbf{Warning: the Wixel sensor module can not be placed more than 15 meters away from the mother hub}. The Wixels will not be able to transmit the data over a distance of more than 15 meters\\
+\textbf{Warning: the Wixel sensor module can not be placed more than 15 meters away from the mother hub}. The Wixels will not be able to transmit the data over a distance of more than 15 meters.\\
+If everything has been setup correctly the raw data will be transmitted over to the HTTP server and should be accessible at~\url{http://sveinnel.com:5000/geolog}. More user friendly representation of the data can be found at~\url{http://sveinnel.com:5000/geoblog}.\\
+There should not be need for any extra preparation or calibration. The only routine maintenance that should be needed is replacement of battery packs when the ones installed run out.\\\\ % TODO: check if there is need for more precise definition of runing out of battery...
+If the GeoLog is not transmitting the data over to the server the user can manually request a transmission to be sent. In order to request a transmission the user needs to connect a wire from \fxfatal{TODO: check for correctness and add figure of 2X pins} pin 50 on the Arduino to the ground see figure~\ref{fig:userPins}. The red light on the GSM module should turn on for a short wile (10 to 30 seconds) and turn off again. If the data does not arrive on the HTTP server the user might be forced to clear the EEPROM on the Arduino and try again. To clear the EEPROM the user needs to connect a wire from pin 51 on the Arduino to the ground see figure~\ref{fig:userPins}. The led at pin 13 on the Arduino board will be turned on until the EEPROM has been fully cleared. Once the EEPROM has been cleared the user should attempt once again to manually request a transmission of data to the HTTP server. If the data does still not arrive on the HTTP server the user is advised to go over the installation process once more to be sure that everything is correctly connected and is operating the correct software on each module.
+
+
 
 
 
