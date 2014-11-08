@@ -23,8 +23,13 @@
 \begin{document} % this tells the compiler that it is time to make
                  % text to print instead of just getting ready.
 \maketitle  % make a title page from the Title, Date, and Author
+\tableofcontents
+\pagebreak
 
 \subfile{intro}
+\pagebreak
+\subfile{background}
+\subfile{requirements}
 \subfile{design}
 \subfile{testing}
 \subfile{usage}
@@ -36,6 +41,24 @@
 \section{Appendix}
 \subsection{Design documents}
 %Put CAD drawings, additional sketches.  If there are many, it is better to put the high-level drawings (assemblies), then put the rest of the drawings somewhere that the reader can retreive them (SVN, etc.).  Don't forget to put a link here.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth]{graphics/sensormodule_schematic}
+\caption{Electrical Schematic Diagram of the Wireless Sensor Module\label{fig:sensormodule_schematic}}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\linewidth]{graphics/motherhub_schematic}
+\caption{Electrical Schematic Diagram of the Mother Hub\label{fig:motherhub_schematic}}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\linewidth]{graphics/ClassDiagram}
+\caption{Class Diagram of the system\label{fig:ClassDiagram}}
+\end{figure}
 
 \pagebreak
 \bibliographystyle{IEEEtran}

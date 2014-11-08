@@ -32,29 +32,16 @@ until the product was ready for deployment.
 
 
 \subsection{Hardware}
-
 \begin{figure}
 \centering
 \includegraphics[width=0.5\linewidth]{graphics/HardwareMDD}
 \caption{Hardware Module Design Diagram\label{fig:HardwareMDD}}
 \end{figure}
 
-\begin{figure}
-\centering
-\includegraphics[width=0.5\linewidth]{graphics/sensormodule_schematic}
-\caption{Electrical Schematic Diagram of the Wireless Sensor Module\label{fig:sensormodule_schematic}}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=1\linewidth]{graphics/motherhub_schematic}
-\caption{Electrical Schematic Diagram of the Mother Hub\label{fig:motherhub_schematic}}
-\end{figure}
-
 The hardware is divided to sensor modules and the mother hub. The sensor modules 
 designed for this system were three wireless temperature sensors using Wixel\cite{wixel}
 for means of communications. The mother hub consists of a Arduino Mega\cite{arduinoMega}
-that communicates with the sensor modules with a Wixel\cite{wixel}, collects the data 
+that communicates with the sensor modules with a Wixel, collects the data 
 and sends it to a HTTP server via the GSM/GPRS module\cite{SM5100B}. 
 Figure \ref{fig:HardwareMDD} shows how the hardware is set up. 
 
@@ -72,19 +59,40 @@ The mother hub is based on Arduino Mega 2560\cite{arduinoMega} which can be swit
 for Andrew's Bottle Logger\cite{ALog-BottleLogger}, a Wixel\cite{wixel} used for 
 communicating with the wireless sensor modules and a SM5100B GSM/GPRS 
 module\cite{SM5100B}. The mother hub gathers data from the Wireless sensor modules via 
-the  
-
-\textit{\textcolor{red}{Description of the design; break into pieces and show how 
-						they assemble.}}
-
-\textit{\textcolor{red}{Pseudo code of important modules}}
-
-\textit{\textcolor{red}{MDD of structure}}
-
-\textit{\textcolor{red}{System diagram}}
-
+the onboard Wixel by calling them by id and wait till corresponding sensor module answers
+with newly gathered sensor data. The data gathered is then saved to its onboard EEPROM
+and at a preset time the data is sent to HTTP server via GPRS where it can be processed 
+by the researcher. Electrical schematic diagram of the mother hub can be seen in figure 
+\ref{fig:motherhub_schematic}.
 
 \subsection{Software}
+\begin{figure}
+\centering
+\includegraphics[width=0.6\linewidth]{graphics/Layering}
+\caption{Layered Design Diagram of the system\label{fig:Layering}}
+\end{figure}
+
+When designing the software, modularity was the main interest. The design aims for making
+it as easy as possible to implement new ways of communications, sensors and storage. This 
+is done by building the software up of three interfaces the user needs to implement if for
+example another means of communications is needed. The system comes with two ways of
+communications to the outside world, a SMS gateway and a GPRS HTTP gateway. It comes also with one way of storing data, to the EEPROM and one way of communicating to wireless sensors. Figure \ref{fig:Layering} shows the layered design of the software. 
+
+To take a closer look in to the software and how the interfaces work see the class diagram
+shown in figure \ref{fig:ClassDiagram}. Next sections will describe more thoroughly how each 
+module works under the hood. All code is written in C++ except the HTTP server which is 
+written in Python/Flask-Restful.
+
+\subsubsection{Sensor Service interface}
+
+\subsubsection{Storage Service interface}
+
+\subsubsection{Network Service interface}
+
+\subsubsection{Main Runner}
+
+\subsubsection{HTTP Server}
+
 \textit{\textcolor{red}{Description of the design; break into pieces and show how 
 						they assemble.}}
 
