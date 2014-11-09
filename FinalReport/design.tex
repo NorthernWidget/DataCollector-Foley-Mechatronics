@@ -4,7 +4,7 @@ The concept for the GeoLog originally came from Dr. Andrew Wickert (seen in figu
 help developing his design of a low cost, low power datalogger\cite{ALog-BottleLogger}. 
 He had two problems needed to be solved. First was to minimize the power consumption of the device he had already developed and the latter was to have means of getting the data
 back without having to travel trough difficult terrain. Decision was made to help Andrew 
-improve the latter.
+improve the latter with emphasis on making the system as modular as possible. 
 
 \begin{figure}
 \centering
@@ -84,10 +84,54 @@ module works under the hood. All code is written in C++ except the HTTP server w
 written in Python/Flask-Restful.
 
 \subsubsection{Sensor Service interface}
+The sensor service is a interface that developer needs to implement for making a new
+sensor module. The sensor service interface has three virtual methods that the developer
+needs to implement by inheriting from the SensorService class. The methods in the 
+SensorService class that have to be implemented are followed:
+
+\begin{itemize}
+	\item \textbf{int getSensorData(int sensorId)}
+		\begin{itemize}
+			\item Takes in the id of the sensor and returns the raw value.
+		\end{itemize}
+	\item \textbf{int sendDataToSensor(String data)}
+		\begin{itemize}
+			\item Takes in data to send to sensor and returns 0 for OK and -1 for error.
+				  This could be used to remote calibrate sensor.
+		\end{itemize}
+	\item \textbf{int setDateTime(long DateTime)}
+		\begin{itemize}
+			\item Takes in datetime for setting the time on the sensor if needed.
+		\end{itemize}
+\end{itemize}
+
 
 \subsubsection{Storage Service interface}
 
-\subsubsection{Network Service interface}
+\begin{itemize}
+	\item \textbf{int save(String data)}
+		\begin{itemize}
+			\item Takes in data in String format and saves it to storage medium. 
+			      Returns number of bytes saved, returns -1 if not enough space.
+		\end{itemize}
+	\item \textbf{String load()}
+		\begin{itemize}
+			\item Loads all data in memory and returns it in string format.
+		\end{itemize}
+	\item \textbf{int erase()}
+		\begin{itemize}
+			\item Erases all data from storage medium. Returns number of bytes
+			      free after erase.
+		\end{itemize}
+	\item \textbf{bool isFreeSpcace(int dataSize)}
+		\begin{itemize}
+			\item Takes in size of data to be saved in bytes. Returns true if enough 
+			      space is available, false if not.
+		\end{itemize}
+\end{itemize}
+
+
+\subsubsection{Network Gateway interface}
 
 \subsubsection{Main Runner}
 
