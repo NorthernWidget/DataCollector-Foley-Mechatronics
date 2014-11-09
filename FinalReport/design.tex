@@ -84,9 +84,9 @@ module works under the hood. All code is written in C++ except the HTTP server w
 written in Python/Flask-Restful.
 
 \subsubsection{Sensor Service interface}
-The sensor service is a interface the developer needs to implement for every new kind of
-sensor module. The sensor service interface has three virtual methods that the developer
-needs to implement by inheriting from the SensorService class.The methods needing implementation are the following:
+The sensor service is an interface the developer needs to implement for every new kind of
+sensor module. The sensor service interface has three virtual functions that the developer
+needs to implement by inheriting from the SensorService class.The functions needing implementation are the following:
 \begin{itemize}
     \item \textbf{int getSensorData(int sensorId)}
         \begin{itemize}
@@ -106,7 +106,7 @@ The Sensor service now implemented is the WixelSensorService. This service commu
 with the Wixel Sensor Modules, converts the raw data to a value of interest like 
 temperature and finally parses the converted data to Json\cite{json} strings. Sample
 of Json parsed data can be seen in figure \ref{fig:JsonTemp}. Pseudocode of the 
-getSensorData method can be seen in listing \ref{pseodoWixelSensorService}.
+getSensorData function can be seen in listing \ref{pseodoWixelSensorService}.
 
 
 \begin{lstlisting}[frame=single, label=pseodoWixelSensorService, caption={Pseudocode of WixelSensorService getSensorData() function}]
@@ -134,8 +134,8 @@ end Function(getSensorData)
 \end{figure}
 
 \subsubsection{Storage Service interface}
-The storage service is a interface the developer needs to implement if a new way of
-storing data is needed. The storage service interface has four virtual methods that the developer needs to implement by inheriting from the StorageService class. The methods needing implementation are the following:
+The storage service is an interface the developer needs to implement if a new way of
+storing data is needed. The storage service interface has four virtual functions the developer needs to implement by inheriting from the StorageService class. The functions needing implementation are the following:
 \begin{itemize}
     \item \textbf{int save(String data)}
         \begin{itemize}
@@ -160,9 +160,7 @@ storing data is needed. The storage service interface has four virtual methods t
 The Storage Service now implemented is the LocalStorageService. This service stores data 
 to the Arduino's EEPROM. The Arduino Mega 2560 has 4096 bytes of 
 EEPROM \cite{arduinoMega}. The LocalStorageService stores the data as series of Json 
-strings. A typical use of the LocalStorageService is first to use the isFreeSpace() method
-to check if enough space is available for the data to be stored. If space is enough the save() method is used to save the data to the EEPROM. If space is not available the developer has to take some action like loading all existing data using the load() method, send the data to the HTTP server before using the erase() function to erase the EEPROM for new data. Pseudocode of the save(), load() and erase() methods can be seen in 
-listings \ref{pseodoLocalStorageService}
+strings. A typical use of the LocalStorageService is first to use the isFreeSpace() functionto check if enough space is available for the data to be stored. If space is enough the save() function is used to save the data to the EEPROM. If space is not available the developer has to take some action like loading all existing data using the load() function, send the data to the HTTP server before using the erase() function to erase the EEPROM for new data. Pseudocode of the save(), load() and erase() functions can be seen in listings \ref{pseodoLocalStorageService}
 
 \begin{lstlisting}[frame=single, label=pseodoLocalStorageService, caption={Pseudocode of LocalStorageService save(), load() and erase() functions}]
 Function(save(data)):
@@ -224,7 +222,10 @@ Function(erase):
 Function(erase)
 \end{lstlisting}
 \subsubsection{Network Gateway interface}
-
+The network gateway is an interface the developer needs to implement for each new way 
+of communications with the outside world. The network gateway interface has five virtual 
+functions the developer needs to implement by inheriting from the NetworkGateway class.
+The functions needing implementation are the following:
 \begin{itemize}
     \item \textbf{bool connectToNetwork()}
         \begin{itemize}
@@ -250,6 +251,124 @@ Function(erase)
             \item Gets the current time/date from the network. Returns the time in UNIX time/date as long.
         \end{itemize}
 \end{itemize}
+The Network Gateways now implemented are the SmsGateway and the GprsGateway. The 
+GprsGatway is based on code from Toby Fox\cite{tobek} and the SmsGateway utilizes the
+SerialGSM library from Meir Michanie\cite{meirm}. Since SMSGateway is not yet fully
+developed the GprsGateway will be described here.
+
+The GprsGateway sends gathered sensor data as Json objects via HTTP to a HTTP API
+mentioned below. The GprsGateway uses AT commands\cite{ATcommands} to control the GPRS module. A typical use of the GprsGateway is first to check if the system is online by calling the connected() function. If the system is offline the 
+connectToNetwork() function is called to connect to the GPRS network. When connected 
+there are three functions to choose from; sendData(), receiveData and getTime. The 
+sendData() function takes in the data as Json string and posts it to a given HTTP address
+as REST\cite{rest} message. The receiveData() function receives data from a given HTTP
+address. This can be used to update or change settings of the GeoLog. The getTime()function is used to get the current time from the network to sync the onboard clock.
+Pseudocode for connectToNetwork() and sendData() functions can be seen in listings 
+\ref{pseodoGprsGateway}
+
+\begin{lstlisting}[frame=single, label=pseodoGprsGateway, caption={Pseudocode of GprsGateway connectToNetwork() and sendData() functions}]
+Function(connectToNetwork):
+    boot up GPRS module
+    send "AT+CGATT=1" to the GPRS module
+    wait for OK from the GPRS module
+    if not received OK from GPRS module:
+        return false
+    end if
+    send "AT+CGDCONT=1, IP, YOUR_APN" to the GPRS module
+    wait for OK from the GPRS module
+    if not received OK from GPRS module:
+        return false
+    end if
+    send "AT+CGACT=1,1" to the GPRS module
+    wait for OK from the GPRS module
+    if not received OK from GPRS module:
+        return false
+    end if
+    send "AT+SDATACONF=1, TCP, YOUR_SERVER_IP_ADDRESS, YOUR_SERVER_PORT_NUMBER"
+    wait for OK from the GPRS module
+    if not received OK from GPRS module:
+        return false
+    end if
+    send "AT+SDATASTART=1,1" to the GPRS module
+    wait for OK from the GPRS module
+    if not received OK from GPRS module:
+        return false
+    end if
+    return true
+end Function(connectToNetwork)
+
+Function(sendData(address, data)):
+    define timeOut as desired timeout in milliseconds
+    define data as "POST /geolog HTTP/1.1
+                    Host: YOUR_HTTP_SERVER_ADDRESS
+                    Content-Type: application/json
+                    Content-Length: SIZE_OF_DATA_IN_BYTES
+
+                    contents of data"
+    if not connected to network:
+        connectToNetwork()
+    end if
+    define inTime as time now in milliseconds
+    while (time now in milliseconds - inTime) < timeOut:
+        send "AT+SDATASTATUS=1" to the GPRS module
+        get socketstatus from GPRS module
+        if not received OK from GPRS module:
+            return -1
+        end if
+        if socketstatus = "+SOCKSTATUS:  1,0,0104,0,0,0":
+            wait for 1000 milliseconds
+        else if socketstatus = "+SOCKSTATUS:  1,1,0102,0,0,0":
+            break
+        else:
+            return -1
+        end if
+    end while
+    define packetlength as size of data in bytes
+    send "AT+SDATATSEND=1, packetLength\r" to the GPRS module
+    if not received ">" from the GPRS module:
+        return -1
+    end if
+    send data to the GPRS module
+    send ctrl-z to the GPRS module
+    if not received OK from GPRS module:
+        return -1
+    end if    
+    define inTime as time now in milliseconds
+    while (time now in milliseconds - inTime) < timeOut:
+        send "AT+SDATASTATUS=1" to the GPRS module
+        get socketstatus from GPRS module
+        if socketstatus equals "+STCPD:1":
+             get socketstatus from GPRS module
+        end if
+        if socketstatus equals "+STCPC:1":
+            get socketstatus from GPRS module
+        end if
+        if not received OK from GPRS module:
+            return -1
+        end if
+        if socketstatus not starts with "+SOCKSTATUS":
+            return -1
+        end if
+        if socketstatus packet length equals packetlength:
+            break
+        else:
+            wait for 1000 milliseconds
+        end if
+    end while
+    send "AT+SDATASTATUS=0" to the GPRS module
+    send "AT+SDATASTART=1,0" to the GPRS module
+    if not received OK from GPRS module:
+        return -1
+    end if
+    send "AT+CGATT=0" to the GPRS module
+    if not received OK from GPRS module:
+        return -1
+    end if
+    send "AAT+CGATT?" to the GPRS module
+    set connected as false
+    return 1
+end Function(sendData)
+\end{lstlisting}
 
 \subsubsection{Main Runner}
 

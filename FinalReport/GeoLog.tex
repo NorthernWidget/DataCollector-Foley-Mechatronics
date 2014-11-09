@@ -36,32 +36,36 @@
 \subfile{results}
 \subfile{conclusion}
 
-\section{References}
+\pagebreak
+\addcontentsline{toc}{section}{References}
+\bibliographystyle{IEEEtran}
+\bibliography{references}
 
-\section{Appendix}
-\subsection{Design documents}
+\pagebreak
+\addcontentsline{toc}{section}{Appendix}
+\section*{Appendix}
+\addcontentsline{toc}{subsection}{Design Documents}
+\subsection*{Design documents}
 %Put CAD drawings, additional sketches.  If there are many, it is better to put the high-level drawings (assemblies), then put the rest of the drawings somewhere that the reader can retreive them (SVN, etc.).  Don't forget to put a link here.
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.5\linewidth]{graphics/sensormodule_schematic}
 \caption{Electrical Schematic Diagram of the Wireless Sensor Module\label{fig:sensormodule_schematic}}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=1\linewidth]{graphics/motherhub_schematic}
 \caption{Electrical Schematic Diagram of the Mother Hub\label{fig:motherhub_schematic}}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=1\linewidth]{graphics/ClassDiagram}
 \caption{Class Diagram of the system\label{fig:ClassDiagram}}
 \end{figure}
 
-\pagebreak
-\bibliographystyle{IEEEtran}
-\bibliography{references}
+
 
 \end{document} % Ignore everything after this line (end the document)
