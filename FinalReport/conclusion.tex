@@ -11,5 +11,32 @@ Summary of system capabilities:
 	\item Mother hub ran on 5x parallel 9V batteries during test period.
 \end{itemize}
  
+ Compeering capabilities with functional requirement (FR) is listed in following table 
+ 
+ \begin{table}[H]
+ 	\caption{Requirements met}
+ 	\begin{tabular}{|l|p{4cm}| p{11.2cm} |}
+ 		
+ 		\hline
+ 		& \textbf{Functional Requirements (FR)}  & \textbf{Evaluation (DP)} \\  
+ 		\hline 1 &  Collect measurable data & 3x wireless sensor modules measured temperature with  TMP36 \cite{Devices2010} sensor and sends data to mother hub through wixel. \\ 
+ 		           		
+ 		\hline 2 & Store data local &   The mother hub is based on Arduino MEGA and collects data from the wireless sensor moduls and stores them in EEPROM memory. \\
+ 	
+ 		\hline 3 & Keeps data for x time &  Mother hubs Arduino MEGA \cite{arduinoMega} has 4kB of EEPROM and stores  data from wireless modules. When mother hub connects to GSM network, when the collected data is send and the EEPROM is restored. If for some reason the mother hub can't send data before the memory get full, then no more data is written to the EEPROM until it has been restored.  \\
+ 	
+ 		\hline 4 & Runs on own power source & Wireless sensor modules runs on 3x AA battery, to keep power consumption down they only collects data and sends them over to mother hub, when the mother asks for temp. The mother hub runs on 5x parallel 9V batteries, to lower energy consumptions the power to GSM is cut then is is not use. Temperature sample rate and data send rate have significant impact on power consumption. \\ 
+ 	
+ 		\hline 5 & IP67 proof &   Wireless sensors module that consist of 1x wixel, 1x TMP36 and 3x AA battery are fitted into 11.5cm x 9cm x 5.5cm IP67 fiber box. The Mother hub that consist of 1x Arduino MEGA, 1x GSM Shield, 1x wixel were fitted into 16cm x 16 cm x 6cm IP67 fiber box. For test phase the 5x parallel 9V batteries were fitted into old 21,5cm x 14cm x 9cm ice-cream box and sealed with duck-tape. \\
+ 	
+ 		\hline 6 & Sent data wireless through GSM network & The mother hub was installed with GSM Shield - SM5100B \cite{Sparkfun2014} to send data though GPRS network. Jason format is send to interpret the data. \\ 
+ 	
+ 		\hline 7 & Store data on server & HTTP server is setup to store Jason data from mother hub ~\url{http://sveinnel.com:5000/geolog} \\ 
+ 	
+ 		\hline 8 & Modular Design & The Software design is well planed with layering. To to change out module the new module have to fulfill given presentation layer.  \\
+ 		\hline
+ 	\end{tabular}
+ \end{table}
+ 
 \subsection{Future work}
 
