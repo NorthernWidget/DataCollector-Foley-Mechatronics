@@ -1,35 +1,38 @@
 \section{Testing}
-Multiple test where performed during the development of the GeoLoger. The most important tests will be listed here below with the data acquired in those tests.
+During the development of the GeoLogger multiple test where performed. The most important tests will be listed in the following sections along with the data obtained from the tests. 
 
 \subsection{Wixel range test}
-The test was performed in the electronics lab (V207). The room is 18m across and marked lines with 2.5m  between them were laid down. One Wixel connected to a serial monitor was placed at one end of the room and then another Wixel was moved be twine the lines regularly sending data strings. The table here below shows if the data was received on the serial monitor. Each test was performed 2 times.
+The test was performed in the Reykjavík University electronics lab. The room is 18 meters across and marked lines with 2.5 meters  between them were laid down. A Wixel connected to a serial monitor was placed at one end of the room and another Wixel was moved between the lines regularly sending data strings. The table below shows if the data was received on the serial monitor. Each test was performed two times.
 \begin{table}[H]
-		 \centering
+		\centering
+		\label{tab:Table_2}
+		\caption{Wixel range test}
  	 	     \begin{tabular}
  	 	     	{| p{2cm} |  p{2cm} | p{3cm} | p{2cm}  | p{2cm} | p{3cm} |}
  	 	    	 \hline
- 	 	    	  number & distance	& does transmit & number	& distance   & does transmit 			\\ \hline
- 	 	  		 1 & 	2.5m & yes	& 8	 & 2.5m & yes \\ \hline
- 	 	  		 2 &	5m	 & yes	& 9	 &   5m & yes \\ \hline 
- 	 	  	 	 3 &	7.5m & yes	& 10 & 7.5m & yes \\ \hline 
- 	 	  	 	 4 &    10m	 & yes  & 11 &	10m	& yes \\ \hline 
- 	 	  	 	 5 &	12.5m& yes	& 12 & 12.5m& yes \\ \hline 
- 	 	  	 	 6 &	15m	 & yes	& 13 &  15m & yes \\ \hline 
- 	 	  	 	 7 &	18m	 & no	& 14 &  18m	& no  \\ \hline 
+ 	 	    	  Number & Distance	& Does receive & Number	& Distance   & Does receive 			& \hline
+ 	 	  		 1 & 	2.5m & yes	& 8	 & 2.5m & yes & \hline
+ 	 	  		 2 &	5m	 & yes	& 9	 &   5m & yes & \hline 
+ 	 	  	 	 3 &	7.5m & yes	& 10 & 7.5m & yes & \hline 
+ 	 	  	 	 4 &    10m	 & yes  & 11 &	10m	& yes & \hline 
+ 	 	  	 	 5 &	12.5m& yes	& 12 & 12.5m& yes & \hline 
+ 	 	  	 	 6 &	15m	 & yes	& 13 &  15m & yes & \hline 
+ 	 	  	 	 7 &	18m	 & no	& 14 &  18m	& no  & \hline 
  
  	 	     \end{tabular}\\
- 	 	     \label{table:Table_2}
- 	 	     \caption{Wixel range test}
+ 	 	    
  	 	 \end{table}
  	 	 
-\subsection{Lab test 1}
-The test was performed in the electronics lab (V207). The mother hub was placed in the centre of the room and the wireless sensor modules wear placed in three corners of the room. The mother hub was programmed to ask the wireless sensor modules every 5 minutes and then send the gather data to the http server every 15 minutes. The aim with this test was to see if the system was reddy for field test and to detect any errors that might come up. No error where detected during this test and the GeoLog was maid reddy for field testing.
+\subsection{Lab test one}
+The lab test 1 was performed in the Reykjavík Univeristy electronics lab. The mother hub was placed at the centre of the room and the wireless sensor modules were placed in three corners of the room. The mother hub was programmed to ask the wireless sensor modules every 5 minutes and then send the gather data to the HTTP server every 15 minutes. The aim of the test was to see if the system was ready for field test and to detect error that might come up. No error was detected during the test and the GeoLog was made ready for field testing.
 
 \begin{table}[H]
+		\label{tab:Table_3}
+		\caption{Lab test 1}
 	\begin{tabular}
 		{| p{6cm} |  p{4cm} | p{2cm} | p{3cm}  |}
 		\hline
-		transmit time & time stamp [sec] & sensor ID & temperature $\degree$C  \\ \hline
+		Transmit time & Timestamp [sec] & Sensor ID & Temperature $\degree$C  \\ \hline
 		05. November 2014 15:24 & 51   & 1 & 23 \\  \hline
 		05. November 2014 15:24 & 51   & 2 & 24 \\  \hline
 		05. November 2014 15:24 & 51   & 3 & 21 \\  \hline
@@ -55,19 +58,21 @@ The test was performed in the electronics lab (V207). The mother hub was placed 
 		
 		
 	\end{tabular}
-		\label{table:Table_3}
-		\caption{Lab test 1}
+	
 \end{table}
 
-\subsection{Field test 1}
-This test was performed in Öskjuhlíðnn (the woods next to HR). The mother hub was fastened to a tree along with a battery pack containing 5 parallel connected 9V battery's. The wireless sensor modules where also fastened to trees a round the mother hub forming a triangle around the mother hub. The mother hub was programmed to gather data form the wireless sensor modules with 5 minutes intervals and transmit gathered data every 15 minutes. The idea was to let the GeoLog run while it still transmitted data to see what problems it was going to run in to and to measure power consumption. As can be seen on the time stamp  in \ref{table:Table_4} the system was running when it was placed in the field, this was because the system was started up in the lab to confirm that it was going to send data before it was placed in the field. \\
-\ref{table:Table} shows that the mother station was able to send 2 hole data packs before stopping. After 2 hours of not revising from the GeoLog a trip was maid to restart it and manually set it to send. As can be seen on the time stamp in \ref{table:Table_4} included in the last data pack that was sent are measurements that where taken before the system stooped. This shows that the function that stores data on the EEPROM is doing what it id designed to do, that is to make sure that even though the system stops and is not able to transmit data no information is lost. \\
-The theory to why the system stooped transmitting is that it stooped revising data from the wireless sensor modules and was there for not able to respond by transmitting to the server but that theory remains to be confirmed.
+\subsection{Field test one}
+The field test one was performed in Öskuhlið next to Reykjavík University. The mother hub was attached to a tree along with a battery pack containing 5 parallel connected 9V battery's. The wireless sensor modules where also attached to trees a round the mother hub forming a triangle around the mother hub. The mother hub was programmed to gather data from the wireless sensor modules with 5 minutes intervals and transmit gathered data every 15 minutes. The idea was to let the GeoLog run while transmitting data in order to monitor problems and to measure power consumption. As can be seen on the time stamp  in \ref{tbl:Table_4} the system was running when it was placed in the field, this was because the system was started up in the lab to confirm that it was going to send data before it was placed in the field. \\
+\ref{tbl:Table_4} shows that the mother station was able to send 2 hole data packs before stopping. When no data was received from the GeoLog for two hours a decision was made to restart the system and manually send data. As can be seen on the time stamp in \ref{tbl:Table_4} included in the last data pack that was sent are measurements that where taken before the system stooped. This shows that the function that stores data on the EEPROM is doing what it id designed to do, that is to make sure that even though the system stops and is not able to transmit data no information is lost. \\
+The likely reason why the system stopped sending data is the mother hub did not receive data from one or more of the wireless sensor modules. More research has to be done to confirm this.
 	\begin{table}[H]
+		
+			\caption{Field test 1}
+				\label{tbl:Table_4}
 		\begin{tabular}
 			{| p{6cm} |  p{4cm} | p{2cm} | p{3cm}  |}
 			\hline
-			transmit time & time stamp [sec] & sensor ID & temperature $\degree$C  \\ \hline
+			Transmit time & Timestamp [sec] & Tensor ID & Temperature $\degree$C  \\ \hline
 			05. November 2014 17:13 & 2295 & 1 & 0   \\  \hline
 			05. November 2014 17:13 & 2298 & 2 & 1   \\  \hline
 			05. November 2014 17:13 & 2299 & 3 & 3   \\  \hline
@@ -97,8 +102,7 @@ The theory to why the system stooped transmitting is that it stooped revising da
 			05. November 2014 19:35 & 15   & 3 & -12 \\  \hline
 
 		\end{tabular}
-			\label{table:Table_4}
-			\caption{Field test 1}
+		
 	\end{table}
 	
 \subsection{Regular user tests}
