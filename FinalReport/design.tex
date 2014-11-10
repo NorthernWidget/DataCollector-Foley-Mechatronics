@@ -117,7 +117,13 @@ The sensor service now implemented is the WixelSensorService. This service commu
 with the Wixel Sensor Modules, converts the raw data to a value of interest like 
 temperature and finally parses the converted data to Json\cite{json} strings. Sample
 of Json parsed data can be seen in figure \ref{fig:JsonTemp}. Pseudocode of the 
-getSensorData() function can be seen in listing \ref{pseodoWixelSensorService}.
+getSensorData() function can be seen in listing \ref{pseodoWixelSensorService}. Calibration
+of the sensor data was done with equation \ref{eq:TempCal}.
+
+\begin{equation}\label{eq:TempCal}
+    \frac{data \cdot 4.0V}{1023bit} \cdot 100\frac{bit \cdot \celsius}{V} - 50\celsius
+\end{equation}
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.4\linewidth]{graphics/JsonTemp}
