@@ -2,8 +2,22 @@
 There are multiple obstacles a designer stumbles upon when designing a mechatronic product.
 One of the biggest obstacles that came up while designing this product was insufficient documentation for the GSM module~\cite{SM5100B}.
 %TODO: Set up list of connection precent while using the shield
-A GitHub library~\cite{meirm} was found that help with the development of the HTTP protocols for the GSM module. With the library at hand the obstacle was overcome but with small steps at a time.
-The design is not perfect some of the issues are still problems that need to fix. For example the... %TODO: Wixel dregur bara 15 metra~\cite{}, Power consuption meiri en við bjuggumst við. Gerðum reddingar... slökkvum á GSM modulnum, GSM samskipti ekki nógu róbust...
+A GitHub library~\cite{meirm} was found that helped with the development of the HTTP protocols for the GSM module. With the library at hand the obstacle was overcome but with small steps at a time.
+The design is not perfect some of the issues are still present and need to fixed if the design is to be fully functional. For example the Wixel in the wireless sensor module has only range of 15 meters~\cite{wixel}. The range of the Wixel limits the capabilities of the GeoLog device to spread out an array of sensors for observing large area. The power consumption of the device is quite a lot see table~\ref{tbl:current}, but there were some actions taken to lower the power consumption of the device. The device was modified to tun on the GSM module for a short time, just enough time to send the data and then turn off the GSM module again. The device might lower its power consumption if it were using the low power Arduino based board from Dr. Wickert. 
+%TODO: make table of power cunsumption
+\begin{table}[H]
+	\caption{Current measurements}
+	\label{tbl:current}
+\begin{tabular}{|p{8cm}|p{8cm}|}
+		\hline \textbf{Mode} & \textbf{mA} \\ 
+		\hline Arduino + GSM shield idle &   230 \\
+		\hline Arduino + GSM shield off &   125 \\
+		\hline Arduino + GSM + Wixel sending data &  340 \\
+		\hline Arduino standalone & 80 \\
+		\hline
+	\end{tabular}
+\end{table}
+The GSM transmission of data is not robust enough as can be seen in table~\ref{tbl:Table_4}. The gap from time 17:31 to 19:35 on November 5. 2014 shows missing transmission. This could be due to a bug in the software or the GSM module its self. This has to be investigated further.
 
 
 
