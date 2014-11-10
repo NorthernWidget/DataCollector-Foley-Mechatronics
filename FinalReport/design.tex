@@ -30,13 +30,19 @@ until the product was ready for deployment.
 \includegraphics[width=0.5\linewidth]{graphics/HardwareMDD}
 \caption{Hardware Module Design Diagram\label{fig:HardwareMDD}}
 \end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=0.8\linewidth]{graphics/Our_product}
+\caption{Assembled product\label{fig:Our_product}}
+\end{figure}
 The hardware is divided to sensor modules and the mother hub. The sensor modules 
 designed for this system were three wireless temperature sensors using Wixel\cite{wixel}
 for means of communications. The mother hub consists of a Arduino Mega\cite{arduinoMega}
 that communicates with the sensor modules with a Wixel, collects the data 
 and sends it to a HTTP server via the GSM/GPRS module\cite{SM5100B}. All modules are 
 encased in a IP67\cite{ipRating} plastic enclosure for protection against difficult weather conditions.
-Figure \ref{fig:HardwareMDD} shows how the hardware is set up. 
+Figure \ref{fig:HardwareMDD} shows hardware setup and figure \ref{fig:Our_product} shows the assembled 
+product. 
 \subsubsection{Sensor module}
 The sensor module is based on Wixel\cite{wixel} that reads sensor value on one of it's
 analog inputs when the mother hub calls for reading. To save energy the sensor module does
