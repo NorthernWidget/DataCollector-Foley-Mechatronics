@@ -2,23 +2,23 @@
 The concept for the GeoLog originally came from Dr. Andrew D. Wickert seen in figure 
 \ref{fig:andrewWickert}, which came to Reykjavík University's Mechatronics class for 
 help developing his design of a low cost, low power datalogger\cite{ALog-BottleLogger}. 
-He had two problems needed to be solved. First was to minimize the power consumption of the device he had already developed and the latter was to have means of getting the data
-back without having to travel trough difficult terrain. Decision was made to help Andrew 
+He had two problems needed to be solved. Firstly to minimize the power consumption of the device he had already developed and secondly to have means of getting the data
+back without having to travel trough difficult terrain. Decision was made to help Dr. Wickert 
 improve the latter with emphasis on making the system as modular as possible. 
 \begin{figure}
 \centering
 \includegraphics[width=0.4\linewidth]{graphics/andrewWickert}
 \caption{Dr. Wickert\label{fig:andrewWickert}\cite{andrewWickert}}
 \end{figure}
-The GeoLog datalogger was designed in nine phases. Phases seven to eight were iterated
-until the product was ready for deployment.
+The GeoLog datalogger was designed in nine phases. Phases seven to eight are iterated
+until the product is ready for deployment.
 \begin{itemize}
     \item{Phase 1:} Initial brainstorming and high level design phase.
-    \item{Phase 2:} Hardware selection phase, where hardware was selected and ordered.
-    \item{Phase 3:} Software design phase, where the classes and interfaces were designed.
+    \item{Phase 2:} Hardware selection phase, where hardware is selected and ordered.
+    \item{Phase 3:} Software design phase, where the classes and interfaces is designed.
     \item{Phase 4:} Hardware hacking phase, trial and error in software writing for the
                     Wixels\cite{wixel} and the GSM/GPRS module\cite{SM5100B}.
-    \item{Phase 5:} Building phase, where hardware were assembled.
+    \item{Phase 5:} Building phase, where hardware is assembled.
     \item{Phase 6:} Software integration phase, all the software integrated to one.
     \item{Phase 7:} Field testing phase, testing of the system in real life environment.
     \item{Phase 8:} Fixing phase, fixing bugs found in the field testing phase.
@@ -39,17 +39,23 @@ The hardware is divided to sensor modules and the mother hub. The sensor modules
 designed for this system were three wireless temperature sensors using Wixel\cite{wixel}
 for means of communications. The mother hub consists of a Arduino Mega\cite{arduinoMega}
 that communicates with the sensor modules with a Wixel, collects the data 
-and sends it to a HTTP server via the GSM/GPRS module\cite{SM5100B}. All modules are 
+and sends it to a HTTP server via the GSM/GPRS module\cite{SM5100B}. See overview of the system in figure~\ref{fig:datalogging}. All modules are 
 encased in a IP67\cite{ipRating} plastic enclosure for protection against difficult weather conditions.
 Figure \ref{fig:HardwareMDD} shows hardware setup and figure \ref{fig:Our_product} shows the assembled 
 product. 
+\begin{figure}[H]
+		\centering
+        \includegraphics[height=6cm]{graphics/GeoLog.PNG}
+        \caption{Demonstration drawing of wireless data collecting.}
+        \label{fig:datalogging}
+\end{figure}
 \subsubsection{Sensor module}
-The sensor module is based on Wixel\cite{wixel} that reads sensor value on one of it's
+The sensor module is based on Wixel\cite{wixel} which reads sensor value from it's
 analog inputs when the mother hub calls for reading. To save energy the sensor module does
 not send any data until it's id is called by the mother hub. The sensor module then 
 gathers several readings from the sensor over a short period of time and sends back the 
-average reading of the data collected then falls back to suspend mode until the mother 
-hub calls for data again. Electrical schematic diagram of the sensor module can
+average reading of the data collected. After sending the the data it falls back to suspend mode until the mother 
+hub calls again for data. Electrical schematic diagram of the sensor module can
 be seen in figure \ref{fig:sensormodule_schematic}.
 \subsubsection{Mother hub}
 The mother hub is based on Arduino Mega 2560\cite{arduinoMega} which can be switched out 
@@ -57,8 +63,8 @@ for Andrew's Bottle Logger\cite{ALog-BottleLogger}, a Wixel\cite{wixel} used for
 communicating with the wireless sensor modules and a SM5100B GSM/GPRS 
 module\cite{SM5100B}. The mother hub gathers data from the Wireless sensor modules via 
 the onboard Wixel by calling them by id and wait till corresponding sensor module answers
-with newly gathered sensor data. The data gathered is then saved to its onboard EEPROM
-and at a preset time the data is sent to HTTP server via GPRS where it can be processed 
+with newly gathered sensor data. The data gathered is then saved to its onboard EEPROM~\cite{EEPROM}.
+At a preset time the data is sent to a HTTP server via GPRS~\cite{GPRS} where it can be processed 
 by the researcher. Electrical schematic diagram of the mother hub can be seen in figure 
 \ref{fig:motherhub_schematic}.
 \subsection{Software}
@@ -69,16 +75,16 @@ by the researcher. Electrical schematic diagram of the mother hub can be seen in
 \end{figure}
 When designing the software, modularity was the main interest and is more a kind of
 a framework ready for different implementation. The design aims for making
-it as versatile as possible and ready for implementation of new ways of communications, sensors and storage. This is done by building the software up of three interfaces the user needs to implement if for example another means of communications is needed. The system comes with two ways of communications to the outside world, a SMS gateway and a GPRS HTTP gateway. It comes also with one way of storing data, to the EEPROM and one way of communicating to wireless sensors. Figure \ref{fig:Layering} shows the layered design of the software. The GeoLog project is open source and anyone can contribute
+it as versatile as possible and ready for implementation of new ways of communications, sensors and storage. This is done by building the software up of three interfaces the user needs to implement if for example another means of communications is needed. The system comes with two ways of communications to the outside world, a SMS gateway and a GPRS HTTP gateway. It also comes with one way of storing data, to the EEPROM and one way of communicating to wireless sensors. Figure \ref{fig:Layering} shows the layered design of the software. The GeoLog project is open source and anyone can contribute
 to the project at \url{https://github.com/GeoLogTeam/geolog}.
 
 To take a closer look in to the software and how the interfaces work see the class diagram
-shown in figure \ref{fig:ClassDiagram}. Next sections will describe more thoroughly how each module works under the hood. All code is written in C++ except the HTTP server which is written in Python/Flask-Restful.
+shown in figure \ref{fig:ClassDiagram}. Next sections will describe more thoroughly how each module works under the hood. All code is written in C++ except the HTTP server which is written in Python/Flask-Restful~\cite{Flask}.
 
 \subsubsection{Sensor Service interface}
 The sensor service is an interface the developer needs to implement for every new kind of
 sensor module. The sensor service interface has three virtual functions that the developer
-needs to implement by inheriting from the SensorService class.The functions needing implementation are the following:
+needs to implement by inheriting from the SensorService class.The functions that needs implementation are the following:
 \begin{itemize}
     \item \textbf{int getSensorData(int sensorId)}
         \begin{itemize}
@@ -98,7 +104,7 @@ The Sensor service now implemented is the WixelSensorService. This service commu
 with the Wixel Sensor Modules, converts the raw data to a value of interest like 
 temperature and finally parses the converted data to Json\cite{json} strings. Sample
 of Json parsed data can be seen in figure \ref{fig:JsonTemp}. Pseudocode of the 
-getSensorData function can be seen in listing \ref{pseodoWixelSensorService}.
+getSensorData() function can be seen in listing \ref{pseodoWixelSensorService}.
 
 \begin{lstlisting}[frame=single, label=pseodoWixelSensorService, caption={Pseudocode of WixelSensorService getSensorData() function}]
 Function(getSensorData(sensorId)):
@@ -124,7 +130,7 @@ end Function(getSensorData)
 \end{figure}
 \subsubsection{Storage Service interface}
 The storage service is an interface the developer needs to implement if a new way of
-storing data is needed. The storage service interface has four virtual functions the developer needs to implement by inheriting from the StorageService class. The functions needing implementation are the following:
+storing data is needed. The storage service interface has four virtual functions the developer needs to implement by inheriting from the StorageService class. The functions that needs implementation are the following:
 \begin{itemize}
     \item \textbf{int save(String data)}
         \begin{itemize}
@@ -149,7 +155,7 @@ storing data is needed. The storage service interface has four virtual functions
 The Storage Service now implemented is the LocalStorageService. This service stores data 
 to the Arduino's EEPROM. The Arduino Mega 2560 has 4096 bytes of 
 EEPROM \cite{arduinoMega}. The LocalStorageService stores the data as series of Json 
-strings. A typical use of the LocalStorageService is first to use the isFreeSpace() functionto check if enough space is available for the data to be stored. If space is enough the save() function is used to save the data to the EEPROM. If space is not available the developer has to take some action like loading all existing data using the load() function, send the data to the HTTP server before using the erase() function to erase the EEPROM for new data. Pseudocode of the save(), load() and erase() functions can be seen in listings \ref{pseodoLocalStorageService}
+strings. A typical use of the LocalStorageService is first to use the isFreeSpace() function to check if enough space is available for the data to be stored. If space is enough the save() function is used to save the data to the EEPROM. If space is not available the developer has to take some action like loading all existing data using the load() function, send the data to the HTTP server before using the erase() function to erase the EEPROM for new data. Pseudocode of the save(), load() and erase() functions can be seen in listings \ref{pseodoLocalStorageService}
 
 \begin{lstlisting}[frame=single, label=pseodoLocalStorageService, caption={Pseudocode of LocalStorageService save(), load() and erase() functions}]
 Function(save(data)):
@@ -220,7 +226,7 @@ The functions needing implementation are the following:
     \item \textbf{bool connectToNetwork()}
         \begin{itemize}
             \item Connects to network. Returns true if connected, false if not
-                  connected to network.
+                  connected.
         \end{itemize}
     \item \textbf{bool connected()}
         \begin{itemize}
@@ -244,10 +250,10 @@ The functions needing implementation are the following:
 The Network Gateways now implemented are the SmsGateway and the GprsGateway. The 
 GprsGatway is based on code from Toby Fox\cite{tobek} and the SmsGateway utilizes the
 SerialGSM library from Meir Michanie\cite{meirm}. Since SMSGateway is not yet fully
-developed the GprsGateway will be described here.
+developed the GprsGateway will be described in detail here.
 
 The GprsGateway sends gathered sensor data as Json objects via HTTP to a HTTP API
-mentioned below. The GprsGateway uses AT commands\cite{ATcommands} to control the GPRS module. A typical use of the GprsGateway is first to check if the system is online by calling the connected() function. If the system is offline the 
+mentioned in chapter~\ref{HTTP-Server}. The GprsGateway uses AT commands\cite{ATcommands} to control the GPRS module. A typical use of the GprsGateway is first to check if the system is online by calling the connected() function. If the system is offline the 
 connectToNetwork() function is called to connect to the GPRS network. When connected 
 there are three functions to choose from; sendData(), receiveData and getTime. The 
 sendData() function takes in the data as Json string and posts it to a given HTTP address
@@ -361,7 +367,7 @@ end Function(sendData)
 \end{lstlisting}
 
 \subsubsection{Main Runner}
-The main runner is the .ino file, e.g. the arduino sketch. It is up to the researcher
+The main runner is the .ino file, e.g. the Arduino sketch. It is up to the researcher
 how it is set up although default setup is provided under the filename MainRunner.ino. 
 Users are encouraged to modify the MainRunner to their needs. The MainRunner comes 
 with number of helper functions and are as following:
@@ -455,7 +461,7 @@ if manual send data button is pushed:
 end if
 end Function(loop)
 \end{lstlisting}
-\subsubsection{HTTP Server}
+\subsubsection{HTTP Server}\label{HTTP-Server}
 \begin{figure}
 \centering
 \includegraphics[width=0.6\linewidth]{graphics/JsonArray}
@@ -469,15 +475,12 @@ readable. The data arrives as a Json array as seen in figure \ref{fig:JsonArray}
 
 \subsection{Safety}
 The GeoLog is designed to withstand difficult weather conditions although care must be taken when setting it up. Before taking the GeoLog out to the elements make sure
-every screw and fitting is tightened. If not is made sure all sealing are tight
-water or dirt might slip into the enclosures and damage the equipment.
-
-Do not use acid batteries cause it may leak and cause damage to your equipment.
-
-The software has been tested to use that meets the requirements stated in chapter 
+every screw and fitting is tightened.\\
+\textbf{Warning: Water or dirt might slip into the enclosure and damage the equipment if the sealing is not tight.}\\
+\textbf{Warning: Do not use acid batteries cause they may leak and cause damage to your equipment.}\\
+The software has been tested to meet the requirements stated in chapter 
 \ref{requirements}. All modifications and changes are possible but can cause fail
 in the equipment.
-
 The GeoLog team is deprived from all liability for any kind of misuse of the 
 equipment. The GeoLog is open source and the GeoLog Team welcomes contributors
 at \url{https://github.com/GeoLogTeam/geolog}.
