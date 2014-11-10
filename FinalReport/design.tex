@@ -1,16 +1,24 @@
 \section{Design}
-\begin{figure}[H]
+The concept for the GeoLog originally came from Dr. Andrew D. Wickert, who came to Reykjavík University's Mechatronics class for 
+help developing his design of a low cost and low power datalogger\cite{ALog-BottleLogger}. 
+Dr. Wickert had two problems needed to be solved. Firstly to minimize the power consumption of the device he had already developed and secondly to have means of getting the data
+back without having to travel through difficult terrain. Decision was made to help Dr. Wickert 
+improve the latter with emphasis on making the system as modular as possible see figure \ref{fig:Puzzle}. \\
+This design assumes 
+there is GSM/GPRS coverage in the area the system is deployed. It is also assumed that HTTP server has been set up for receiving data from GeoLog. The reason GSM was selected as a communication method
+was because there is very good GSM coverage in Iceland, see figure \ref{fig:GSM_Coverage} 
+\begin{figure}
         \centering
         \includegraphics[height=10cm]{graphics/Puzzle}
         \caption{Modular design explained}
         \label{fig:Puzzle}
 \end{figure}
-The concept for the GeoLog originally came from Dr. Andrew D. Wickert, who came to Reykjavík University's Mechatronics class for 
-help developing his design of a low cost and low power datalogger\cite{ALog-BottleLogger}. 
-Dr. Wickert had two problems needed to be solved. Firstly to minimize the power consumption of the device he had already developed and secondly to have means of getting the data
-back without having to travel through difficult terrain. Decision was made to help Dr. Wickert 
-improve the latter with emphasis on making the system as modular as possible see figure \ref{fig:Puzzle}. This design assumes 
-there is GSM/GPRS coverage in the area the system is deployed. It is also assumed that HTTP server has been set up for receiving data from GeoLog.
+\begin{figure}
+        \centering
+        \includegraphics[height=10cm]{graphics/GSM_Coverage}
+        \caption{GSM coverage in Iceland\cite{vodafone}}
+        \label{fig:GSM_Coverage}
+\end{figure}
 \begin{figure}
 \centering
 \includegraphics[width=0.4\linewidth]{graphics/andrewWickert}
