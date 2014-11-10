@@ -249,8 +249,7 @@ The functions needing implementation are the following:
 The Network Gateways now implemented are the SmsGateway and the GprsGateway. The 
 GprsGatway is based on code from Toby Fox\cite{tobek} and the SmsGateway utilizes the
 SerialGSM library from Meir Michanie\cite{meirm}. Since SmsGateway is not yet fully
-developed the GprsGateway will be described in detail here.
-
+developed the GprsGateway will be described in detail here.\\
 The GprsGateway sends gathered sensor data as Json objects via HTTP to a HTTP API
 mentioned in chapter~\ref{HTTP-Server}. The GprsGateway uses AT commands\cite{ATcommands} to control the GPRS module. A typical use of the GprsGateway is first to check if the system is online by calling the connected() function. If the system is offline the 
 connectToNetwork() function is called to connect to the GPRS network. When connected 
