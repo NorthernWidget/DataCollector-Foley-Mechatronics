@@ -104,7 +104,11 @@ with the Wixel Sensor Modules, converts the raw data to a value of interest like
 temperature and finally parses the converted data to Json\cite{json} strings. Sample
 of Json parsed data can be seen in figure \ref{fig:JsonTemp}. Pseudocode of the 
 getSensorData() function can be seen in listing \ref{pseodoWixelSensorService}.
-
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\linewidth]{graphics/JsonTemp}
+\caption{Json\cite{json} string received from the WixelSensorService\label{fig:JsonTemp}}
+\end{figure}
 \begin{lstlisting}[frame=single, label=pseodoWixelSensorService, caption={Pseudocode of WixelSensorService getSensorData() function}]
 Function(getSensorData(sensorId)):
     define wixelSerialPort as desired serial port
@@ -122,11 +126,7 @@ Function(getSensorData(sensorId)):
     return data converted to celsius
 end Function(getSensorData)
 \end{lstlisting}
-\begin{figure}
-\centering
-\includegraphics[width=0.4\linewidth]{graphics/JsonTemp}
-\caption{Json\cite{json} string received from the WixelSensorService\label{fig:JsonTemp}}
-\end{figure}
+
 \subsubsection{Storage Service interface}
 The storage service is an interface the developer needs to implement if a new way of
 storing data is needed. The storage service interface has four virtual functions the developer needs to implement by inheriting from the StorageService class. The functions that needs implementation are the following:
