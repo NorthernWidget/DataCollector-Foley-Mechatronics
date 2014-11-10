@@ -5,16 +5,13 @@ help developing his design of a low cost, low power datalogger\cite{ALog-BottleL
 He had two problems needed to be solved. First was to minimize the power consumption of the device he had already developed and the latter was to have means of getting the data
 back without having to travel trough difficult terrain. Decision was made to help Andrew 
 improve the latter with emphasis on making the system as modular as possible. 
-
 \begin{figure}
 \centering
 \includegraphics[width=0.4\linewidth]{graphics/andrewWickert}
 \caption{Andrew Wickert\label{fig:andrewWickert}\cite{andrewWickert}}
 \end{figure}
-
 The GeoLog datalogger was designed in nine phases. Phases seven to eight were iterated
 until the product was ready for deployment.
-
 \begin{itemize}
     \item{Phase 1:} Initial brainstorming and high level design phase.
     \item{Phase 2:} Hardware selection phase, where hardware was selected and ordered.
@@ -27,24 +24,18 @@ until the product was ready for deployment.
     \item{Phase 8:} Fixing phase, fixing bugs found in the field testing phase.
     \item{Phase 9:} Deployment phase, system is functional and can be deployed. 
 \end{itemize}
-
-\textit{\textcolor{red}{Assumptions stated (There are always some)}}
-
-
 \subsection{Hardware}
 \begin{figure}
 \centering
 \includegraphics[width=0.5\linewidth]{graphics/HardwareMDD}
 \caption{Hardware Module Design Diagram\label{fig:HardwareMDD}}
 \end{figure}
-
 The hardware is divided to sensor modules and the mother hub. The sensor modules 
 designed for this system were three wireless temperature sensors using Wixel\cite{wixel}
 for means of communications. The mother hub consists of a Arduino Mega\cite{arduinoMega}
 that communicates with the sensor modules with a Wixel, collects the data 
 and sends it to a HTTP server via the GSM/GPRS module\cite{SM5100B}. 
 Figure \ref{fig:HardwareMDD} shows how the hardware is set up. 
-
 \subsubsection{Sensor module}
 The sensor module is based on Wixel\cite{wixel} that reads sensor value on one of it's
 analog inputs when the mother hub calls for reading. To save energy the sensor module does
@@ -53,7 +44,6 @@ gathers several readings from the sensor over a short period of time and sends b
 average reading of the data collected then falls back to suspend mode until the mother 
 hub calls for data again. Electrical schematic diagram of the sensor module can
 be seen in figure \ref{fig:sensormodule_schematic}.
-
 \subsubsection{Mother hub}
 The mother hub is based on Arduino Mega 2560\cite{arduinoMega} which can be switched out 
 for Andrew's Bottle Logger\cite{ALog-BottleLogger}, a Wixel\cite{wixel} used for 
@@ -64,24 +54,18 @@ with newly gathered sensor data. The data gathered is then saved to its onboard 
 and at a preset time the data is sent to HTTP server via GPRS where it can be processed 
 by the researcher. Electrical schematic diagram of the mother hub can be seen in figure 
 \ref{fig:motherhub_schematic}.
-
 \subsection{Software}
 \begin{figure}
 \centering
 \includegraphics[width=0.6\linewidth]{graphics/Layering}
 \caption{Layered Design Diagram of the system\label{fig:Layering}}
 \end{figure}
-
-When designing the software, modularity was the main interest. The design aims for making
-it as easy as possible to implement new ways of communications, sensors and storage. This 
-is done by building the software up of three interfaces the user needs to implement if for
-example another means of communications is needed. The system comes with two ways of
-communications to the outside world, a SMS gateway and a GPRS HTTP gateway. It comes also with one way of storing data, to the EEPROM and one way of communicating to wireless sensors. Figure \ref{fig:Layering} shows the layered design of the software. 
+When designing the software, modularity was the main interest and is more a kind of
+a framework ready for different implementation. The design aims for making
+it as versatile as possible and ready for implementation of new ways of communications, sensors and storage. This is done by building the software up of three interfaces the user needs to implement if for example another means of communications is needed. The system comes with two ways of communications to the outside world, a SMS gateway and a GPRS HTTP gateway. It comes also with one way of storing data, to the EEPROM and one way of communicating to wireless sensors. Figure \ref{fig:Layering} shows the layered design of the software. 
 
 To take a closer look in to the software and how the interfaces work see the class diagram
-shown in figure \ref{fig:ClassDiagram}. Next sections will describe more thoroughly how each 
-module works under the hood. All code is written in C++ except the HTTP server which is 
-written in Python/Flask-Restful.
+shown in figure \ref{fig:ClassDiagram}. Next sections will describe more thoroughly how each module works under the hood. All code is written in C++ except the HTTP server which is written in Python/Flask-Restful.
 
 \subsubsection{Sensor Service interface}
 The sensor service is an interface the developer needs to implement for every new kind of
@@ -108,7 +92,6 @@ temperature and finally parses the converted data to Json\cite{json} strings. Sa
 of Json parsed data can be seen in figure \ref{fig:JsonTemp}. Pseudocode of the 
 getSensorData function can be seen in listing \ref{pseodoWixelSensorService}.
 
-
 \begin{lstlisting}[frame=single, label=pseodoWixelSensorService, caption={Pseudocode of WixelSensorService getSensorData() function}]
 Function(getSensorData(sensorId)):
     define wixelSerialPort as desired serial port
@@ -126,13 +109,11 @@ Function(getSensorData(sensorId)):
     return data converted to celsius
 end Function(getSensorData)
 \end{lstlisting}
-
 \begin{figure}
 \centering
 \includegraphics{graphics/JsonTemp}
 \caption{Json\cite{json} string received from the WixelSensorService\label{fig:JsonTemp}}
 \end{figure}
-
 \subsubsection{Storage Service interface}
 The storage service is an interface the developer needs to implement if a new way of
 storing data is needed. The storage service interface has four virtual functions the developer needs to implement by inheriting from the StorageService class. The functions needing implementation are the following:
@@ -221,6 +202,7 @@ Function(erase):
     end if
 Function(erase)
 \end{lstlisting}
+
 \subsubsection{Network Gateway interface}
 The network gateway is an interface the developer needs to implement for each new way 
 of communications with the outside world. The network gateway interface has five virtual 
@@ -371,16 +353,109 @@ end Function(sendData)
 \end{lstlisting}
 
 \subsubsection{Main Runner}
+The main runner is the .ino file, e.g. the arduino sketch. It is up to the researcher
+how it is set up although default setup is provided under the filename MainRunner.ino. 
+Users are encouraged to modify the MainRunner to their needs. The MainRunner comes 
+with number of helper functions and are as following:
+
+\begin{itemize}
+    \item \textbf{void collectData(int sensorId)}
+        \begin{itemize}
+            \item Used to collect data from sensor with given id. This function should
+                  be modified if using other kind of sensor than provided.
+        \end{itemize}
+    \item \textbf{String parseDataToJson(int data, int sensorId)}
+        \begin{itemize}
+            \item Used to parse values from a given sensor and it's id to Json object
+        \end{itemize}
+    \item \textbf{String concatToJson(String data)}
+        \begin{itemize}
+            \item Makes a Json array of given data. Takes in data as stringified comma 
+                  separated Json objects. 
+        \end{itemize}
+    \item \textbf{int sendToServer(String data)}
+        \begin{itemize}
+            \item Used to send given data to server. This might have to be modified
+                  if using another kind of communications than provided.
+        \end{itemize}
+    \item \textbf{bool eraseRequest()}
+        \begin{itemize}
+            \item Used to erase the memory manually by pushing the erase button.
+        \end{itemize}
+    \item \textbf{bool manualSendRequest()}
+        \begin{itemize}
+            \item Used to send data to the server manually by pushing the manual send 
+                  button
+        \end{itemize}
+\end{itemize}
+
+A typical application of the MainRunner could be as shown in the pseudocode shown in listings \ref{pseodoMainRunner}
+
+\begin{lstlisting}[frame=single, label=pseodoMainRunner, caption={Pseudocode of typical application of the MainRunner}]
+define GSM_RESET_PIN as 22
+define SAMPLE_DATA_FREQ as 300000 ms
+define SEND_DATA_FREQ as 900000 ms
+define TIME_OUT as 45000 ms
+define MAX_TRIALS as 5
+define ERASE_PIN as 50
+define MANUAL_SEND_PIN as 51
+define LED_PIN as 13
+define sendRequest
+define lastDataSample
+define lastDataTransmit
+define faildTransmits
+
+Function(setup):
+Set GSM_RESET pin as OUTPUT
+Set ERASE pin as INPUT_PULLUP
+Set MANUAL_SEND_PIN pin as INPUT_PULLUP
+currentTime = current time
+lastDataSample = current time
+lastDataTransmit = current time
+failedTransmits = 0
+sendRequest = false
+end Function(setup)
+
+Function(loop):
+if (current time - lastDataSample) > SAMPLE_DATA_FREQ or sendRequest equals true:
+    collect data from sensor with id 1
+    collect data from sensor with id 2
+    collect data from sensor with id 3
+    lastDataSample = current time
+end if
+if (current time - lastDataTransmit) > SAMPLE_DATA_FREQ or sendRequest equals true:
+    load data from memory
+    parse data to Json array
+    send data to server
+    if data was succesfully sent:
+        erase memory
+        lastDataTransmit = current time
+        failedTransmits = 0
+        sendRequest = false
+    else if faildTransmits >= MAX_TRIALS:
+        failedTransmits = 0
+        lastDataTransmit = current time
+        sendRequest = false
+    else
+        faildTransmits = faildTransmits + 1
+    end if
+end if
+if manual erase button is pushed:
+    erase memory
+end if
+if manual send data button is pushed:
+    sendRequest = true
+end if
+end Function(loop)
+\end{lstlisting}
 
 \subsubsection{HTTP Server}
+The HTTP server designed for GeoLog is a Python Flask-Restful HTTP API
+\cite{flask-restful}. The design was minimal and should only be able to
+receive data from the GeoLog, store it and present it as a REST API and as more human
+readable. The human readable version is called GeoBlog. The code for the server
+is very short and can be seen in the appendix under listings \ref{httpCode}.
 
-\textit{\textcolor{red}{Description of the design; break into pieces and show how 
-                        they assemble.}}
 
-\textit{\textcolor{red}{Pseudo code of important modules}}
-
-\textit{\textcolor{red}{MDD of structure}}
-
-\textit{\textcolor{red}{System diagram}}
 
 \subsection{Safety}
