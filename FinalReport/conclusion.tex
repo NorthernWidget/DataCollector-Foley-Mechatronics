@@ -29,9 +29,9 @@ Comparison of the system capabilities to the functional requirements (FR) is lis
  	
  		\hline 4 & Runs on own power source & Wireless sensor modules run on 3x AA batteries. In order to keep power consumptions down, data is only collected and sent to the mother hub when the mother hub requests for temperature. The mother hub runs on 5x parallel 9V batteries.  To lower energy consumptions the power to the GSM network is shut down when it's not in use. Temperature sample rate and data send rate have significant impact on power consumption. \\ 
  	
- 		\hline 5 & IP67 proof &   Wireless sensor modules consisting of 1x wixel, 1x TMP36 and 3x AA batteries are fitted into 11.5cm x 9cm x 5.5cm IP67 fiber box. The Mother hub that consist of 1x Arduino MEGA, 1x GSM Shield and 1x wixel were fitted into 16cm x 16 cm x 6cm IP67 fiber box. For test phase the 5x parallel 9V batteries were fitted into old 21,5cm x 14cm x 9cm ice-cream box and sealed with duck-tape. \\
+ 		\hline 5 & IP67 proof &   Wireless sensor modules consisting of 1x wixel, 1x TMP36 and 3x AA batteries are fitted into 11.5cm x 9cm x 5.5cm IP67 fiber box. The Mother hub that consist of 1x Arduino MEGA, 1x GSM Shield and 1x wixel were fitted into 16cm x 16 cm x 6cm IP67 fiber box. For test phase the 5x parallel 9V batteries were fitted into old 21,5cm x 14cm x 9cm ice-cream box and sealed with duct-tape. \\
  	
- 		\hline 6 & Sent data wireless through GSM network & The mother hub was installed with GSM Shield - SM5100B \cite{SMP5100B} to send data though GPRS network. EEPROM_SIZE format is send to interpret the data. \\ 
+ 		\hline 6 & Sent data wireless through GSM network & The mother hub was installed with GSM Shield; SM5100B\cite{SM5100B} to send data though GPRS network. EEPROM\_SIZE format is send to interpret the data. \\ 
  	
  		\hline 7 & Store data on server & HTTP server is set up to store Json data from mother hub. \\ 
  	
