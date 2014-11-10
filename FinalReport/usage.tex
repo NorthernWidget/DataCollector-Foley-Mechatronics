@@ -1,6 +1,6 @@
 \section{Usage}
 The GeoLog was designed for field scientist or anyone how is interested in monitoring the enviroment. In the development of the GeoLog it was taken into account the system would be able to perform in rough environment and could be left outside in rugged terrain.\\
-The knowledge one needs for building and maintain his own GeoLog is a background in software C, C++ and knowledge in electric circuits. % %For further development one would...
+The knowledge need for setting up and maintain his own GeoLog is a background in software C, C++ and knowledge in electric circuits. % %For further development one would...
 
 \subsection{Installation}
 When preparing the system for first use setup of necessary software is needed to be able to configure the sampling rate of the desired data. The user needs to be able to modify the Arduino sketch but should not be required to modify the Wixel software. Thus set up of the Arduino development enviroment is needed but for the Wixel it is optional.\\
@@ -76,14 +76,16 @@ To unpack the GeoLog open the boxes, insert the batteries and securely close the
 \textbf{Warning: If the boxes are not closed securely, they might start leaking. That could damage the electronics}.
 
 \subsection{Instructions}
-Once the system is setup the user should be able to position the GeoLog in the site where data will be collected. Spread out the wireless sensor modules around the mother hub, such they can sample the desired data.\\
+Before the system is set up the aria chosen needs to be checked for GSM signal.\textbf{Warning: There has to be GPRS coverages for the GeoLog to send data to the HTTP server.}
+Once the system is setup the user should be able to position the GeoLog in the site where data will be collected.
+ Spread out the wireless sensor modules around the mother hub, such they can sample the desired data.\\
 \textbf{Warning: the Wixel sensor module can not be placed more than 15 meters away from the mother hub}. The Wixels will not be able to transmit the data over a distance of more than 15 meters in clear line of sight.\\
 If everything has been setup correctly the raw data will be transmitted over to the HTTP server.\\
 Extra preparation or calibration should not be needed. The only routine maintenance needed is replacement of battery packs when the ones installed run out.\\\\ % TODO: check if there is need for more precise definition of runing out of battery...
 If the GeoLog is not transmitting the data over to the server the user can manually request a transmission to be sent. In order to request a transmission the user needs to connect a wire from pin 51 on the Arduino to the ground see figure~\ref{fig:userPins}. The red light on the GSM module should turn on for a short while (10 to 30 seconds) and turn off again. If the data does not arrive on the HTTP server the user might be forced to clear the EEPROM on the Arduino and try again. To clear the EEPROM the user needs to connect a wire from pin 50 on the Arduino to the ground, see figure~\ref{fig:userPins}. The led at pin 13 on the Arduino board will be turned on until the EEPROM has been fully cleared. Once the EEPROM has been cleared the user should attempt once again to manually request a transmission of data to the HTTP server. If the data does still not arrive on the HTTP server the user is advised to go over the installation process once more to ensure everything is correctly connected and is operating the correct software on each module. 
 \\
 \\
-If any further errors or malfunctions occur please contact our development team through our github accounted \u (https://github.com/GeoLogTeam/geolog).  
+If any further errors or malfunctions occur please contact our development team through our github accounted \url{https://github.com/GeoLogTeam/geolog}.  
 
 \begin{figure}[H]
 \centering
