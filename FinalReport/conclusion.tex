@@ -2,21 +2,22 @@
 \section*{Conclusion}
 Summary of system capabilities:
 \begin{itemize}
-	\item Measure temperature with 3x wireless sensors modules.
+	\item Measure temperature with 3 wireless sensors modules.
 	\item Wireless sensor module sends data through wixel when mother hub ask for them.
 	\item Mother hub samples wireless data with given sample rate.
 	\item Mother hub stores the data.
-	\item Mother hub sends per-sampled data through GSM network to HTTP server.
+	\item Mother hub sends pre-sampled data through GSM network to HTTP server.
 	\item Mother hub and wireless sensors modules runs on battery power.
-	\item Wireless sensors modules ran for hole testing period (24h) on 3x AA battery.
-	\item Mother hub ran on 5x parallel 9V batteries during test period.
+	\item Wireless sensor modules ran through the testing period of 24 hours on 3 AA batteries.
+	\item Mother hub ran on 5x parallel 9V batteries during testing period.
 \end{itemize}
  
- Compeering capabilities with functional requirement (FR) is listed in following table 
+Comparison of the system capabilities to the functional requirements (FR) is listed in table \ref{tbl:FR-Eva}.
  
  \begin{table}[H]
  	\caption{Requirements met}
- 	\begin{tabular}{|l|p{4cm}| p{11.2cm} |}
+ 	\label{tbl:FR-Eva}
+ 	\begin{tabular}{|l|p{4cm}| p{11,5cm} |}
  		
  		\hline
  		& \textbf{Functional Requirements (FR)}  & \textbf{Evaluation (DP)} \\  
@@ -24,21 +25,29 @@ Summary of system capabilities:
  		           		
  		\hline 2 & Store data local &   The mother hub is based on Arduino MEGA and collects data from the wireless sensor moduls and stores them in EEPROM memory. \\
  	
- 		\hline 3 & Keeps data for x time &  Mother hubs Arduino MEGA \cite{arduinoMega} has 4kB of EEPROM and stores  data from wireless modules. When mother hub connects to GSM network, when the collected data is send and the EEPROM is restored. If for some reason the mother hub can't send data before the memory get full, then no more data is written to the EEPROM until it has been restored.  \\
+ 		\hline 3 & Keeps data for x time &  Mother hubs Arduino MEGA \cite{arduinoMega} has 4KB of EEPROM and stores  data from wireless modules. When the mother hub connects to GSM network and the collected data has been sent the EEPROM is erased. If the mother hub can not send data before the memory gets full, then no data is written to the EEPROM until it has ben restored.  \\
  	
- 		\hline 4 & Runs on own power source & Wireless sensor modules runs on 3x AA battery, to keep power consumption down they only collects data and sends them over to mother hub, when the mother asks for temp. The mother hub runs on 5x parallel 9V batteries, to lower energy consumptions the power to GSM is cut then is is not use. Temperature sample rate and data send rate have significant impact on power consumption. \\ 
+ 		\hline 4 & Runs on own power source & Wireless sensor modules runs on 3x AA batteries. In order to keep power consumptions down, data is only collected and sent to the mother hub when the mother hub requests for temperature. The mother hub runs on 5x parallel 9V batteries.  To lower energy consumptions the power to the GSM network is shut down when not in use. Temperature sample rate and data send rate have significant impact on power consumption. \\ 
  	
- 		\hline 5 & IP67 proof &   Wireless sensors module that consist of 1x wixel, 1x TMP36 and 3x AA battery are fitted into 11.5cm x 9cm x 5.5cm IP67 fiber box. The Mother hub that consist of 1x Arduino MEGA, 1x GSM Shield, 1x wixel were fitted into 16cm x 16 cm x 6cm IP67 fiber box. For test phase the 5x parallel 9V batteries were fitted into old 21,5cm x 14cm x 9cm ice-cream box and sealed with duck-tape. \\
+ 		\hline 5 & IP67 proof &   Wireless sensor modules consisting of 1x wixel, 1x TMP36 and 3x AA batteries are fitted into 11.5cm x 9cm x 5.5cm IP67 fiber box. The Mother hub that consist of 1x Arduino MEGA, 1x GSM Shield and 1x wixel were fitted into 16cm x 16 cm x 6cm IP67 fiber box. For test phase the 5x parallel 9V batteries were fitted into old 21,5cm x 14cm x 9cm ice-cream box and sealed with duck-tape. \\
  	
  		\hline 6 & Sent data wireless through GSM network & The mother hub was installed with GSM Shield - SM5100B \cite{Sparkfun2014} to send data though GPRS network. Jason format is send to interpret the data. \\ 
  	
  		\hline 7 & Store data on server & HTTP server is setup to store Jason data from mother hub ~\url{http://sveinnel.com:5000/geolog} \\ 
  	
- 		\hline 8 & Modular Design & The Software design is well planed with layering. To to change out module the new module have to fulfill given presentation layer.  \\
+ 		\hline 8 & Modular Design & The software architecture is based on modular design to make it as easy as possible to add or change modules.  \\
  		\hline
  	\end{tabular}
  \end{table}
 
+All FR in table \ref{tbl:FR-Eva} where fulfilled there for the project is considered fulfilled. There are of course many things that can be improved later on and will be listed in future work.
+
 \addcontentsline{toc}{subsection}{Future work}
 \subsection*{Future work}
 
+Next steps would be continuing field testing and later on merge this project to Dr. Wickert's Arduino logger. \\
+Other communication modules could be developed, for example UHF, VHF or Iridium.\\
+Optimize power consumption is essential for achieving usable product according to the requirements. Power source is also essential, it has to be functional in glacier environment were temperature can go down to \SI{-30}{\celsius} and withstand high winds and precipitation. \\
+Solar panels and wind generators might be feasible options, depending on the environment.  
+A user interface should be developed for usability. \\
+To get the system to collect data in remote areas it is estimated to take 4000 man-hours to completed that work.

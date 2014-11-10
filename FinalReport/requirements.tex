@@ -1,4 +1,6 @@
 \section{Requirements}\label{requirements}
+Project requirement is listed in table \ref{tbl:FRDP} with design. 
+
 \begin{table}[h!]
 	\caption{FR-DP}
 	\label{tbl:FRDP}
@@ -16,4 +18,5 @@
 	\end{tabular}
 \end{table}
 
-The most challenging requirements from table \ref{tbl:FRDP} is the software design. It's very critical to make the hole project modular. Solution to that is decrepit in DP7. Additionally there were added 3x wireless-sensor module to expand the coverage of the mother-base. They use Pololu Wixel to communicate to mother hub. Then the mother hub samples data from them and sends through GSM network to a HTTP server.
+It is essential to make the product as modular as possible with well planned software architecture. FR8 is then most challenging. \\
+Additionally three wireless sensors modules were added to expand the coverage of the mother hub.  The sensors use Pololu Wixel to communicate to the mother hub that samples data from them and sends through GSM network to a HTTP server.
